@@ -93,4 +93,18 @@ class QueryKitTests: XCTestCase {
         var qs = queryset!.exclude([predicateName, predicateAge])
         XCTAssertEqualObjects(qs.predicate, NSPredicate(format: "NOT (name == Kyle AND age > 27)"))
     }
+
+    // Fetch Request
+
+    func testConversionToFetchRequest() {
+        let predicate = NSPredicate(format: "name == Kyle")
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        let qs = queryset!.filter(predicate).orderBy(sortDescriptor)
+
+        let fetchRequest:NSFetchRequest = NSFetchRequest(queryset: qs)
+
+        XCTAssertEqualObjects(fetchRequest.entityName, "Person")
+        XCTAssertEqualObjects(fetchRequest.predicate, predicate)
+        XCTAssertEqualObjects(fetchRequest.sortDescriptors, [sortDescriptor])
+    }
 }

@@ -9,6 +9,14 @@
 import Foundation
 import CoreData
 
+extension NSFetchRequest {
+    convenience init(queryset:QuerySet)  {
+        self.init(entityName: queryset.entityName)
+        predicate = queryset.predicate
+        sortDescriptors = queryset.sortDescriptors
+    }
+}
+
 struct QuerySet {
     let context:NSManagedObjectContext
     let entityName:String
