@@ -191,4 +191,16 @@ class QueryKitTests: XCTestCase {
 
         XCTAssertEqual(count, 2)
     }
+
+    // Deletion
+
+    func testDelete() {
+        var qs = queryset!.orderBy(NSSortDescriptor(key: "name", ascending: true))
+
+        var deletedCount = qs[0...1].delete().count
+        var count = qs.count() as Int
+
+        XCTAssertEqual(deletedCount, 2)
+        XCTAssertEqual(count, 3)
+    }
 }

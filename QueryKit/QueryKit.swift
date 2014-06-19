@@ -144,4 +144,21 @@ struct QuerySet {
     func count() -> Int {
         return count().count
     }
+
+    // Deletion
+
+    func delete() -> (count:Int, error:NSError?) {
+        var result = array() as (objects:(NSManagedObject[]?), error:NSError?);
+        var deletedCount = 0
+
+        if let objects = result.objects {
+            for object in objects {
+                context.deleteObject(object)
+            }
+
+            deletedCount = objects.count
+        }
+
+        return (count:deletedCount, error:result.error)
+    }
 }
