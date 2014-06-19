@@ -131,4 +131,17 @@ struct QuerySet {
     func array() -> NSManagedObject[]? {
         return array().objects
     }
+
+    // Count
+
+    func count() -> (count:Int, error:NSError?) {
+        var fetchRequest = NSFetchRequest(self)
+        var error:NSError?
+        var count = context.countForFetchRequest(fetchRequest, error: &error)
+        return (count:count, error:error)
+    }
+
+    func count() -> Int {
+        return count().count
+    }
 }

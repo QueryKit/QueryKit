@@ -175,4 +175,20 @@ class QueryKitTests: XCTestCase {
 
         XCTAssertEqual(people!.count, 2)
     }
+
+    // Count
+
+    func testCount() {
+        var qs = queryset!.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
+        var count = qs.count().count
+
+        XCTAssertEqual(count, 2)
+    }
+
+    func testCountWithoutError() {
+        var qs = queryset!.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
+        var count = qs.count() as Int
+
+        XCTAssertEqual(count, 2)
+    }
 }
