@@ -11,14 +11,33 @@ QueryKit, a simple CoreData query language for Swift.
 var queryset = Person.queryset(context).filter(Person.name == "Kyle")
                                        .exclude(Person.age < 21)
                                        .orderBy(Person.name.ascending)
+```
 
+#### Ranges
+
+```swift
+queryset[0..5]
+```
+
+### Fetching
+
+#### Single item
+
+```swift
 var kyle = queryset[0]
 println("The first Kyle who is 21 and over is \(kyle.name).")
+```
 
-println("There are \(queryset.count().count - 1) more Kyle's.")
+#### Count
 
-println("The first 5 Kyle's alphabetically are:")
-for person in queryset[0...5] {
+```swift
+println("There are \(queryset.count() - 1) more Kyle's.")
+```
+
+#### Iteration
+
+```swift
+for person in queryset {
     println("- \(person.name) (\(person.age))")
 }
 ```
