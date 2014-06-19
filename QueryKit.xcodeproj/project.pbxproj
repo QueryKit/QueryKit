@@ -11,6 +11,8 @@
 		77A9B685195374490016654E /* QueryKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A9B679195374490016654E /* QueryKit.framework */; };
 		77A9B68C195374490016654E /* QueryKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A9B68B195374490016654E /* QueryKitTests.swift */; };
 		77A9B698195374AA0016654E /* QueryKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A9B697195374AA0016654E /* QueryKit.swift */; };
+		77E8728119539C0900A6F13F /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E8728019539C0900A6F13F /* Attribute.swift */; };
+		77E8728319539C2A00A6F13F /* AttributeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E8728219539C2A00A6F13F /* AttributeTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,8 @@
 		77A9B68A195374490016654E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77A9B68B195374490016654E /* QueryKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryKitTests.swift; sourceTree = "<group>"; };
 		77A9B697195374AA0016654E /* QueryKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryKit.swift; sourceTree = "<group>"; };
+		77E8728019539C0900A6F13F /* Attribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
+		77E8728219539C2A00A6F13F /* AttributeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 			children = (
 				77A9B67E195374490016654E /* QueryKit.h */,
 				77A9B697195374AA0016654E /* QueryKit.swift */,
+				77E8728019539C0900A6F13F /* Attribute.swift */,
 				77A9B67C195374490016654E /* Supporting Files */,
 			);
 			path = QueryKit;
@@ -106,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				77A9B68B195374490016654E /* QueryKitTests.swift */,
+				77E8728219539C2A00A6F13F /* AttributeTests.swift */,
 				77A9B689195374490016654E /* Supporting Files */,
 			);
 			path = QueryKitTests;
@@ -228,6 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77E8728119539C0900A6F13F /* Attribute.swift in Sources */,
 				77A9B698195374AA0016654E /* QueryKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,6 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77E8728319539C2A00A6F13F /* AttributeTests.swift in Sources */,
 				77A9B68C195374490016654E /* QueryKitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
