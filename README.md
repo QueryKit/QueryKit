@@ -5,6 +5,8 @@ QueryKit, a simple CoreData query language for Swift.
 
 ## Usage
 
+### Querying
+
 ```swift
 var queryset = Person.queryset(context).filter(Person.name == "Kyle")
                                        .exclude(Person.age < 21)
@@ -19,6 +21,14 @@ println("The first 5 Kyle's alphabetically are:")
 for person in queryset[0...5] {
     println("- \(person.name) (\(person.age))")
 }
+```
+
+### Predicate extensions
+
+```
+var predicate = NSPredicate(format:"name == Kyle")
+    || NSPredicate(format:"name == Katie")
+    && !NSPredicate(format:"age >= 21")
 ```
 
 ## License
