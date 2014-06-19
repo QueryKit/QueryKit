@@ -22,7 +22,7 @@ extension NSFetchRequest {
     }
 }
 
-struct QuerySet {
+struct QuerySet : Sequence {
     let context:NSManagedObjectContext
     let entityName:String
 
@@ -148,7 +148,7 @@ struct QuerySet {
     // Deletion
 
     func delete() -> (count:Int, error:NSError?) {
-        var result = array() as (objects:(NSManagedObject[]?), error:NSError?);
+        var result = array() as (objects:(NSManagedObject[]?), error:NSError?)
         var deletedCount = 0
 
         if let objects = result.objects {
@@ -160,5 +160,17 @@ struct QuerySet {
         }
 
         return (count:deletedCount, error:result.error)
+    }
+
+    // Sequence
+
+    func generate() -> IndexingGenerator<Array<NSManagedObject>> {
+        var result = self.array() as (objects:(NSManagedObject[]?), error:NSError?)
+
+        if let objects = result.objects {
+            return objects.generate()
+        }
+
+        return [].generate()
     }
 }

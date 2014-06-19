@@ -203,4 +203,17 @@ class QueryKitTests: XCTestCase {
         XCTAssertEqual(deletedCount, 2)
         XCTAssertEqual(count, 3)
     }
+
+    // Sequence
+
+    func testSequence() {
+        var qs = queryset!.orderBy(NSSortDescriptor(key: "name", ascending: true))
+        var objects = NSManagedObject[]()
+
+        for object in qs {
+            objects.append(object)
+        }
+
+        XCTAssertEqual(objects.count, 5)
+    }
 }
