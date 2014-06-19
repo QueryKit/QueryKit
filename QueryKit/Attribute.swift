@@ -25,3 +25,27 @@ class Attribute {
         return NSSortDescriptor(key: name, ascending: false)
     }
 }
+
+@infix func == (left: Attribute, right: AnyObject) -> NSPredicate {
+    return NSPredicate(format: "%K == %@", argumentArray: [left.name, right])
+}
+
+@infix func != (left: Attribute, right: AnyObject) -> NSPredicate {
+    return NSPredicate(format: "%K != %@", argumentArray: [left.name, right])
+}
+
+@infix func > (left: Attribute, right: AnyObject) -> NSPredicate {
+    return NSPredicate(format: "%K > %@", argumentArray: [left.name, right])
+}
+
+@infix func >= (left: Attribute, right: AnyObject) -> NSPredicate {
+    return NSPredicate(format: "%K >= %@", argumentArray: [left.name, right])
+}
+
+@infix func < (left: Attribute, right: AnyObject) -> NSPredicate {
+    return NSPredicate(format: "%K < %@", argumentArray: [left.name, right])
+}
+
+@infix func <= (left: Attribute, right: AnyObject) -> NSPredicate {
+    return NSPredicate(format: "%K <= %@", argumentArray: [left.name, right])
+}
