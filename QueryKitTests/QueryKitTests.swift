@@ -47,4 +47,18 @@ class QueryKitTests: XCTestCase {
 
         queryset = QuerySet(context!, "Person")
     }
+
+    // Sorting
+
+    func testOrderBySortDescriptor() {
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        var qs = queryset!.orderBy(sortDescriptor)
+        XCTAssertEqualObjects(qs.sortDescriptors, [sortDescriptor])
+    }
+
+    func testOrderBySortDescriptors() {
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        var qs = queryset!.orderBy([sortDescriptor])
+        XCTAssertEqualObjects(qs.sortDescriptors, [sortDescriptor])
+    }
 }
