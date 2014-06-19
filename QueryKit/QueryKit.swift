@@ -14,6 +14,11 @@ extension NSFetchRequest {
         self.init(entityName: queryset.entityName)
         predicate = queryset.predicate
         sortDescriptors = queryset.sortDescriptors
+
+        if let range = queryset.range {
+            fetchOffset = range.startIndex
+            fetchLimit = range.endIndex - range.startIndex
+        }
     }
 }
 
@@ -23,6 +28,7 @@ struct QuerySet {
 
     let sortDescriptors = NSSortDescriptor[]()
     let predicate:NSPredicate?
+    let range:Range<Int>?
 
     // Initialization
 
@@ -31,7 +37,7 @@ struct QuerySet {
         self.entityName = entityName
     }
 
-    init(queryset:QuerySet, sortDescriptors:NSSortDescriptor[]?, predicate:NSPredicate?) {
+    init(queryset:QuerySet, sortDescriptors:NSSortDescriptor[]?, predicate:NSPredicate?, range:Range<Int>?) {
         self.context = queryset.context
         self.entityName = queryset.entityName
 
@@ -40,6 +46,7 @@ struct QuerySet {
         }
 
         self.predicate = predicate
+        self.range = range
     }
 
     // Sorting
@@ -49,7 +56,7 @@ struct QuerySet {
     }
 
     func orderBy(sortDescriptors:NSSortDescriptor[]) -> QuerySet {
-        return QuerySet(queryset:self, sortDescriptors:sortDescriptors, predicate:predicate)
+        return QuerySet(queryset:self, sortDescriptors:sortDescriptors, predicate:predicate, range:range)
     }
 
     // Filtering
@@ -61,7 +68,7 @@ struct QuerySet {
             futurePredicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: [existingPredicate, predicate])
         }
 
-        return QuerySet(queryset:self, sortDescriptors:sortDescriptors, predicate:futurePredicate)
+        return QuerySet(queryset:self, sortDescriptors:sortDescriptors, predicate:futurePredicate, range:range)
     }
 
     func filter(predicates:NSPredicate[]) -> QuerySet {
@@ -97,6 +104,18 @@ struct QuerySet {
     subscript(index: Int) -> NSManagedObject? {
         get {
             return self[index].object
+        }
+    }
+
+    subscript(range:Range<Int>) -> QuerySet {
+        get {
+            var fullRange = range
+
+            if let currentRange = self.range {
+                fullRange = Range<Int>(start: currentRange.startIndex + range.startIndex, end:  range.endIndex)
+            }
+
+            return QuerySet(queryset:self, sortDescriptors:sortDescriptors, predicate:predicate, range:fullRange)
         }
     }
 }

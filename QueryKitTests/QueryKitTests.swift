@@ -115,13 +115,15 @@ class QueryKitTests: XCTestCase {
     func testConversionToFetchRequest() {
         let predicate = NSPredicate(format: "name == Kyle")
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        let qs = queryset!.filter(predicate).orderBy(sortDescriptor)
+        let qs = queryset!.filter(predicate).orderBy(sortDescriptor)[2..4] 
 
         let fetchRequest:NSFetchRequest = NSFetchRequest(qs)
 
         XCTAssertEqualObjects(fetchRequest.entityName, "Person")
         XCTAssertEqualObjects(fetchRequest.predicate, predicate)
         XCTAssertEqualObjects(fetchRequest.sortDescriptors, [sortDescriptor])
+        XCTAssertEqual(fetchRequest.fetchOffset, 2)
+        XCTAssertEqual(fetchRequest.fetchLimit, 2)
     }
 
     // Subscripting
@@ -140,5 +142,21 @@ class QueryKitTests: XCTestCase {
         XCTAssertEqualObjects(mark!.valueForKey("name") as String, "Mark")
         XCTAssertEqualObjects(orta!.valueForKey("name") as String, "Orta")
         XCTAssertEqualObjects(scott!.valueForKey("name") as String, "Scott")
+    }
+
+    func testSubscriptingRange() {
+        var qs = queryset!.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...2]
+
+        XCTAssertEqualObjects(qs.range!.startIndex, 0)
+        XCTAssertEqualObjects(qs.range!.endIndex, 3)
+    }
+
+    func testSubscriptingRangeSubscriptsCurrentRange() {
+        var qs = queryset!.orderBy(NSSortDescriptor(key: "name", ascending: true))
+        qs = qs[2...5]
+        qs = qs[2...4]
+
+        XCTAssertEqualObjects(qs.range!.startIndex, 4)
+        XCTAssertEqualObjects(qs.range!.endIndex, 5)
     }
 }
