@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 extension NSFetchRequest {
-    convenience init(queryset:QuerySet)  {
+    convenience init(_ queryset:QuerySet)  {
         self.init(entityName: queryset.entityName)
         predicate = queryset.predicate
         sortDescriptors = queryset.sortDescriptors
@@ -77,5 +77,26 @@ struct QuerySet {
     func exclude(predicates:NSPredicate[]) -> QuerySet {
         let excludePredicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: predicates)
         return exclude(excludePredicate)
+    }
+
+    // Subscripting
+
+    subscript(index: Int) -> (object:NSManagedObject?, error:NSError?) {
+        get {
+            var fetchRequest = NSFetchRequest(self)
+            fetchRequest.fetchOffset = index
+            fetchRequest.fetchLimit = 1
+
+            var error:NSError?
+            let items = context.executeFetchRequest(fetchRequest, error:&error)
+
+            return (object:items[0] as? NSManagedObject, error:error)
+        }
+    }
+
+    subscript(index: Int) -> NSManagedObject? {
+        get {
+            return self[index].object
+        }
     }
 }

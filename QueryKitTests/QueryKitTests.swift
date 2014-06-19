@@ -33,7 +33,11 @@ func persistentStoreCoordinator() -> NSPersistentStoreCoordinator {
     return persistentStoreCoordinator
 }
 
-class Person : NSManagedObject { }
+class Person : NSManagedObject {
+    class func create(context:NSManagedObjectContext) -> NSManagedObject {
+        return NSEntityDescription.insertNewObjectForEntityForName("Person", inManagedObjectContext: context) as NSManagedObject
+    }
+}
 
 class QueryKitTests: XCTestCase {
     var context:NSManagedObjectContext?
@@ -44,6 +48,18 @@ class QueryKitTests: XCTestCase {
 
         context = NSManagedObjectContext()
         context!.persistentStoreCoordinator = persistentStoreCoordinator()
+
+        var kyle = Person.create(context!)
+        kyle.setValue("Kyle", forKey: "name")
+        var orta = Person.create(context!)
+        orta.setValue("Orta", forKey: "name")
+        var ayaka = Person.create(context!)
+        ayaka.setValue("Ayaka", forKey: "name")
+        var mark = Person.create(context!)
+        mark.setValue("Mark", forKey: "name")
+        var scott = Person.create(context!)
+        scott.setValue("Scott", forKey: "name")
+        context!.save(nil)
 
         queryset = QuerySet(context!, "Person")
     }
@@ -101,10 +117,28 @@ class QueryKitTests: XCTestCase {
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         let qs = queryset!.filter(predicate).orderBy(sortDescriptor)
 
-        let fetchRequest:NSFetchRequest = NSFetchRequest(queryset: qs)
+        let fetchRequest:NSFetchRequest = NSFetchRequest(qs)
 
         XCTAssertEqualObjects(fetchRequest.entityName, "Person")
         XCTAssertEqualObjects(fetchRequest.predicate, predicate)
         XCTAssertEqualObjects(fetchRequest.sortDescriptors, [sortDescriptor])
+    }
+
+    // Subscripting
+
+    func testSubscriptingAtIndex() {
+        var qs = queryset!.orderBy(NSSortDescriptor(key: "name", ascending: true))
+
+        var ayaka = qs[0].object
+        var kyle = qs[1].object
+        var mark = qs[2].object
+        var orta:NSManagedObject? = qs[3].object
+        var scott:NSManagedObject? = qs[4]
+
+        XCTAssertEqualObjects(ayaka!.valueForKey("name") as String, "Ayaka")
+        XCTAssertEqualObjects(kyle!.valueForKey("name") as String, "Kyle")
+        XCTAssertEqualObjects(mark!.valueForKey("name") as String, "Mark")
+        XCTAssertEqualObjects(orta!.valueForKey("name") as String, "Orta")
+        XCTAssertEqualObjects(scott!.valueForKey("name") as String, "Scott")
     }
 }
