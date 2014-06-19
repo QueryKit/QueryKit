@@ -118,4 +118,17 @@ struct QuerySet {
             return QuerySet(queryset:self, sortDescriptors:sortDescriptors, predicate:predicate, range:fullRange)
         }
     }
+
+    // Conversion
+
+    func array() -> (objects:(NSManagedObject[]?), error:NSError?) {
+        var fetchRequest = NSFetchRequest(self)
+        var error:NSError?
+        var objects = context.executeFetchRequest(fetchRequest, error:&error) as? NSManagedObject[]
+        return (objects:objects, error:error)
+    }
+
+    func array() -> NSManagedObject[]? {
+        return array().objects
+    }
 }

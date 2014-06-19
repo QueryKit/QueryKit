@@ -115,7 +115,7 @@ class QueryKitTests: XCTestCase {
     func testConversionToFetchRequest() {
         let predicate = NSPredicate(format: "name == Kyle")
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        let qs = queryset!.filter(predicate).orderBy(sortDescriptor)[2..4] 
+        let qs = queryset!.filter(predicate).orderBy(sortDescriptor)[2..4]
 
         let fetchRequest:NSFetchRequest = NSFetchRequest(qs)
 
@@ -158,5 +158,21 @@ class QueryKitTests: XCTestCase {
 
         XCTAssertEqualObjects(qs.range!.startIndex, 4)
         XCTAssertEqualObjects(qs.range!.endIndex, 5)
+    }
+
+    // Conversion
+
+    func testConversionToArray() {
+        var qs = queryset!.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
+        var people = qs.array().objects
+
+        XCTAssertEqual(people!.count, 2)
+    }
+
+    func testConversionToArrayWithoutError() {
+        var qs = queryset!.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
+        var people = qs.array() as? NSManagedObject[]
+
+        XCTAssertEqual(people!.count, 2)
     }
 }
