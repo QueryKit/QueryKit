@@ -25,7 +25,7 @@ for person in queryset[0...5] {
 
 ### Predicate extensions
 
-```
+```swift
 var predicate = NSPredicate(format:"name == Kyle")
     || NSPredicate(format:"name == Katie")
     && !NSPredicate(format:"age >= 21")
