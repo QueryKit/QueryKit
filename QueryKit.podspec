@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = 'QueryKit'
-  spec.version = '0.8.0'
+  spec.version = '0.8.1'
   spec.summary = 'A simple CoreData query language for Swift.'
   spec.homepage = 'https://github.com/kylef/QueryKit'
   spec.license = { :type => 'BSD', :file => 'LICENSE' }
