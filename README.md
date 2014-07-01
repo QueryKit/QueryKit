@@ -1,6 +1,8 @@
 QueryKit
 ========
 
+[![Build Status](http://img.shields.io/travis/kylef/QueryKit/master.svg?style=flat)](https://travis-ci.org/kylef/QueryKit)
+
 QueryKit, a simple CoreData query language for Swift.
 
 ## Usage
