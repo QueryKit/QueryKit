@@ -58,3 +58,6 @@ class Attribute {
     return NSPredicate(format: "%K BETWEEN %@", argumentArray: [left.name, right])
 }
 
+@infix func ~= (left: Attribute, right: AnyObject) -> NSPredicate {
+    return NSPredicate(format: "%K LIKE %@", argumentArray: [left.name, right])
+}

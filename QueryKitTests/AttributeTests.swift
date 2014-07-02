@@ -77,4 +77,10 @@ class AttributeTests: XCTestCase {
         let expected: NSArray = [["age": 10], ["age": 20]]
         XCTAssertEqualObjects(array.filteredArrayUsingPredicate(predicate), expected)
     }
+    
+    func testLikeOperator() {
+        let predicate: NSPredicate = (attribute! ~= "Swift")
+        XCTAssertEqualObjects(predicate, NSPredicate(format:"age like 'Swift'"))
+    
+    }
 }
