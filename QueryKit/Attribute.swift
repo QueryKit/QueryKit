@@ -54,8 +54,8 @@ class Attribute {
     return NSPredicate(format: "%K IN %@", argumentArray: [left.name, right])
 }
 
-@infix func %= (left: Attribute, right: AnyObject) -> NSPredicate {
-    return NSPredicate(format: "%K BETWEEN %@", argumentArray: [left.name, right])
+@infix func << (left: Attribute, right: (AnyObject, AnyObject)) -> NSPredicate {
+    return NSPredicate(format: "%K BETWEEN %@", argumentArray: [left.name, [right.0, right.1]])
 }
 
 @infix func ~= (left: Attribute, right: AnyObject) -> NSPredicate {

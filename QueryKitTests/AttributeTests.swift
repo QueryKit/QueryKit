@@ -72,7 +72,7 @@ class AttributeTests: XCTestCase {
     }
     
     func testBetweenOperator() {
-        let predicate: NSPredicate = (attribute! %= [10, 20])
+        let predicate: NSPredicate = (attribute! << (10, 20))
         let array: NSArray = [["age": 10], ["age": 20], ["age": 30]]
         let expected: NSArray = [["age": 10], ["age": 20]]
         XCTAssertEqualObjects(array.filteredArrayUsingPredicate(predicate), expected)
