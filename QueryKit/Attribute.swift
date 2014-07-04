@@ -8,6 +8,22 @@
 
 import Foundation
 
+
+enum CaseSensitivity {
+    case Insensitive, Sensitive, DiacriticSensitive
+
+    func simpleDescription() -> String {
+        switch self {
+        case .Insensitive:
+            return ""
+        case .Sensitive:
+            return "[c]"
+        case .DiacriticSensitive:
+            return "[cd]"
+        }
+    }
+}
+
 class Attribute {
     let name:String
 
@@ -60,4 +76,10 @@ class Attribute {
 
 @infix func ~= (left: Attribute, right: AnyObject) -> NSPredicate {
     return NSPredicate(format: "%K LIKE %@", argumentArray: [left.name, right])
+}
+
+@infix func ~= (left: Attribute, right: (AnyObject, CaseSensitivity)) -> NSPredicate {
+    var formatString = "%K LIKE\(right.1.simpleDescription()) %@"
+
+    return NSPredicate(format: formatString, argumentArray: [left.name, right.0])
 }

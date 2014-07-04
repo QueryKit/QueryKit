@@ -80,7 +80,21 @@ class AttributeTests: XCTestCase {
     
     func testLikeOperator() {
         let predicate: NSPredicate = (attribute! ~= "Swift")
-        XCTAssertEqualObjects(predicate, NSPredicate(format:"age like 'Swift'"))
+        XCTAssertEqualObjects(predicate, NSPredicate(format:"age LIKE 'Swift'"))
+    }
+
+    func testLikeCaseInsensitiveOperator() {
+        let predicate: NSPredicate = (attribute! ~= ("Swift", .Insensitive))
+        XCTAssertEqualObjects(predicate, NSPredicate(format:"age LIKE 'Swift'"))
+    }
     
+    func testLikeCaseSensitiveOperator() {
+        let predicate: NSPredicate = (attribute! ~= ("Swift", .Sensitive))
+        XCTAssertEqualObjects(predicate, NSPredicate(format:"age LIKE[c] 'Swift'"))
+    }
+
+    func testLikeCaseDiacriticSensitiveOperator() {
+        let predicate: NSPredicate = (attribute! ~= ("Swift", .DiacriticSensitive))
+        XCTAssertEqualObjects(predicate, NSPredicate(format:"age LIKE[cd] 'Swift'"))
     }
 }
