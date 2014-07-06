@@ -67,4 +67,38 @@ class AttributeTests: XCTestCase {
         var predicate:NSPredicate = (attribute <= 10)
         XCTAssertEqualObjects(predicate, NSPredicate(format:"age <= 10"))
     }
+
+    func testInOperator() {
+        let predicate: NSPredicate = (attribute! << [10, 20])
+        let array: NSArray = [["age": 10], ["age": 20], ["age": 30]]
+        let expected: NSArray = [["age": 10], ["age": 20]]
+        XCTAssertEqualObjects(array.filteredArrayUsingPredicate(predicate), expected)
+    }
+    
+    func testBetweenOperator() {
+        let predicate: NSPredicate = (attribute! << (10, 20))
+        let array: NSArray = [["age": 10], ["age": 20], ["age": 30]]
+        let expected: NSArray = [["age": 10], ["age": 20]]
+        XCTAssertEqualObjects(array.filteredArrayUsingPredicate(predicate), expected)
+    }
+    
+    func testLikeOperator() {
+        let predicate: NSPredicate = (attribute! ~= "Swift")
+        XCTAssertEqualObjects(predicate, NSPredicate(format:"age LIKE 'Swift'"))
+    }
+
+    func testLikeCaseInsensitiveOperator() {
+        let predicate: NSPredicate = (attribute! ~= ("Swift", .Insensitive))
+        XCTAssertEqualObjects(predicate, NSPredicate(format:"age LIKE 'Swift'"))
+    }
+    
+    func testLikeCaseSensitiveOperator() {
+        let predicate: NSPredicate = (attribute! ~= ("Swift", .Sensitive))
+        XCTAssertEqualObjects(predicate, NSPredicate(format:"age LIKE[c] 'Swift'"))
+    }
+
+    func testLikeCaseDiacriticSensitiveOperator() {
+        let predicate: NSPredicate = (attribute! ~= ("Swift", .DiacriticSensitive))
+        XCTAssertEqualObjects(predicate, NSPredicate(format:"age LIKE[cd] 'Swift'"))
+    }
 }
