@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Attribute {
+class Attribute<T> {
     let name:String
 
     init(_ name:String) {
@@ -30,26 +30,26 @@ class Attribute {
     }
 }
 
-@infix func == (left: Attribute, right: AnyObject) -> NSPredicate {
+@infix func == <T : AnyObject>(left: Attribute<T>, right: T) -> NSPredicate {
     return left.expression == NSExpression(forConstantValue: right)
 }
 
-@infix func != (left: Attribute, right: AnyObject) -> NSPredicate {
+@infix func != <T : AnyObject>(left: Attribute<T>, right: T) -> NSPredicate {
     return left.expression != NSExpression(forConstantValue: right)
 }
 
-@infix func > (left: Attribute, right: AnyObject) -> NSPredicate {
+@infix func > <T : AnyObject>(left: Attribute<T>, right: T) -> NSPredicate {
     return left.expression > NSExpression(forConstantValue: right)
 }
 
-@infix func >= (left: Attribute, right: AnyObject) -> NSPredicate {
+@infix func >= <T : AnyObject>(left: Attribute<T>, right: T) -> NSPredicate {
     return left.expression >= NSExpression(forConstantValue: right)
 }
 
-@infix func < (left: Attribute, right: AnyObject) -> NSPredicate {
+@infix func < <T : AnyObject>(left: Attribute<T>, right: T) -> NSPredicate {
     return left.expression < NSExpression(forConstantValue: right)
 }
 
-@infix func <= (left: Attribute, right: AnyObject) -> NSPredicate {
+@infix func <= <T : AnyObject>(left: Attribute<T>, right: T) -> NSPredicate {
     return left.expression <= NSExpression(forConstantValue: right)
 }
