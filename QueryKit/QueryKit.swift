@@ -9,20 +9,8 @@
 import Foundation
 import CoreData
 
-extension NSFetchRequest {
-    convenience init(_ queryset:QuerySet)  {
-        self.init(entityName: queryset.entityName)
-        predicate = queryset.predicate
-        sortDescriptors = queryset.sortDescriptors
 
-        if let range = queryset.range {
-            fetchOffset = range.startIndex
-            fetchLimit = range.endIndex - range.startIndex
-        }
-    }
-}
-
-struct QuerySet : Sequence {
+class QuerySet<T : NSManagedObject> : Sequence {
     let context:NSManagedObjectContext
     let entityName:String
 
@@ -37,7 +25,7 @@ struct QuerySet : Sequence {
         self.entityName = entityName
     }
 
-    init(queryset:QuerySet, sortDescriptors:NSSortDescriptor[]?, predicate:NSPredicate?, range:Range<Int>?) {
+    init(queryset:QuerySet<T>, sortDescriptors:NSSortDescriptor[]?, predicate:NSPredicate?, range:Range<Int>?) {
         self.context = queryset.context
         self.entityName = queryset.entityName
 
@@ -51,17 +39,17 @@ struct QuerySet : Sequence {
 
     // Sorting
 
-    func orderBy(sortDescriptor:NSSortDescriptor) -> QuerySet {
+    func orderBy(sortDescriptor:NSSortDescriptor) -> QuerySet<T> {
         return orderBy([sortDescriptor])
     }
 
-    func orderBy(sortDescriptors:NSSortDescriptor[]) -> QuerySet {
+    func orderBy(sortDescriptors:NSSortDescriptor[]) -> QuerySet<T> {
         return QuerySet(queryset:self, sortDescriptors:sortDescriptors, predicate:predicate, range:range)
     }
 
     // Filtering
 
-    func filter(predicate:NSPredicate) -> QuerySet {
+    func filter(predicate:NSPredicate) -> QuerySet<T> {
         var futurePredicate = predicate
 
         if let existingPredicate = self.predicate {
@@ -71,43 +59,43 @@ struct QuerySet : Sequence {
         return QuerySet(queryset:self, sortDescriptors:sortDescriptors, predicate:futurePredicate, range:range)
     }
 
-    func filter(predicates:NSPredicate[]) -> QuerySet {
+    func filter(predicates:NSPredicate[]) -> QuerySet<T> {
         let newPredicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: predicates)
         return filter(newPredicate)
     }
 
-    func exclude(predicate:NSPredicate) -> QuerySet {
+    func exclude(predicate:NSPredicate) -> QuerySet<T> {
         let excludePredicate = NSCompoundPredicate(type: NSCompoundPredicateType.NotPredicateType, subpredicates: [predicate])
         return filter(excludePredicate)
     }
 
-    func exclude(predicates:NSPredicate[]) -> QuerySet {
+    func exclude(predicates:NSPredicate[]) -> QuerySet<T> {
         let excludePredicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: predicates)
         return exclude(excludePredicate)
     }
 
     // Subscripting
 
-    subscript(index: Int) -> (object:NSManagedObject?, error:NSError?) {
+    subscript(index: Int) -> (object:T?, error:NSError?) {
         get {
-            var fetchRequest = NSFetchRequest(self)
-            fetchRequest.fetchOffset = index
-            fetchRequest.fetchLimit = 1
+            var request = fetchRequest
+            request.fetchOffset = index
+            request.fetchLimit = 1
 
             var error:NSError?
-            let items = context.executeFetchRequest(fetchRequest, error:&error)
+            let items = context.executeFetchRequest(request, error:&error)
 
-            return (object:items[0] as? NSManagedObject, error:error)
+            return (object:items[0] as? T, error:error)
         }
     }
 
-    subscript(index: Int) -> NSManagedObject? {
+    subscript(index: Int) -> T? {
         get {
             return self[index].object
         }
     }
 
-    subscript(range:Range<Int>) -> QuerySet {
+    subscript(range:Range<Int>) -> QuerySet<T> {
         get {
             var fullRange = range
 
@@ -121,21 +109,32 @@ struct QuerySet : Sequence {
 
     // Conversion
 
-    func array() -> (objects:(NSManagedObject[]?), error:NSError?) {
-        var fetchRequest = NSFetchRequest(self)
+    var fetchRequest:NSFetchRequest {
+        var request = NSFetchRequest(entityName:entityName)
+        request.predicate = predicate
+        request.sortDescriptors = sortDescriptors
+
+        if let range = range {
+            request.fetchOffset = range.startIndex
+            request.fetchLimit = range.endIndex - range.startIndex
+        }
+
+        return request
+    }
+
+    func array() -> (objects:(T[]?), error:NSError?) {
         var error:NSError?
-        var objects = context.executeFetchRequest(fetchRequest, error:&error) as? NSManagedObject[]
+        var objects = context.executeFetchRequest(fetchRequest, error:&error) as? T[]
         return (objects:objects, error:error)
     }
 
-    func array() -> NSManagedObject[]? {
+    func array() -> T[]? {
         return array().objects
     }
 
     // Count
 
     func count() -> (count:Int, error:NSError?) {
-        var fetchRequest = NSFetchRequest(self)
         var error:NSError?
         var count = context.countForFetchRequest(fetchRequest, error: &error)
         return (count:count, error:error)
@@ -148,7 +147,7 @@ struct QuerySet : Sequence {
     // Deletion
 
     func delete() -> (count:Int, error:NSError?) {
-        var result = array() as (objects:(NSManagedObject[]?), error:NSError?)
+        var result = array() as (objects:(T[]?), error:NSError?)
         var deletedCount = 0
 
         if let objects = result.objects {
@@ -164,8 +163,8 @@ struct QuerySet : Sequence {
 
     // Sequence
 
-    func generate() -> IndexingGenerator<Array<NSManagedObject>> {
-        var result = self.array() as (objects:(NSManagedObject[]?), error:NSError?)
+    func generate() -> IndexingGenerator<Array<T>> {
+        var result = self.array() as (objects:(T[]?), error:NSError?)
 
         if let objects = result.objects {
             return objects.generate()

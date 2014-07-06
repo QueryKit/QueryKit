@@ -41,7 +41,7 @@ class Person : NSManagedObject {
 
 class QueryKitTests: XCTestCase {
     var context:NSManagedObjectContext!
-    var queryset:QuerySet!
+    var queryset:QuerySet<NSManagedObject>!
 
     override func setUp() {
         super.setUp()
@@ -117,7 +117,7 @@ class QueryKitTests: XCTestCase {
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         let qs = queryset.filter(predicate).orderBy(sortDescriptor)[2..4]
 
-        let fetchRequest:NSFetchRequest = NSFetchRequest(qs)
+        let fetchRequest = qs.fetchRequest
 
         XCTAssertEqualObjects(fetchRequest.entityName, "Person")
         XCTAssertEqualObjects(fetchRequest.predicate, predicate)
