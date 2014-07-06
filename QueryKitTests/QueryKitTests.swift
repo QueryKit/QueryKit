@@ -9,10 +9,16 @@
 import XCTest
 import QueryKit
 
+extension Person {
+    class func create(context:NSManagedObjectContext) -> Person {
+        return NSEntityDescription.insertNewObjectForEntityForName(Person.className(), inManagedObjectContext: context) as Person
+    }
+}
+
 func managedObjectModel() -> NSManagedObjectModel {
     let personEntity = NSEntityDescription()
-    personEntity.name = "Person"
-    personEntity.managedObjectClassName = "Person"
+    personEntity.name = Person.className()
+    personEntity.managedObjectClassName = Person.className()
 
     let personNameAttribute = NSAttributeDescription()
     personNameAttribute.name = "name"
@@ -33,15 +39,9 @@ func persistentStoreCoordinator() -> NSPersistentStoreCoordinator {
     return persistentStoreCoordinator
 }
 
-class Person : NSManagedObject {
-    class func create(context:NSManagedObjectContext) -> NSManagedObject {
-        return NSEntityDescription.insertNewObjectForEntityForName("Person", inManagedObjectContext: context) as NSManagedObject
-    }
-}
-
 class QueryKitTests: XCTestCase {
     var context:NSManagedObjectContext!
-    var queryset:QuerySet<NSManagedObject>!
+    var queryset:QuerySet<Person>!
 
     override func setUp() {
         super.setUp()
@@ -49,16 +49,11 @@ class QueryKitTests: XCTestCase {
         context = NSManagedObjectContext()
         context.persistentStoreCoordinator = persistentStoreCoordinator()
 
-        var kyle = Person.create(context)
-        kyle.setValue("Kyle", forKey: "name")
-        var orta = Person.create(context)
-        orta.setValue("Orta", forKey: "name")
-        var ayaka = Person.create(context)
-        ayaka.setValue("Ayaka", forKey: "name")
-        var mark = Person.create(context)
-        mark.setValue("Mark", forKey: "name")
-        var scott = Person.create(context)
-        scott.setValue("Scott", forKey: "name")
+        for name in ["Kyle", "Orta", "Ayaka", "Mark", "Scott"] {
+            let person = Person.create(context)
+            person.name = name
+        }
+
         context.save(nil)
 
         queryset = QuerySet(context, "Person")
@@ -119,7 +114,7 @@ class QueryKitTests: XCTestCase {
 
         let fetchRequest = qs.fetchRequest
 
-        XCTAssertEqualObjects(fetchRequest.entityName, "Person")
+        XCTAssertEqualObjects(fetchRequest.entityName, Person.className())
         XCTAssertEqualObjects(fetchRequest.predicate, predicate)
         XCTAssertEqualObjects(fetchRequest.sortDescriptors, [sortDescriptor])
         XCTAssertEqual(fetchRequest.fetchOffset, 2)
@@ -134,14 +129,14 @@ class QueryKitTests: XCTestCase {
         var ayaka = qs[0].object
         var kyle = qs[1].object
         var mark = qs[2].object
-        var orta:NSManagedObject? = qs[3].object
-        var scott:NSManagedObject? = qs[4]
+        var orta:Person? = qs[3].object
+        var scott:Person? = qs[4]
 
-        XCTAssertEqualObjects(ayaka!.valueForKey("name") as String, "Ayaka")
-        XCTAssertEqualObjects(kyle!.valueForKey("name") as String, "Kyle")
-        XCTAssertEqualObjects(mark!.valueForKey("name") as String, "Mark")
-        XCTAssertEqualObjects(orta!.valueForKey("name") as String, "Orta")
-        XCTAssertEqualObjects(scott!.valueForKey("name") as String, "Scott")
+        XCTAssertEqualObjects(ayaka!.name, "Ayaka")
+        XCTAssertEqualObjects(kyle!.name, "Kyle")
+        XCTAssertEqualObjects(mark!.name, "Mark")
+        XCTAssertEqualObjects(orta!.name, "Orta")
+        XCTAssertEqualObjects(scott!.name, "Scott")
     }
 
     func testSubscriptingRange() {
@@ -171,7 +166,7 @@ class QueryKitTests: XCTestCase {
 
     func testConversionToArrayWithoutError() {
         var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
-        var people = qs.array() as? NSManagedObject[]
+        var people = qs.array() as? Person[]
 
         XCTAssertEqual(people!.count, 2)
     }
@@ -208,7 +203,7 @@ class QueryKitTests: XCTestCase {
 
     func testSequence() {
         var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
-        var objects = NSManagedObject[]()
+        var objects = Person[]()
 
         for object in qs {
             objects.append(object)
