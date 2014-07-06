@@ -17,6 +17,10 @@ class Attribute {
 
     // Sorting
 
+    var expression:NSExpression {
+        return NSExpression(forKeyPath: name)
+    }
+
     func ascending() -> NSSortDescriptor {
         return NSSortDescriptor(key: name, ascending: true)
     }
@@ -27,25 +31,25 @@ class Attribute {
 }
 
 @infix func == (left: Attribute, right: AnyObject) -> NSPredicate {
-    return NSPredicate(format: "%K == %@", argumentArray: [left.name, right])
+    return left.expression == NSExpression(forConstantValue: right)
 }
 
 @infix func != (left: Attribute, right: AnyObject) -> NSPredicate {
-    return NSPredicate(format: "%K != %@", argumentArray: [left.name, right])
+    return left.expression != NSExpression(forConstantValue: right)
 }
 
 @infix func > (left: Attribute, right: AnyObject) -> NSPredicate {
-    return NSPredicate(format: "%K > %@", argumentArray: [left.name, right])
+    return left.expression > NSExpression(forConstantValue: right)
 }
 
 @infix func >= (left: Attribute, right: AnyObject) -> NSPredicate {
-    return NSPredicate(format: "%K >= %@", argumentArray: [left.name, right])
+    return left.expression >= NSExpression(forConstantValue: right)
 }
 
 @infix func < (left: Attribute, right: AnyObject) -> NSPredicate {
-    return NSPredicate(format: "%K < %@", argumentArray: [left.name, right])
+    return left.expression < NSExpression(forConstantValue: right)
 }
 
 @infix func <= (left: Attribute, right: AnyObject) -> NSPredicate {
-    return NSPredicate(format: "%K <= %@", argumentArray: [left.name, right])
+    return left.expression <= NSExpression(forConstantValue: right)
 }

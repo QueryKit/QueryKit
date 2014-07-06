@@ -22,6 +22,10 @@ class AttributeTests: XCTestCase {
         XCTAssertEqual(attribute.name, "age")
     }
 
+    func testAttributeExpression() {
+        XCTAssertEqual(attribute.expression.keyPath!, "age")
+    }
+
     // Sorting
 
     func testAscendingSortDescriptor() {

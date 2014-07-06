@@ -14,6 +14,8 @@
 		77B7003C1969ABEA00A216EF /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B7003B1969ABEA00A216EF /* Person.m */; };
 		77E3A05D1969C019009372A8 /* QuerySet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3A05C1969C019009372A8 /* QuerySet.swift */; };
 		77E3A05F1969C047009372A8 /* QuerySetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3A05E1969C047009372A8 /* QuerySetTests.swift */; };
+		77E3A0611969DDF5009372A8 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3A0601969DDF5009372A8 /* Expression.swift */; };
+		77E3A0631969E003009372A8 /* ExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3A0621969E003009372A8 /* ExpressionTests.swift */; };
 		77E8728119539C0900A6F13F /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E8728019539C0900A6F13F /* Attribute.swift */; };
 		77E8728319539C2A00A6F13F /* AttributeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E8728219539C2A00A6F13F /* AttributeTests.swift */; };
 		77E8728519539FC000A6F13F /* PredicateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E8728419539FC000A6F13F /* PredicateTests.swift */; };
@@ -57,6 +59,8 @@
 		77B7003B1969ABEA00A216EF /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		77E3A05C1969C019009372A8 /* QuerySet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuerySet.swift; sourceTree = "<group>"; };
 		77E3A05E1969C047009372A8 /* QuerySetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuerySetTests.swift; sourceTree = "<group>"; };
+		77E3A0601969DDF5009372A8 /* Expression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
+		77E3A0621969E003009372A8 /* ExpressionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressionTests.swift; sourceTree = "<group>"; };
 		77E8728019539C0900A6F13F /* Attribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
 		77E8728219539C2A00A6F13F /* AttributeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeTests.swift; sourceTree = "<group>"; };
 		77E8728419539FC000A6F13F /* PredicateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredicateTests.swift; sourceTree = "<group>"; };
@@ -107,6 +111,7 @@
 				77A9B697195374AA0016654E /* QueryKit.swift */,
 				77E3A05C1969C019009372A8 /* QuerySet.swift */,
 				77E8728019539C0900A6F13F /* Attribute.swift */,
+				77E3A0601969DDF5009372A8 /* Expression.swift */,
 				77E8728619539FD200A6F13F /* Predicate.swift */,
 				77A9B67C195374490016654E /* Supporting Files */,
 			);
@@ -128,8 +133,8 @@
 				77B7003B1969ABEA00A216EF /* Person.m */,
 				77A9B68B195374490016654E /* QueryKitTests.swift */,
 				77E3A05E1969C047009372A8 /* QuerySetTests.swift */,
+				77E3A0621969E003009372A8 /* ExpressionTests.swift */,
 				77E8728219539C2A00A6F13F /* AttributeTests.swift */,
-				77E8728419539FC000A6F13F /* PredicateTests.swift */,
 				77A9B689195374490016654E /* Supporting Files */,
 				77B700371969ABA500A216EF /* QueryKitTests-Bridging-Header.h */,
 			);
@@ -139,6 +144,7 @@
 		77A9B689195374490016654E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				77E8728419539FC000A6F13F /* PredicateTests.swift */,
 				77A9B68A195374490016654E /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -257,6 +263,7 @@
 				77E8728719539FD200A6F13F /* Predicate.swift in Sources */,
 				77A9B698195374AA0016654E /* QueryKit.swift in Sources */,
 				77E3A05D1969C019009372A8 /* QuerySet.swift in Sources */,
+				77E3A0611969DDF5009372A8 /* Expression.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +276,7 @@
 				77E3A05F1969C047009372A8 /* QuerySetTests.swift in Sources */,
 				77B7003C1969ABEA00A216EF /* Person.m in Sources */,
 				77E8728519539FC000A6F13F /* PredicateTests.swift in Sources */,
+				77E3A0631969E003009372A8 /* ExpressionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
