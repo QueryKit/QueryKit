@@ -30,26 +30,26 @@ class Attribute<T> {
     }
 }
 
-@infix func == <T : AnyObject>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression == NSExpression(forConstantValue: right)
+@infix func == <T>(left: Attribute<T>, right: T) -> NSPredicate {
+    return left.expression == NSExpression(forConstantValue: bridgeToObjectiveC(right))
 }
 
-@infix func != <T : AnyObject>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression != NSExpression(forConstantValue: right)
+@infix func != <T>(left: Attribute<T>, right: T) -> NSPredicate {
+    return left.expression != NSExpression(forConstantValue: bridgeToObjectiveC(right))
 }
 
-@infix func > <T : AnyObject>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression > NSExpression(forConstantValue: right)
+@infix func > <T>(left: Attribute<T>, right: T) -> NSPredicate {
+    return left.expression > NSExpression(forConstantValue: bridgeToObjectiveC(right))
 }
 
-@infix func >= <T : AnyObject>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression >= NSExpression(forConstantValue: right)
+@infix func >= <T>(left: Attribute<T>, right: T) -> NSPredicate {
+    return left.expression >= NSExpression(forConstantValue: bridgeToObjectiveC(right))
 }
 
-@infix func < <T : AnyObject>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression < NSExpression(forConstantValue: right)
+@infix func < <T>(left: Attribute<T>, right: T) -> NSPredicate {
+    return left.expression < NSExpression(forConstantValue: bridgeToObjectiveC(right))
 }
 
-@infix func <= <T : AnyObject>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression <= NSExpression(forConstantValue: right)
+@infix func <= <T>(left: Attribute<T>, right: T) -> NSPredicate {
+    return left.expression <= NSExpression(forConstantValue: bridgeToObjectiveC(right))
 }

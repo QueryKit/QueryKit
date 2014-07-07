@@ -10,7 +10,7 @@ import XCTest
 import QueryKit
 
 class AttributeTests: XCTestCase {
-    var attribute:Attribute<NSNumber>!
+    var attribute:Attribute<Int>!
 
     override func setUp() {
         super.setUp()
