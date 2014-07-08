@@ -79,3 +79,17 @@ class AttributeTests: XCTestCase {
         XCTAssertEqualObjects(predicate, NSPredicate(format:"age <= 10"))
     }
 }
+
+class CollectionAttributeTests: XCTestCase {
+    func testCountOfSet() {
+        let setAttribute = Attribute<NSSet>("names")
+        let countAttribute = count(setAttribute)
+        XCTAssertEqual(countAttribute, Attribute<Int>("names.@count"))
+    }
+
+    func testCountOfOrderedSet() {
+        let setAttribute = Attribute<NSOrderedSet>("names")
+        let countAttribute = count(setAttribute)
+        XCTAssertEqual(countAttribute, Attribute<Int>("names.@count"))
+    }
+}

@@ -62,3 +62,13 @@ func == <T>(lhs: Attribute<T>, rhs: Attribute<T>) -> Bool {
 @infix func <= <T>(left: Attribute<T>, right: T) -> NSPredicate {
     return left.expression <= NSExpression(forConstantValue: bridgeToObjectiveC(right))
 }
+
+// Collections
+
+func count(attribute:Attribute<NSSet>) -> Attribute<Int> {
+    return Attribute<Int>(attributes: [attribute.name, "@count"])
+}
+
+func count(attribute:Attribute<NSOrderedSet>) -> Attribute<Int> {
+    return Attribute<Int>(attributes: [attribute.name, "@count"])
+}
