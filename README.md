@@ -72,7 +72,7 @@ var orta = queryset[3]
 #### Count
 
 ```swift
-println("There are \(queryset.count() - 1) more Kyle's.")
+queryset.count()
 ```
 
 #### Iteration
