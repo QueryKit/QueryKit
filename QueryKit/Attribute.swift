@@ -15,6 +15,11 @@ class Attribute<T> {
         self.name = name
     }
 
+    /// Builds a compound attribute with other key paths
+    convenience init(attributes:Array<String>) {
+        self.init(".".join(attributes))
+    }
+
     // Sorting
 
     var expression:NSExpression {
