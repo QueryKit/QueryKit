@@ -9,6 +9,10 @@
 import XCTest
 import QueryKit
 
+@objc(Person) class Person : NSManagedObject {
+    @NSManaged var name:String
+}
+
 extension Person {
     class func create(context:NSManagedObjectContext) -> Person {
         return NSEntityDescription.insertNewObjectForEntityForName(Person.className(), inManagedObjectContext: context) as Person

@@ -11,7 +11,6 @@
 		77A9B685195374490016654E /* QueryKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A9B679195374490016654E /* QueryKit.framework */; };
 		77A9B68C195374490016654E /* QueryKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A9B68B195374490016654E /* QueryKitTests.swift */; };
 		77A9B698195374AA0016654E /* QueryKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A9B697195374AA0016654E /* QueryKit.swift */; };
-		77B7003C1969ABEA00A216EF /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B7003B1969ABEA00A216EF /* Person.m */; };
 		77E3A05D1969C019009372A8 /* QuerySet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3A05C1969C019009372A8 /* QuerySet.swift */; };
 		77E3A05F1969C047009372A8 /* QuerySetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3A05E1969C047009372A8 /* QuerySetTests.swift */; };
 		77E3A0611969DDF5009372A8 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3A0601969DDF5009372A8 /* Expression.swift */; };
@@ -23,6 +22,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		772A282A196C8D7800992BAB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77A9B66E1953742F0016654E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 77A9B678195374490016654E;
+			remoteInfo = QueryKit;
+		};
 		77A9B686195374490016654E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 77A9B66E1953742F0016654E /* Project object */;
@@ -54,9 +60,6 @@
 		77A9B68A195374490016654E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77A9B68B195374490016654E /* QueryKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryKitTests.swift; sourceTree = "<group>"; };
 		77A9B697195374AA0016654E /* QueryKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryKit.swift; sourceTree = "<group>"; };
-		77B700371969ABA500A216EF /* QueryKitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QueryKitTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		77B7003A1969ABEA00A216EF /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
-		77B7003B1969ABEA00A216EF /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		77E3A05C1969C019009372A8 /* QuerySet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuerySet.swift; sourceTree = "<group>"; };
 		77E3A05E1969C047009372A8 /* QuerySetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuerySetTests.swift; sourceTree = "<group>"; };
 		77E3A0601969DDF5009372A8 /* Expression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
@@ -129,14 +132,11 @@
 		77A9B688195374490016654E /* QueryKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				77B7003A1969ABEA00A216EF /* Person.h */,
-				77B7003B1969ABEA00A216EF /* Person.m */,
 				77A9B68B195374490016654E /* QueryKitTests.swift */,
 				77E3A05E1969C047009372A8 /* QuerySetTests.swift */,
 				77E3A0621969E003009372A8 /* ExpressionTests.swift */,
 				77E8728219539C2A00A6F13F /* AttributeTests.swift */,
 				77A9B689195374490016654E /* Supporting Files */,
-				77B700371969ABA500A216EF /* QueryKitTests-Bridging-Header.h */,
 			);
 			path = QueryKitTests;
 			sourceTree = "<group>";
@@ -196,6 +196,7 @@
 				77A9B687195374490016654E /* PBXTargetDependency */,
 				77A9B6941953744A0016654E /* PBXTargetDependency */,
 				77A9B6961953744A0016654E /* PBXTargetDependency */,
+				772A282B196C8D7800992BAB /* PBXTargetDependency */,
 			);
 			name = QueryKitTests;
 			productName = QueryKitTests;
@@ -274,7 +275,6 @@
 				77E8728319539C2A00A6F13F /* AttributeTests.swift in Sources */,
 				77A9B68C195374490016654E /* QueryKitTests.swift in Sources */,
 				77E3A05F1969C047009372A8 /* QuerySetTests.swift in Sources */,
-				77B7003C1969ABEA00A216EF /* Person.m in Sources */,
 				77E8728519539FC000A6F13F /* PredicateTests.swift in Sources */,
 				77E3A0631969E003009372A8 /* ExpressionTests.swift in Sources */,
 			);
@@ -283,6 +283,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		772A282B196C8D7800992BAB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 77A9B678195374490016654E /* QueryKit */;
+			targetProxy = 772A282A196C8D7800992BAB /* PBXContainerItemProxy */;
+		};
 		77A9B687195374490016654E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 77A9B678195374490016654E /* QueryKit */;
