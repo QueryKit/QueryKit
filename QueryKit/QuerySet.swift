@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 
-class QuerySet<T : NSManagedObject> : Sequence {
+class QuerySet<T : NSManagedObject> : Sequence, Equatable {
     let context:NSManagedObjectContext
     let entityName:String
 
@@ -172,4 +172,14 @@ class QuerySet<T : NSManagedObject> : Sequence {
         
         return [].generate()
     }
+}
+
+func == <T : NSManagedObject>(lhs: QuerySet<T>, rhs: QuerySet<T>) -> Bool {
+    let context = lhs.context == rhs.context
+    let entityName = lhs.entityName == rhs.entityName
+    let sortDescriptors = lhs.sortDescriptors == rhs.sortDescriptors
+    let predicate = lhs.predicate == rhs.predicate
+    let startIndex = lhs.range?.startIndex == rhs.range?.startIndex
+    let endIndex = lhs.range?.endIndex == rhs.range?.endIndex
+    return context && entityName && sortDescriptors && predicate && startIndex && endIndex
 }

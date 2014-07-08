@@ -29,6 +29,10 @@ class QuerySetTests: XCTestCase {
         queryset = QuerySet(context, "Person")
     }
 
+    func testEqualQuerySetIsEquatable() {
+        XCTAssertEqual(queryset, QuerySet(context, "Person"))
+    }
+
     // Sorting
 
     func testOrderBySortDescriptor() {
