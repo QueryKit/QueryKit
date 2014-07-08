@@ -63,6 +63,22 @@ func == <T>(lhs: Attribute<T>, rhs: Attribute<T>) -> Bool {
     return left.expression <= NSExpression(forConstantValue: bridgeToObjectiveC(right))
 }
 
+// Bool Attributes
+
+@prefix func ! (left: Attribute<Bool>) -> NSPredicate {
+    return left == false
+}
+
+extension QuerySet {
+    func filter(attribute:Attribute<Bool>) -> QuerySet<T> {
+        return filter(attribute == true)
+    }
+
+    func exclude(attribute:Attribute<Bool>) -> QuerySet<T> {
+        return filter(attribute == false)
+    }
+}
+
 // Collections
 
 func count(attribute:Attribute<NSSet>) -> Attribute<Int> {

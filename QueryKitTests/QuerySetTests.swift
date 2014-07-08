@@ -79,6 +79,18 @@ class QuerySetTests: XCTestCase {
         XCTAssertEqualObjects(qs.predicate, NSPredicate(format: "NOT (name == Kyle AND age > 27)"))
     }
 
+    // Boolean attribute filtering and exclusion
+
+    func testFilterBooleanAttribute() {
+        let qs = queryset.filter(Attribute<Bool>("isEmployed"))
+        XCTAssertEqualObjects(qs.predicate, NSPredicate(format: "isEmployed == YES"))
+    }
+
+    func testExcludeBooleanAttribute() {
+        let qs = queryset.exclude(Attribute<Bool>("isEmployed"))
+        XCTAssertEqualObjects(qs.predicate, NSPredicate(format: "isEmployed == NO"))
+    }
+
     // Fetch Request
 
     func testConversionToFetchRequest() {

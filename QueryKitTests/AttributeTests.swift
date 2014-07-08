@@ -93,3 +93,16 @@ class CollectionAttributeTests: XCTestCase {
         XCTAssertEqual(countAttribute, Attribute<Int>("names.@count"))
     }
 }
+
+class BoolAttributeTests: XCTestCase {
+    var attribute:Attribute<Bool>!
+
+    override func setUp() {
+        super.setUp()
+        attribute = Attribute("hasName")
+    }
+
+    func testNotAttributeReturnsPredicate() {
+        XCTAssertEqual(!attribute, NSPredicate(format:"hasName == NO"))
+    }
+}

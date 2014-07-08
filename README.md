@@ -32,6 +32,7 @@ accept a predicate and return a new queryset.
 queryset.filter(NSPredicate(format:"name == %@", "Kyle"))
 queryset.filter(Person.name == "Kyle")
 queryset.exclude(Person.age < 21)
+queryset.exclude(Person.isEmployed)
 ```
 
 #### Ordering
