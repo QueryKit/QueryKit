@@ -26,6 +26,10 @@ class AttributeTests: XCTestCase {
         XCTAssertEqual(attribute.expression.keyPath!, "age")
     }
 
+    func testEqualAttributesAreEquatable() {
+        XCTAssertEqual(attribute, Attribute<Int>("age"))
+    }
+
     func testCompoundAttributeCreation() {
         let personCompanyNameAttribute = Attribute<NSString>(attributes:["company", "name"])
 

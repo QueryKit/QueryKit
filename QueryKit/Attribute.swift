@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Attribute<T> {
+class Attribute<T> : Equatable {
     let name:String
 
     init(_ name:String) {
@@ -33,6 +33,10 @@ class Attribute<T> {
     func descending() -> NSSortDescriptor {
         return NSSortDescriptor(key: name, ascending: false)
     }
+}
+
+func == <T>(lhs: Attribute<T>, rhs: Attribute<T>) -> Bool {
+    return lhs.name == rhs.name
 }
 
 @infix func == <T>(left: Attribute<T>, right: T) -> NSPredicate {
