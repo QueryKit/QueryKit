@@ -80,7 +80,7 @@ class QuerySetTests: XCTestCase {
     func testConversionToFetchRequest() {
         let predicate = NSPredicate(format: "name == Kyle")
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        let qs = queryset.filter(predicate).orderBy(sortDescriptor)[2..4]
+        let qs = queryset.filter(predicate).orderBy(sortDescriptor)[2..<4]
 
         let fetchRequest = qs.fetchRequest
 
@@ -136,7 +136,7 @@ class QuerySetTests: XCTestCase {
 
     func testConversionToArrayWithoutError() {
         var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
-        var people = qs.array() as? Person[]
+        var people = qs.array() as? [Person]
 
         XCTAssertEqual(people!.count, 2)
     }
@@ -173,7 +173,7 @@ class QuerySetTests: XCTestCase {
 
     func testSequence() {
         var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
-        var objects = Person[]()
+        var objects = [Person]()
         
         for object in qs {
             objects.append(object)

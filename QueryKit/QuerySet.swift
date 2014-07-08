@@ -14,7 +14,7 @@ class QuerySet<T : NSManagedObject> : Sequence {
     let context:NSManagedObjectContext
     let entityName:String
 
-    let sortDescriptors = NSSortDescriptor[]()
+    let sortDescriptors = [NSSortDescriptor]()
     let predicate:NSPredicate?
     let range:Range<Int>?
 
@@ -25,7 +25,7 @@ class QuerySet<T : NSManagedObject> : Sequence {
         self.entityName = entityName
     }
 
-    init(queryset:QuerySet<T>, sortDescriptors:NSSortDescriptor[]?, predicate:NSPredicate?, range:Range<Int>?) {
+    init(queryset:QuerySet<T>, sortDescriptors:[NSSortDescriptor]?, predicate:NSPredicate?, range:Range<Int>?) {
         self.context = queryset.context
         self.entityName = queryset.entityName
 
@@ -43,7 +43,7 @@ class QuerySet<T : NSManagedObject> : Sequence {
         return orderBy([sortDescriptor])
     }
 
-    func orderBy(sortDescriptors:NSSortDescriptor[]) -> QuerySet<T> {
+    func orderBy(sortDescriptors:[NSSortDescriptor]) -> QuerySet<T> {
         return QuerySet(queryset:self, sortDescriptors:sortDescriptors, predicate:predicate, range:range)
     }
 
@@ -59,7 +59,7 @@ class QuerySet<T : NSManagedObject> : Sequence {
         return QuerySet(queryset:self, sortDescriptors:sortDescriptors, predicate:futurePredicate, range:range)
     }
 
-    func filter(predicates:NSPredicate[]) -> QuerySet<T> {
+    func filter(predicates:[NSPredicate]) -> QuerySet<T> {
         let newPredicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: predicates)
         return filter(newPredicate)
     }
@@ -69,7 +69,7 @@ class QuerySet<T : NSManagedObject> : Sequence {
         return filter(excludePredicate)
     }
 
-    func exclude(predicates:NSPredicate[]) -> QuerySet<T> {
+    func exclude(predicates:[NSPredicate]) -> QuerySet<T> {
         let excludePredicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: predicates)
         return exclude(excludePredicate)
     }
@@ -122,13 +122,13 @@ class QuerySet<T : NSManagedObject> : Sequence {
         return request
     }
 
-    func array() -> (objects:(T[]?), error:NSError?) {
+    func array() -> (objects:([T]?), error:NSError?) {
         var error:NSError?
-        var objects = context.executeFetchRequest(fetchRequest, error:&error) as? T[]
+        var objects = context.executeFetchRequest(fetchRequest, error:&error) as? [T]
         return (objects:objects, error:error)
     }
 
-    func array() -> T[]? {
+    func array() -> [T]? {
         return array().objects
     }
 
@@ -147,7 +147,7 @@ class QuerySet<T : NSManagedObject> : Sequence {
     // Deletion
 
     func delete() -> (count:Int, error:NSError?) {
-        var result = array() as (objects:(T[]?), error:NSError?)
+        var result = array() as (objects:([T]?), error:NSError?)
         var deletedCount = 0
 
         if let objects = result.objects {
@@ -164,7 +164,7 @@ class QuerySet<T : NSManagedObject> : Sequence {
     // Sequence
 
     func generate() -> IndexingGenerator<Array<T>> {
-        var result = self.array() as (objects:(T[]?), error:NSError?)
+        var result = self.array() as (objects:([T]?), error:NSError?)
         
         if let objects = result.objects {
             return objects.generate()
