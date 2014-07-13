@@ -134,13 +134,18 @@ class QuerySet<T : NSManagedObject> : Sequence, Equatable {
 
     // Count
 
-    func count() -> (count:Int, error:NSError?) {
+    func count() -> (count:Int?, error:NSError?) {
         var error:NSError?
-        var count = context.countForFetchRequest(fetchRequest, error: &error)
+        var count:Int? = context.countForFetchRequest(fetchRequest, error: &error)
+
+        if count! == NSNotFound {
+            count = nil
+        }
+
         return (count:count, error:error)
     }
 
-    func count() -> Int {
+    func count() -> Int? {
         return count().count
     }
 
