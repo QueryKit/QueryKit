@@ -163,7 +163,7 @@ class QuerySetTests: XCTestCase {
         var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
         var count = qs.count().count
 
-        XCTAssertEqual(count, 2)
+        XCTAssertEqual(count!, 2)
     }
 
     func testCountWithoutError() {
