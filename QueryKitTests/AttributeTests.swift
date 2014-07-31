@@ -51,32 +51,32 @@ class AttributeTests: XCTestCase {
 
     func testEqualityOperator() {
         var predicate:NSPredicate = (attribute == 10)
-        XCTAssertEqualObjects(predicate, NSPredicate(format:"age == 10"))
+        XCTAssertEqual(predicate, NSPredicate(format:"age == 10"))
     }
 
     func testInequalityOperator() {
         var predicate:NSPredicate = (attribute != 10)
-        XCTAssertEqualObjects(predicate, NSPredicate(format:"age != 10"))
+        XCTAssertEqual(predicate, NSPredicate(format:"age != 10"))
     }
 
     func testGreaterThanOperator() {
         var predicate:NSPredicate = (attribute > 10)
-        XCTAssertEqualObjects(predicate, NSPredicate(format:"age > 10"))
+        XCTAssertEqual(predicate, NSPredicate(format:"age > 10"))
     }
 
     func testGreaterOrEqualThanOperator() {
         var predicate:NSPredicate = (attribute >= 10)
-        XCTAssertEqualObjects(predicate, NSPredicate(format:"age >= 10"))
+        XCTAssertEqual(predicate, NSPredicate(format:"age >= 10"))
     }
 
     func testLessThanOperator() {
         var predicate:NSPredicate = (attribute < 10)
-        XCTAssertEqualObjects(predicate, NSPredicate(format:"age < 10"))
+        XCTAssertEqual(predicate, NSPredicate(format:"age < 10"))
     }
 
     func testLessOrEqualThanOperator() {
         var predicate:NSPredicate = (attribute <= 10)
-        XCTAssertEqualObjects(predicate, NSPredicate(format:"age <= 10"))
+        XCTAssertEqual(predicate, NSPredicate(format:"age <= 10"))
     }
 }
 
