@@ -40,27 +40,27 @@ func == <T>(lhs: Attribute<T>, rhs: Attribute<T>) -> Bool {
 }
 
 @infix func == <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression == NSExpression(forConstantValue: bridgeToObjectiveC(right))
+    return left.expression == NSExpression(forConstantValue: right as NSObject)
 }
 
 @infix func != <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression != NSExpression(forConstantValue: bridgeToObjectiveC(right))
+    return left.expression != NSExpression(forConstantValue: right as NSObject)
 }
 
 @infix func > <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression > NSExpression(forConstantValue: bridgeToObjectiveC(right))
+    return left.expression > NSExpression(forConstantValue: right as NSObject)
 }
 
 @infix func >= <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression >= NSExpression(forConstantValue: bridgeToObjectiveC(right))
+    return left.expression >= NSExpression(forConstantValue: right as NSObject)
 }
 
 @infix func < <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression < NSExpression(forConstantValue: bridgeToObjectiveC(right))
+    return left.expression < NSExpression(forConstantValue: right as NSObject)
 }
 
 @infix func <= <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression <= NSExpression(forConstantValue: bridgeToObjectiveC(right))
+    return left.expression <= NSExpression(forConstantValue: right as NSObject)
 }
 
 // Bool Attributes
