@@ -8,83 +8,108 @@
 
 import Foundation
 
-class Attribute<T> : Equatable {
-    let name:String
+public protocol NSObjectConvertible {
+    func toNSObject() -> NSObject
+}
+extension Int: NSObjectConvertible {
+    public func toNSObject() -> NSObject {
+        return self as NSObject
+    }
+}
+extension Bool: NSObjectConvertible {
+    public func toNSObject() -> NSObject {
+        return self as NSObject
+    }
+}
+extension NSObject: NSObjectConvertible {
+    public func toNSObject() -> NSObject {
+        return self
+    }
+}
 
-    init(_ name:String) {
+public class Attribute<T: NSObjectConvertible> : Equatable {
+    public let name:String
+
+    public init(_ name:String) {
         self.name = name
     }
 
     /// Builds a compound attribute with other key paths
-    convenience init(attributes:Array<String>) {
+    public convenience init(attributes:Array<String>) {
         self.init(".".join(attributes))
     }
 
     // Sorting
 
-    var expression:NSExpression {
+    public var expression:NSExpression {
         return NSExpression(forKeyPath: name)
     }
 
-    func ascending() -> NSSortDescriptor {
+    public func ascending() -> NSSortDescriptor {
         return NSSortDescriptor(key: name, ascending: true)
     }
 
-    func descending() -> NSSortDescriptor {
+    public func descending() -> NSSortDescriptor {
         return NSSortDescriptor(key: name, ascending: false)
     }
 }
 
-func == <T>(lhs: Attribute<T>, rhs: Attribute<T>) -> Bool {
+public func == <T>(lhs: Attribute<T>, rhs: Attribute<T>) -> Bool {
     return lhs.name == rhs.name
 }
 
-@infix func == <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression == NSExpression(forConstantValue: bridgeToObjectiveC(right))
+private func bridgeToObjCAndCompare<T>(left: Attribute<T>, right: T, compare: (NSExpression,NSExpression) -> NSPredicate) -> NSPredicate {
+    return compare(left.expression, NSExpression(forConstantValue: right.toNSObject()))
 }
 
-@infix func != <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression != NSExpression(forConstantValue: bridgeToObjectiveC(right))
+@infix public func == <T>(left: Attribute<T>, right: T) -> NSPredicate {
+    return bridgeToObjCAndCompare(left, right, ==)
 }
 
-@infix func > <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression > NSExpression(forConstantValue: bridgeToObjectiveC(right))
+@infix public func != <T>(left: Attribute<T>, right: T) -> NSPredicate {
+    return bridgeToObjCAndCompare(left, right, !=)
 }
 
-@infix func >= <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression >= NSExpression(forConstantValue: bridgeToObjectiveC(right))
+@infix public func > <T>(left: Attribute<T>, right: T) -> NSPredicate {
+    return bridgeToObjCAndCompare(left, right, >)
 }
 
-@infix func < <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression < NSExpression(forConstantValue: bridgeToObjectiveC(right))
+@infix public func >= <T>(left: Attribute<T>, right: T) -> NSPredicate {
+    return bridgeToObjCAndCompare(left, right, >=)
 }
 
-@infix func <= <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression <= NSExpression(forConstantValue: bridgeToObjectiveC(right))
+@infix public func < <T>(left: Attribute<T>, right: T) -> NSPredicate {
+    return bridgeToObjCAndCompare(left, right, <)
+}
+
+@infix public func <= <T>(left: Attribute<T>, right: T) -> NSPredicate {
+    return bridgeToObjCAndCompare(left, right, <=)
 }
 
 // Bool Attributes
 
-@prefix func ! (left: Attribute<Bool>) -> NSPredicate {
-    return left == false
+@prefix public func ! (left: Attribute<Bool>) -> NSPredicate {
+    return (left == false) as NSPredicate
 }
 
 extension QuerySet {
-    func filter(attribute:Attribute<Bool>) -> QuerySet<T> {
-        return filter(attribute == true)
+    public func filter(attribute:Attribute<Bool>) -> QuerySet<T> {
+        let pred: NSPredicate = (attribute == true)
+        return filter(pred)
     }
 
-    func exclude(attribute:Attribute<Bool>) -> QuerySet<T> {
-        return filter(attribute == false)
+    public func exclude(attribute:Attribute<Bool>) -> QuerySet<T> {
+        let pred: NSPredicate = (attribute == false)
+        return filter(pred)
     }
 }
 
 // Collections
 
-func count(attribute:Attribute<NSSet>) -> Attribute<Int> {
+public func count(attribute:Attribute<NSSet>) -> Attribute<Int> {
     return Attribute<Int>(attributes: [attribute.name, "@count"])
 }
 
-func count(attribute:Attribute<NSOrderedSet>) -> Attribute<Int> {
+public func count(attribute:Attribute<NSOrderedSet>) -> Attribute<Int> {
     return Attribute<Int>(attributes: [attribute.name, "@count"])
 }

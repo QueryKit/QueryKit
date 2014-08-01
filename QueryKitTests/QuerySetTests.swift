@@ -38,13 +38,13 @@ class QuerySetTests: XCTestCase {
     func testOrderBySortDescriptor() {
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         var qs = queryset.orderBy(sortDescriptor)
-        XCTAssertEqualObjects(qs.sortDescriptors, [sortDescriptor])
+        XCTAssertTrue(qs.sortDescriptors == [sortDescriptor])
     }
 
     func testOrderBySortDescriptors() {
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         var qs = queryset.orderBy([sortDescriptor])
-        XCTAssertEqualObjects(qs.sortDescriptors, [sortDescriptor])
+        XCTAssertTrue(qs.sortDescriptors == [sortDescriptor])
     }
 
     // Filtering
@@ -52,7 +52,7 @@ class QuerySetTests: XCTestCase {
     func testFilterPredicate() {
         let predicate = NSPredicate(format: "name == Kyle")
         var qs = queryset.filter(predicate)
-        XCTAssertEqualObjects(qs.predicate, predicate)
+        XCTAssertEqual(qs.predicate!, predicate)
     }
 
     func testFilterPredicates() {
@@ -60,7 +60,7 @@ class QuerySetTests: XCTestCase {
         let predicateAge = NSPredicate(format: "age > 27")
 
         var qs = queryset.filter([predicateName, predicateAge])
-        XCTAssertEqualObjects(qs.predicate, NSPredicate(format: "name == Kyle AND age > 27"))
+        XCTAssertEqual(qs.predicate!, NSPredicate(format: "name == Kyle AND age > 27"))
     }
 
     // Exclusion
@@ -68,7 +68,7 @@ class QuerySetTests: XCTestCase {
     func testExcludePredicate() {
         let predicate = NSPredicate(format: "name == Kyle")
         var qs = queryset.exclude(predicate)
-        XCTAssertEqualObjects(qs.predicate, NSPredicate(format: "NOT name == Kyle"))
+        XCTAssertEqual(qs.predicate!, NSPredicate(format: "NOT name == Kyle"))
     }
 
     func testExcludePredicates() {
@@ -76,19 +76,19 @@ class QuerySetTests: XCTestCase {
         let predicateAge = NSPredicate(format: "age > 27")
 
         var qs = queryset.exclude([predicateName, predicateAge])
-        XCTAssertEqualObjects(qs.predicate, NSPredicate(format: "NOT (name == Kyle AND age > 27)"))
+        XCTAssertEqual(qs.predicate!, NSPredicate(format: "NOT (name == Kyle AND age > 27)"))
     }
 
     // Boolean attribute filtering and exclusion
 
     func testFilterBooleanAttribute() {
         let qs = queryset.filter(Attribute<Bool>("isEmployed"))
-        XCTAssertEqualObjects(qs.predicate, NSPredicate(format: "isEmployed == YES"))
+        XCTAssertEqual(qs.predicate!, NSPredicate(format: "isEmployed == YES"))
     }
 
     func testExcludeBooleanAttribute() {
         let qs = queryset.exclude(Attribute<Bool>("isEmployed"))
-        XCTAssertEqualObjects(qs.predicate, NSPredicate(format: "isEmployed == NO"))
+        XCTAssertEqual(qs.predicate!, NSPredicate(format: "isEmployed == NO"))
     }
 
     // Fetch Request
@@ -100,9 +100,9 @@ class QuerySetTests: XCTestCase {
 
         let fetchRequest = qs.fetchRequest
 
-        XCTAssertEqualObjects(fetchRequest.entityName, Person.className())
-        XCTAssertEqualObjects(fetchRequest.predicate, predicate)
-        XCTAssertEqualObjects(fetchRequest.sortDescriptors, [sortDescriptor])
+        XCTAssertEqual(fetchRequest.entityName!, Person.className()!)
+        XCTAssertEqual(fetchRequest.predicate, predicate)
+        XCTAssertTrue(fetchRequest.sortDescriptors! == [sortDescriptor])
         XCTAssertEqual(fetchRequest.fetchOffset, 2)
         XCTAssertEqual(fetchRequest.fetchLimit, 2)
     }
@@ -118,18 +118,18 @@ class QuerySetTests: XCTestCase {
         var orta:Person? = qs[3].object
         var scott:Person? = qs[4]
 
-        XCTAssertEqualObjects(ayaka!.name, "Ayaka")
-        XCTAssertEqualObjects(kyle!.name, "Kyle")
-        XCTAssertEqualObjects(mark!.name, "Mark")
-        XCTAssertEqualObjects(orta!.name, "Orta")
-        XCTAssertEqualObjects(scott!.name, "Scott")
+        XCTAssertEqual(ayaka!.name, "Ayaka")
+        XCTAssertEqual(kyle!.name, "Kyle")
+        XCTAssertEqual(mark!.name, "Mark")
+        XCTAssertEqual(orta!.name, "Orta")
+        XCTAssertEqual(scott!.name, "Scott")
     }
 
     func testSubscriptingRange() {
         var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...2]
 
-        XCTAssertEqualObjects(qs.range!.startIndex, 0)
-        XCTAssertEqualObjects(qs.range!.endIndex, 3)
+        XCTAssertEqual(qs.range!.startIndex, 0)
+        XCTAssertEqual(qs.range!.endIndex, 3)
     }
 
     func testSubscriptingRangeSubscriptsCurrentRange() {
@@ -137,8 +137,8 @@ class QuerySetTests: XCTestCase {
         qs = qs[2...5]
         qs = qs[2...4]
 
-        XCTAssertEqualObjects(qs.range!.startIndex, 4)
-        XCTAssertEqualObjects(qs.range!.endIndex, 5)
+        XCTAssertEqual(qs.range!.startIndex, 4)
+        XCTAssertEqual(qs.range!.endIndex, 5)
     }
 
     // Conversion
@@ -163,7 +163,7 @@ class QuerySetTests: XCTestCase {
         var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
         var count = qs.count().count
 
-        XCTAssertEqual(count, 2)
+        XCTAssertEqual(count!, 2)
     }
 
     func testCountWithoutError() {
