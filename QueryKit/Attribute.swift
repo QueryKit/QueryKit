@@ -8,7 +8,26 @@
 
 import Foundation
 
-public class Attribute<T> : Equatable {
+public protocol NSObjectConvertible {
+    func toNSObject() -> NSObject
+}
+extension Int: NSObjectConvertible {
+    public func toNSObject() -> NSObject {
+        return self as NSObject
+    }
+}
+extension Bool: NSObjectConvertible {
+    public func toNSObject() -> NSObject {
+        return self as NSObject
+    }
+}
+extension NSObject: NSObjectConvertible {
+    public func toNSObject() -> NSObject {
+        return self
+    }
+}
+
+public class Attribute<T: NSObjectConvertible> : Equatable {
     public let name:String
 
     public init(_ name:String) {
@@ -39,47 +58,31 @@ public func == <T>(lhs: Attribute<T>, rhs: Attribute<T>) -> Bool {
     return lhs.name == rhs.name
 }
 
-private func bridgeToObjC<T>(value: T) -> NSObject? {
-    if value as? NSObject {
-        return (value as NSObject) // This seems to always fail in Xcode 6 beta 4 ??
-    }
-    if value as? Int {
-        return value as Int as NSObject
-    }
-    if value as? Bool {
-        return value as Bool as NSObject
-    }
-    println("\(value) not convertible to Objective-C")
-    return nil
-}
-private func bridgeToObjCAndCompare<T>(left: Attribute<T>, right: T, compare: (NSExpression,NSExpression) -> NSPredicate) -> NSPredicate! {
-    if let obj = bridgeToObjC(right) {
-        return compare(left.expression, NSExpression(forConstantValue: obj))
-    }
-    return nil
+private func bridgeToObjCAndCompare<T>(left: Attribute<T>, right: T, compare: (NSExpression,NSExpression) -> NSPredicate) -> NSPredicate {
+    return compare(left.expression, NSExpression(forConstantValue: right.toNSObject()))
 }
 
-@infix public func == <T>(left: Attribute<T>, right: T) -> NSPredicate! {
+@infix public func == <T>(left: Attribute<T>, right: T) -> NSPredicate {
     return bridgeToObjCAndCompare(left, right, ==)
 }
 
-@infix public func != <T>(left: Attribute<T>, right: T) -> NSPredicate! {
+@infix public func != <T>(left: Attribute<T>, right: T) -> NSPredicate {
     return bridgeToObjCAndCompare(left, right, !=)
 }
 
-@infix public func > <T>(left: Attribute<T>, right: T) -> NSPredicate! {
+@infix public func > <T>(left: Attribute<T>, right: T) -> NSPredicate {
     return bridgeToObjCAndCompare(left, right, >)
 }
 
-@infix public func >= <T>(left: Attribute<T>, right: T) -> NSPredicate! {
+@infix public func >= <T>(left: Attribute<T>, right: T) -> NSPredicate {
     return bridgeToObjCAndCompare(left, right, >=)
 }
 
-@infix public func < <T>(left: Attribute<T>, right: T) -> NSPredicate! {
+@infix public func < <T>(left: Attribute<T>, right: T) -> NSPredicate {
     return bridgeToObjCAndCompare(left, right, <)
 }
 
-@infix public func <= <T>(left: Attribute<T>, right: T) -> NSPredicate! {
+@infix public func <= <T>(left: Attribute<T>, right: T) -> NSPredicate {
     return bridgeToObjCAndCompare(left, right, <=)
 }
 
