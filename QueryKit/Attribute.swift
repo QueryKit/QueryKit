@@ -39,28 +39,28 @@ public @infix func == <T>(lhs: Attribute<T>, rhs: Attribute<T>) -> Bool {
     return lhs.name == rhs.name
 }
 
-public @infix func == <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression == NSExpression(forConstantValue: bridgeToObjectiveC(right))
+public @infix func == <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
+    return left.expression == NSExpression(forConstantValue: right as NSObject)
 }
 
-public @infix func != <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression != NSExpression(forConstantValue: bridgeToObjectiveC(right))
+public @infix func != <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
+    return left.expression != NSExpression(forConstantValue: right as NSObject)
 }
 
-public @infix func > <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression > NSExpression(forConstantValue: bridgeToObjectiveC(right))
+public @infix func > <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
+    return left.expression > NSExpression(forConstantValue: right as NSObject)
 }
 
-public @infix func >= <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression >= NSExpression(forConstantValue: bridgeToObjectiveC(right))
+public @infix func >= <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
+    return left.expression >= NSExpression(forConstantValue: right as NSObject)
 }
 
-public @infix func < <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression < NSExpression(forConstantValue: bridgeToObjectiveC(right))
+public @infix func < <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
+    return left.expression < NSExpression(forConstantValue: right as NSObject)
 }
 
-public @infix func <= <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression <= NSExpression(forConstantValue: bridgeToObjectiveC(right))
+public @infix func <= <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
+    return left.expression <= NSExpression(forConstantValue: right as NSObject)
 }
 
 // Bool Attributes
