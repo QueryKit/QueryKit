@@ -8,14 +8,14 @@
 
 import Foundation
 
-public @infix func && (left: NSPredicate, right: NSPredicate) -> NSPredicate {
+public func && (left: NSPredicate, right: NSPredicate) -> NSPredicate {
     return NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: [left, right])
 }
 
-public @infix func || (left: NSPredicate, right: NSPredicate) -> NSPredicate {
+public func || (left: NSPredicate, right: NSPredicate) -> NSPredicate {
     return NSCompoundPredicate(type: NSCompoundPredicateType.OrPredicateType, subpredicates: [left, right])
 }
 
-@prefix public func ! (left: NSPredicate) -> NSPredicate {
+prefix public func ! (left: NSPredicate) -> NSPredicate {
     return NSCompoundPredicate(type: NSCompoundPredicateType.NotPredicateType, subpredicates: [left])
 }

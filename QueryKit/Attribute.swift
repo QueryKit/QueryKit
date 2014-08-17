@@ -35,37 +35,37 @@ public class Attribute<T> : Equatable {
     }
 }
 
-public @infix func == <T>(lhs: Attribute<T>, rhs: Attribute<T>) -> Bool {
+public func == <T>(lhs: Attribute<T>, rhs: Attribute<T>) -> Bool {
     return lhs.name == rhs.name
 }
 
-public @infix func == <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
+public func == <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
     return left.expression == NSExpression(forConstantValue: right as NSObject)
 }
 
-public @infix func != <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
+public func != <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
     return left.expression != NSExpression(forConstantValue: right as NSObject)
 }
 
-public @infix func > <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
+public func > <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
     return left.expression > NSExpression(forConstantValue: right as NSObject)
 }
 
-public @infix func >= <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
+public func >= <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
     return left.expression >= NSExpression(forConstantValue: right as NSObject)
 }
 
-public @infix func < <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
+public func < <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
     return left.expression < NSExpression(forConstantValue: right as NSObject)
 }
 
-public @infix func <= <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
+public func <= <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
     return left.expression <= NSExpression(forConstantValue: right as NSObject)
 }
 
 // Bool Attributes
 
-@prefix public func ! (left: Attribute<Bool>) -> NSPredicate {
+prefix public func ! (left: Attribute<Bool>) -> NSPredicate {
     return left == false
 }
 
