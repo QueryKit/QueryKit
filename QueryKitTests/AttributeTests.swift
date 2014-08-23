@@ -23,7 +23,7 @@ class AttributeTests: XCTestCase {
     }
 
     func testAttributeExpression() {
-        XCTAssertEqual(attribute.expression.keyPath!, "age")
+        XCTAssertEqual(attribute.expression.keyPath, "age")
     }
 
     func testEqualAttributesAreEquatable() {
@@ -34,7 +34,7 @@ class AttributeTests: XCTestCase {
         let personCompanyNameAttribute = Attribute<NSString>(attributes:["company", "name"])
 
         XCTAssertEqual(personCompanyNameAttribute.name, "company.name")
-        XCTAssertEqual(personCompanyNameAttribute.expression.keyPath!, "company.name")
+        XCTAssertEqual(personCompanyNameAttribute.expression.keyPath, "company.name")
     }
 
     // Sorting
