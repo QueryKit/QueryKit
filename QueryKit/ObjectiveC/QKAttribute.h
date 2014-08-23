@@ -16,10 +16,10 @@
 @property (nonatomic, strong, readonly) NSString *name;
 
 /// Initialized the attribute from multiple other attributes
-- (instancetype)initWithAttributes:(QKAttribute *)attribute, ... NS_REQUIRES_NIL_TERMINATION NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithAttributes:(QKAttribute *)attribute, ... NS_REQUIRES_NIL_TERMINATION;
 
 /// Initialized the attribute with the given name
-- (instancetype)initWithName:(NSString *)name __attribute((nonnull)) NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithName:(NSString *)name __attribute((nonnull));
 
 /** Returns a Boolean value that indicates whether a given attribute is equal to the receiver
  @param attribute The attribute to compare against the receiver
