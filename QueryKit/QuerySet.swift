@@ -10,15 +10,23 @@ import Foundation
 import CoreData
 
 
+/// Represents a lazy database lookup for a set of objects.
 public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
+    /// Returns the managed object context that will be used to execute any requests.
     public let context:NSManagedObjectContext
+
+    /// Returns the name of the entity the request is configured to fetch.
     public let entityName:String
 
+    /// Returns the sort descriptors of the receiver.
     public let sortDescriptors = [NSSortDescriptor]()
+
+    /// Returns the predicate of the receiver.
     public let predicate:NSPredicate?
+
     public let range:Range<Int>?
 
-    // Initialization
+    // MARK: Initialization
 
     public init(_ context:NSManagedObjectContext, _ entityName:String) {
         self.context = context
@@ -37,18 +45,21 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
         self.range = range
     }
 
-    // Sorting
+    // MARK: Sorting
 
+    /// Returns a new QuerySet containing objects ordered by the given sort descriptor.
     public func orderBy(sortDescriptor:NSSortDescriptor) -> QuerySet<T> {
         return orderBy([sortDescriptor])
     }
 
+    /// Returns a new QuerySet containing objects ordered by the given sort descriptors.
     public func orderBy(sortDescriptors:[NSSortDescriptor]) -> QuerySet<T> {
         return QuerySet(queryset:self, sortDescriptors:sortDescriptors, predicate:predicate, range:range)
     }
 
-    // Filtering
+    // MARK: Filtering
 
+    /// Returns a new QuerySet containing objects that match the given predicate.
     public func filter(predicate:NSPredicate) -> QuerySet<T> {
         var futurePredicate = predicate
 
@@ -59,22 +70,25 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
         return QuerySet(queryset:self, sortDescriptors:sortDescriptors, predicate:futurePredicate, range:range)
     }
 
+    /// Returns a new QuerySet containing objects that match the given predicates.
     public func filter(predicates:[NSPredicate]) -> QuerySet<T> {
         let newPredicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: predicates)
         return filter(newPredicate)
     }
 
+    /// Returns a new QuerySet containing objects that exclude the given predicate.
     public func exclude(predicate:NSPredicate) -> QuerySet<T> {
         let excludePredicate = NSCompoundPredicate(type: NSCompoundPredicateType.NotPredicateType, subpredicates: [predicate])
         return filter(excludePredicate)
     }
 
+    /// Returns a new QuerySet containing objects that exclude the given predicates.
     public func exclude(predicates:[NSPredicate]) -> QuerySet<T> {
         let excludePredicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: predicates)
         return exclude(excludePredicate)
     }
 
-    // Subscripting
+    // MARK: Subscripting
 
     public subscript(index: Int) -> (object:T?, error:NSError?) {
         get {
@@ -89,6 +103,7 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
         }
     }
 
+    /// Returns the object at the specified index.
     public subscript(index: Int) -> T? {
         get {
             return self[index].object
@@ -107,7 +122,7 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
         }
     }
 
-    // Conversion
+    // MARK: Conversion
 
     public var fetchRequest:NSFetchRequest {
         var request = NSFetchRequest(entityName:entityName)
@@ -132,7 +147,7 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
         return array().objects
     }
 
-    // Count
+    // MARK: Count
 
     public func count() -> (count:Int?, error:NSError?) {
         var error:NSError?
@@ -145,12 +160,14 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
         return (count:count, error:error)
     }
 
+    /// Returns the count of objects matching the QuerySet.
     public func count() -> Int? {
         return count().count
     }
 
-    // Deletion
+    // MARK: Deletion
 
+    /// Deletes all the objects matching the QuerySet.
     public func delete() -> (count:Int, error:NSError?) {
         var result = array() as (objects:([T]?), error:NSError?)
         var deletedCount = 0
@@ -166,7 +183,7 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
         return (count:deletedCount, error:result.error)
     }
 
-    // Sequence
+    // MARK: Sequence
 
     public func generate() -> IndexingGenerator<Array<T>> {
         var result = self.array() as (objects:([T]?), error:NSError?)

@@ -20,11 +20,11 @@ public class Attribute<T> : Equatable {
         self.init(".".join(attributes))
     }
 
-    // Sorting
-
     public var expression:NSExpression {
         return NSExpression(forKeyPath: name)
     }
+
+    // MARK: Sorting
 
     public func ascending() -> NSSortDescriptor {
         return NSSortDescriptor(key: name, ascending: true)
@@ -63,7 +63,7 @@ public func <= <T>(left: Attribute<T>, right: AnyObject) -> NSPredicate {
     return left.expression <= NSExpression(forConstantValue: right as NSObject)
 }
 
-// Bool Attributes
+/// MARK: Bool Attributes
 
 prefix public func ! (left: Attribute<Bool>) -> NSPredicate {
     return left == false
@@ -79,7 +79,7 @@ public extension QuerySet {
     }
 }
 
-// Collections
+// MARK: Collections
 
 public func count(attribute:Attribute<NSSet>) -> Attribute<Int> {
     return Attribute<Int>(attributes: [attribute.name, "@count"])
