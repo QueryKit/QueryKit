@@ -57,6 +57,11 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
         return QuerySet(queryset:self, sortDescriptors:sortDescriptors, predicate:predicate, range:range)
     }
 
+    /// Reverses the ordering of the QuerySet
+    public func reverse() -> QuerySet<T> {
+        return QuerySet(queryset:self, sortDescriptors:sortDescriptors.reverse(), predicate:predicate, range:range)
+    }
+
     // MARK: Filtering
 
     /// Returns a new QuerySet containing objects that match the given predicate.

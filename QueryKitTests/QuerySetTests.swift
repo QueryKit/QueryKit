@@ -47,6 +47,14 @@ class QuerySetTests: XCTestCase {
         XCTAssertTrue(qs.sortDescriptors == [sortDescriptor])
     }
 
+    func testReverseOrdering() {
+        let nameSortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        let ageSortDescriptor = NSSortDescriptor(key: "age", ascending: true)
+        let qs = queryset.orderBy([nameSortDescriptor, ageSortDescriptor]).reverse()
+
+        XCTAssertEqual(qs.sortDescriptors, [ageSortDescriptor, nameSortDescriptor])
+    }
+
     // MARK: Filtering
 
     func testFilterPredicate() {
