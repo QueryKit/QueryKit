@@ -33,7 +33,7 @@ class QuerySetTests: XCTestCase {
         XCTAssertEqual(queryset, QuerySet(context, "Person"))
     }
 
-    // Sorting
+    // MARK: Sorting
 
     func testOrderBySortDescriptor() {
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
@@ -47,7 +47,7 @@ class QuerySetTests: XCTestCase {
         XCTAssertTrue(qs.sortDescriptors == [sortDescriptor])
     }
 
-    // Filtering
+    // MARK: Filtering
 
     func testFilterPredicate() {
         let predicate = NSPredicate(format: "name == Kyle")
@@ -63,7 +63,12 @@ class QuerySetTests: XCTestCase {
         XCTAssertEqual(qs.predicate!, NSPredicate(format: "name == Kyle AND age > 27"))
     }
 
-    // Exclusion
+    func testFilterBooleanAttribute() {
+        let qs = queryset.filter(Attribute<Bool>("isEmployed"))
+        XCTAssertEqual(qs.predicate!, NSPredicate(format: "isEmployed == YES"))
+    }
+
+    // MARK: Exclusion
 
     func testExcludePredicate() {
         let predicate = NSPredicate(format: "name == Kyle")
@@ -77,13 +82,6 @@ class QuerySetTests: XCTestCase {
 
         var qs = queryset.exclude([predicateName, predicateAge])
         XCTAssertEqual(qs.predicate!, NSPredicate(format: "NOT (name == Kyle AND age > 27)"))
-    }
-
-    // Boolean attribute filtering and exclusion
-
-    func testFilterBooleanAttribute() {
-        let qs = queryset.filter(Attribute<Bool>("isEmployed"))
-        XCTAssertEqual(qs.predicate!, NSPredicate(format: "isEmployed == YES"))
     }
 
     func testExcludeBooleanAttribute() {
@@ -107,7 +105,7 @@ class QuerySetTests: XCTestCase {
         XCTAssertEqual(fetchRequest.fetchLimit, 2)
     }
 
-    // Subscripting
+    // MARK: Subscripting
 
     func testSubscriptingAtIndex() {
         var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
@@ -141,7 +139,7 @@ class QuerySetTests: XCTestCase {
         XCTAssertEqual(qs.range!.endIndex, 5)
     }
 
-    // Conversion
+    // MARK: Conversion
 
     func testConversionToArray() {
         var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
@@ -157,7 +155,7 @@ class QuerySetTests: XCTestCase {
         XCTAssertEqual(people!.count, 2)
     }
 
-    // Count
+    // MARK: Count
 
     func testCount() {
         var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
@@ -173,7 +171,7 @@ class QuerySetTests: XCTestCase {
         XCTAssertEqual(count!, 2)
     }
 
-    // Deletion
+    // MARK: Deletion
 
     func testDelete() {
         var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
@@ -185,7 +183,7 @@ class QuerySetTests: XCTestCase {
         XCTAssertEqual(count!, 3)
     }
 
-    // Sequence
+    // MARK: Sequence
 
     func testSequence() {
         var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
