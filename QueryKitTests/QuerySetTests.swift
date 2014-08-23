@@ -179,6 +179,18 @@ class QuerySetTests: XCTestCase {
         XCTAssertEqual(count!, 2)
     }
 
+    // MARK: Exists
+
+    func testExistsReturnsTrueWithMatchingObjects()  {
+        let qs = queryset.filter(NSPredicate(format: "name == %@", "Kyle"))
+        XCTAssertTrue(qs.exists()!)
+    }
+
+    func testExistsReturnsFalseWithNoMatchingObjects()  {
+        let qs = queryset.filter(NSPredicate(format: "name == %@", "None"))
+        XCTAssertFalse(qs.exists()!)
+    }
+
     // MARK: Deletion
 
     func testDelete() {

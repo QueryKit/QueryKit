@@ -170,6 +170,21 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
         return count().count
     }
 
+    // MARK: Exists
+
+    /** Returns true if the QuerySet contains any results, and false if not.
+    :note: Returns nil if the operation could not be completed.
+    */
+    public func exists() -> Bool? {
+        let result:Int? = count()
+
+        if let result = result {
+            return result > 0
+        }
+
+        return nil
+    }
+
     // MARK: Deletion
 
     /// Deletes all the objects matching the QuerySet.
