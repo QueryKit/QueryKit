@@ -18,7 +18,6 @@ class QKAttributeTests: XCTestCase {
         attribute = QKAttribute(name: "age")
     }
 
-
     func testAttributeHasName() {
         XCTAssertEqual(attribute.name, "age")
     }
