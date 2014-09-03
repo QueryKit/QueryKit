@@ -7,10 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		77007D7D19A95CDE007DC2BC /* QKQuerySetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77007D7C19A95CDE007DC2BC /* QKQuerySetTests.swift */; };
+		77007D8119A95CE9007DC2BC /* QKQuerySet.h in Headers */ = {isa = PBXBuildFile; fileRef = 77007D7E19A95CE9007DC2BC /* QKQuerySet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		77007D8219A95CE9007DC2BC /* QKQuerySet.m in Sources */ = {isa = PBXBuildFile; fileRef = 77007D7F19A95CE9007DC2BC /* QKQuerySet.m */; };
+		77007D8319A95CE9007DC2BC /* QKQuerySet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77007D8019A95CE9007DC2BC /* QKQuerySet.swift */; };
+		775E2A1B19B4981E007FE5BA /* QKQuerySetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 775E2A1A19B4981E007FE5BA /* QKQuerySetTests.m */; };
 		77A9B67F195374490016654E /* QueryKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77A9B67E195374490016654E /* QueryKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77A9B685195374490016654E /* QueryKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A9B679195374490016654E /* QueryKit.framework */; };
 		77A9B68C195374490016654E /* QueryKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A9B68B195374490016654E /* QueryKitTests.swift */; };
 		77A9B698195374AA0016654E /* QueryKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A9B697195374AA0016654E /* QueryKit.swift */; };
+		77B17B8519A94C9100D6540D /* QKAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 77B17B8319A94C9100D6540D /* QKAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		77B17B8619A94C9100D6540D /* QKAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B17B8419A94C9100D6540D /* QKAttribute.m */; };
+		77B17B8819A94D2C00D6540D /* QKAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B17B8719A94D2C00D6540D /* QKAttribute.swift */; };
+		77B17B8B19A94D4C00D6540D /* QKAttributeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B17B8A19A94D4C00D6540D /* QKAttributeTests.swift */; };
 		77E3A05D1969C019009372A8 /* QuerySet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3A05C1969C019009372A8 /* QuerySet.swift */; };
 		77E3A05F1969C047009372A8 /* QuerySetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3A05E1969C047009372A8 /* QuerySetTests.swift */; };
 		77E3A0611969DDF5009372A8 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3A0601969DDF5009372A8 /* Expression.swift */; };
@@ -53,6 +62,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		77007D7C19A95CDE007DC2BC /* QKQuerySetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QKQuerySetTests.swift; sourceTree = "<group>"; };
+		77007D7E19A95CE9007DC2BC /* QKQuerySet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QKQuerySet.h; sourceTree = "<group>"; };
+		77007D7F19A95CE9007DC2BC /* QKQuerySet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QKQuerySet.m; sourceTree = "<group>"; };
+		77007D8019A95CE9007DC2BC /* QKQuerySet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QKQuerySet.swift; sourceTree = "<group>"; };
+		775E2A1919B4981D007FE5BA /* QueryKitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QueryKitTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		775E2A1A19B4981E007FE5BA /* QKQuerySetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QKQuerySetTests.m; sourceTree = "<group>"; };
 		77A9B679195374490016654E /* QueryKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QueryKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77A9B67D195374490016654E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77A9B67E195374490016654E /* QueryKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryKit.h; sourceTree = "<group>"; };
@@ -60,6 +75,10 @@
 		77A9B68A195374490016654E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77A9B68B195374490016654E /* QueryKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryKitTests.swift; sourceTree = "<group>"; };
 		77A9B697195374AA0016654E /* QueryKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryKit.swift; sourceTree = "<group>"; };
+		77B17B8319A94C9100D6540D /* QKAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QKAttribute.h; sourceTree = "<group>"; };
+		77B17B8419A94C9100D6540D /* QKAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QKAttribute.m; sourceTree = "<group>"; };
+		77B17B8719A94D2C00D6540D /* QKAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QKAttribute.swift; sourceTree = "<group>"; };
+		77B17B8A19A94D4C00D6540D /* QKAttributeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QKAttributeTests.swift; sourceTree = "<group>"; };
 		77E3A05C1969C019009372A8 /* QuerySet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuerySet.swift; sourceTree = "<group>"; };
 		77E3A05E1969C047009372A8 /* QuerySetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuerySetTests.swift; sourceTree = "<group>"; };
 		77E3A0601969DDF5009372A8 /* Expression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
@@ -116,6 +135,7 @@
 				77E8728019539C0900A6F13F /* Attribute.swift */,
 				77E3A0601969DDF5009372A8 /* Expression.swift */,
 				77E8728619539FD200A6F13F /* Predicate.swift */,
+				77B17B8219A94C9100D6540D /* ObjectiveC */,
 				77A9B67C195374490016654E /* Supporting Files */,
 			);
 			path = QueryKit;
@@ -136,6 +156,7 @@
 				77E3A05E1969C047009372A8 /* QuerySetTests.swift */,
 				77E3A0621969E003009372A8 /* ExpressionTests.swift */,
 				77E8728219539C2A00A6F13F /* AttributeTests.swift */,
+				77B17B8919A94D4C00D6540D /* ObjectiveC */,
 				77A9B689195374490016654E /* Supporting Files */,
 			);
 			path = QueryKitTests;
@@ -150,6 +171,30 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		77B17B8219A94C9100D6540D /* ObjectiveC */ = {
+			isa = PBXGroup;
+			children = (
+				77B17B8319A94C9100D6540D /* QKAttribute.h */,
+				77B17B8419A94C9100D6540D /* QKAttribute.m */,
+				77B17B8719A94D2C00D6540D /* QKAttribute.swift */,
+				77007D7E19A95CE9007DC2BC /* QKQuerySet.h */,
+				77007D7F19A95CE9007DC2BC /* QKQuerySet.m */,
+				77007D8019A95CE9007DC2BC /* QKQuerySet.swift */,
+			);
+			path = ObjectiveC;
+			sourceTree = "<group>";
+		};
+		77B17B8919A94D4C00D6540D /* ObjectiveC */ = {
+			isa = PBXGroup;
+			children = (
+				775E2A1919B4981D007FE5BA /* QueryKitTests-Bridging-Header.h */,
+				77B17B8A19A94D4C00D6540D /* QKAttributeTests.swift */,
+				775E2A1A19B4981E007FE5BA /* QKQuerySetTests.m */,
+				77007D7C19A95CDE007DC2BC /* QKQuerySetTests.swift */,
+			);
+			path = ObjectiveC;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -158,6 +203,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				77A9B67F195374490016654E /* QueryKit.h in Headers */,
+				77B17B8519A94C9100D6540D /* QKAttribute.h in Headers */,
+				77007D8119A95CE9007DC2BC /* QKQuerySet.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +309,11 @@
 			files = (
 				77E8728119539C0900A6F13F /* Attribute.swift in Sources */,
 				77E8728719539FD200A6F13F /* Predicate.swift in Sources */,
+				77B17B8619A94C9100D6540D /* QKAttribute.m in Sources */,
+				77B17B8819A94D2C00D6540D /* QKAttribute.swift in Sources */,
 				77A9B698195374AA0016654E /* QueryKit.swift in Sources */,
+				77007D8319A95CE9007DC2BC /* QKQuerySet.swift in Sources */,
+				77007D8219A95CE9007DC2BC /* QKQuerySet.m in Sources */,
 				77E3A05D1969C019009372A8 /* QuerySet.swift in Sources */,
 				77E3A0611969DDF5009372A8 /* Expression.swift in Sources */,
 			);
@@ -272,9 +323,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77B17B8B19A94D4C00D6540D /* QKAttributeTests.swift in Sources */,
 				77E8728319539C2A00A6F13F /* AttributeTests.swift in Sources */,
 				77A9B68C195374490016654E /* QueryKitTests.swift in Sources */,
+				77007D7D19A95CDE007DC2BC /* QKQuerySetTests.swift in Sources */,
 				77E3A05F1969C047009372A8 /* QuerySetTests.swift in Sources */,
+				775E2A1B19B4981E007FE5BA /* QKQuerySetTests.m in Sources */,
 				77E8728519539FC000A6F13F /* PredicateTests.swift in Sources */,
 				77E3A0631969E003009372A8 /* ExpressionTests.swift in Sources */,
 			);
@@ -466,6 +520,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "QueryKitTests/ObjectiveC/QueryKitTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -509,6 +564,7 @@
 				METAL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "QueryKitTests/ObjectiveC/QueryKitTests-Bridging-Header.h";
 			};
 			name = Release;
 		};
