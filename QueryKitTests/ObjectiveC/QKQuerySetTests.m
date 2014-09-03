@@ -30,7 +30,7 @@
         [NSSortDescriptor sortDescriptorWithKey:@"age" ascending:NO]
     ];
 
-    self.queryset = [[QKQuerySet alloc] initWithManagedObjectContext:self.managedObjectContext entityDescription:self.entityDescription predicate:predicate sortDescriptors:sortDescriptors];
+    self.queryset = [[QKQuerySet alloc] initWithManagedObjectContext:self.managedObjectContext entityDescription:self.entityDescription predicate:predicate sortDescriptors:sortDescriptors range:NSMakeRange(1, 3)];
 }
 
 - (void)testInitializationWithContextAndEntityDescription {
@@ -79,7 +79,7 @@
         [NSSortDescriptor sortDescriptorWithKey:@"age" ascending:NO]
     ];
 
-    QKQuerySet *queryset = [[QKQuerySet alloc] initWithManagedObjectContext:self.managedObjectContext entityDescription:self.entityDescription predicate:predicate sortDescriptors:sortDescriptors];
+    QKQuerySet *queryset = [[QKQuerySet alloc] initWithManagedObjectContext:self.managedObjectContext entityDescription:self.entityDescription predicate:predicate sortDescriptors:sortDescriptors range:NSMakeRange(1, 3)];
 
     XCTAssertEqualObjects(self.queryset, queryset);
     XCTAssertEqual([self.queryset hash], [queryset hash]);
@@ -134,6 +134,8 @@
     XCTAssertEqualObjects(fetchRequest.entityName, self.entityDescription.name);
     XCTAssertEqualObjects(fetchRequest.predicate, predicate);
     XCTAssertEqualObjects(fetchRequest.sortDescriptors, sortDescriptors);
+    XCTAssertEqual(fetchRequest.fetchOffset, 1);
+    XCTAssertEqual(fetchRequest.fetchLimit, 3);
 }
 
 @end

@@ -21,7 +21,7 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
 #pragma mark - Creation
 
 - (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext entityDescription:(NSEntityDescription *)entityDescription {
-    return [self initWithManagedObjectContext:managedObjectContext entityDescription:entityDescription predicate:nil sortDescriptors:nil];
+    return [self initWithManagedObjectContext:managedObjectContext entityDescription:entityDescription predicate:nil sortDescriptors:nil range:NSMakeRange(NSNotFound, NSNotFound)];
 }
 
 - (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext fetchRequest:(NSFetchRequest *)fetchRequest {
@@ -31,10 +31,10 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
     NSPredicate *predicate = [fetchRequest predicate];
     NSArray *sortDescriptors = [fetchRequest sortDescriptors];
 
-    return [self initWithManagedObjectContext:managedObjectContext entityDescription:entityDescription predicate:predicate sortDescriptors:sortDescriptors];
+    return [self initWithManagedObjectContext:managedObjectContext entityDescription:entityDescription predicate:predicate sortDescriptors:sortDescriptors range:NSMakeRange(NSNotFound, NSNotFound)];
 }
 
-- (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext entityDescription:(NSEntityDescription *)entityDescription predicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors {
+- (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext entityDescription:(NSEntityDescription *)entityDescription predicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors range:(NSRange)range {
     NSParameterAssert(managedObjectContext != nil);
     NSParameterAssert(entityDescription != nil);
 
@@ -43,6 +43,7 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
         _entityDescription = entityDescription;
         _predicate = [predicate copy];
         _sortDescriptors = sortDescriptors? [sortDescriptors copy] : @[];
+        _range = range;
     }
 
     return self;
@@ -76,14 +77,15 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
         [self.managedObjectContext isEqual:[queryset managedObjectContext]] &&
         [self.entityDescription isEqual:[queryset entityDescription]] &&
         [self.predicate isEqual:[queryset predicate]] &&
-        [self.sortDescriptors isEqual:[queryset sortDescriptors]]
+        [self.sortDescriptors isEqual:[queryset sortDescriptors]] &&
+        NSEqualRanges(self.range, queryset.range)
     );
 }
 
 #pragma mark - NSCopying
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    return [[[self class] allocWithZone:zone] initWithManagedObjectContext:self.managedObjectContext entityDescription:self.entityDescription predicate:self.predicate sortDescriptors:self.sortDescriptors];
+    return [[[self class] allocWithZone:zone] initWithManagedObjectContext:self.managedObjectContext entityDescription:self.entityDescription predicate:self.predicate sortDescriptors:self.sortDescriptors range:self.range];
 }
 
 #pragma mark - NSFastEnumeration
@@ -103,6 +105,12 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
     [fetchRequest setEntity:_entityDescription];
     [fetchRequest setPredicate:self.predicate];
     [fetchRequest setSortDescriptors:self.sortDescriptors];
+
+    if (self.range.location != NSNotFound) {
+        fetchRequest.fetchOffset = self.range.location;
+        fetchRequest.fetchLimit = self.range.length;
+    }
+
     return fetchRequest;
 }
 
@@ -195,7 +203,7 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
 @implementation QKQuerySet (Sorting)
 
 - (instancetype)orderBy:(NSArray *)sortDescriptors {
-    return [[QKQuerySet alloc] initWithManagedObjectContext:_managedObjectContext entityDescription:_entityDescription predicate:_predicate sortDescriptors:sortDescriptors];
+    return [[QKQuerySet alloc] initWithManagedObjectContext:_managedObjectContext entityDescription:_entityDescription predicate:_predicate sortDescriptors:sortDescriptors range:self.range];
 }
 
 - (instancetype)reverse {
@@ -205,7 +213,7 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
         [sortDescriptors addObject:[sortDescriptor reversedSortDescriptor]];
     }
 
-    return [[QKQuerySet alloc] initWithManagedObjectContext:_managedObjectContext entityDescription:_entityDescription predicate:_predicate sortDescriptors:sortDescriptors];
+    return [[QKQuerySet alloc] initWithManagedObjectContext:_managedObjectContext entityDescription:_entityDescription predicate:_predicate sortDescriptors:sortDescriptors range:self.range];
 }
 
 @end
@@ -219,7 +227,7 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
         predicate = [[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:@[_predicate, predicate]];
     }
 
-    return [[QKQuerySet alloc] initWithManagedObjectContext:_managedObjectContext entityDescription:_entityDescription predicate:predicate sortDescriptors:_sortDescriptors];
+    return [[QKQuerySet alloc] initWithManagedObjectContext:_managedObjectContext entityDescription:_entityDescription predicate:predicate sortDescriptors:_sortDescriptors range:self.range];
 }
 
 - (instancetype)filter:(NSPredicate *)predicate {
@@ -227,7 +235,7 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
         predicate = [[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:@[_predicate, predicate]];
     }
 
-    return [[QKQuerySet alloc] initWithManagedObjectContext:_managedObjectContext entityDescription:_entityDescription predicate:predicate sortDescriptors:_sortDescriptors];
+    return [[QKQuerySet alloc] initWithManagedObjectContext:_managedObjectContext entityDescription:_entityDescription predicate:predicate sortDescriptors:_sortDescriptors range:self.range];
 }
 
 @end

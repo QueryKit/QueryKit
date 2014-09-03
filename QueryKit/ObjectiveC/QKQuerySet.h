@@ -31,10 +31,13 @@
 /** This is a read only property to hold any sort descriptors set on this object. You can use the `orderBy:` and `reverse` methods to effect this value on a child */
 @property (nonatomic, copy, readonly) NSArray *sortDescriptors;
 
+/** This is a read only property to hold a range set. */
+@property (nonatomic, assign, readonly) NSRange range;
+
 #pragma mark - Creation
 
 - (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext entityDescription:(NSEntityDescription *)entityDescription __attribute((nonnull));
-- (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext entityDescription:(NSEntityDescription *)entityDescription predicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors __attribute((nonnull(1, 2)));
+- (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext entityDescription:(NSEntityDescription *)entityDescription predicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors range:(NSRange)range __attribute((nonnull(1, 2)));
 - (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext fetchRequest:(NSFetchRequest *)fetchRequest __attribute((nonnull));
 
 #pragma mark - Equality
