@@ -104,7 +104,7 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
             var error:NSError?
             let items = context.executeFetchRequest(request, error:&error)
 
-            return (object:items[0] as? T, error:error)
+            return (object:items?[0] as T?, error:error)
         }
     }
 
