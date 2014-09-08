@@ -102,9 +102,11 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
             request.fetchLimit = 1
 
             var error:NSError?
-            let items = context.executeFetchRequest(request, error:&error)
-
-            return (object:items?[0] as T?, error:error)
+            if let items = context.executeFetchRequest(request, error:&error) {
+              return (object:items.first as T?, error:error)
+            } else {
+              return (object: nil, error: error)
+            }
         }
     }
 
