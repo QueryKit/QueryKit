@@ -21,27 +21,27 @@ class ExpressionTests: XCTestCase {
     }
 
     func testEqualityOperator() {
-        XCTAssertEqual(leftHandSide == rightHandSide, NSPredicate(format:"age == 10"))
+        XCTAssertEqual(leftHandSide == rightHandSide, NSPredicate(format:"age == 10")!)
     }
 
     func testInequalityOperator() {
-        XCTAssertEqual(leftHandSide != rightHandSide, NSPredicate(format:"age != 10"))
+        XCTAssertEqual(leftHandSide != rightHandSide, NSPredicate(format:"age != 10")!)
     }
 
     func testGreaterThanOperator() {
         let predicate:NSPredicate = leftHandSide > rightHandSide
-        XCTAssertEqual(predicate, NSPredicate(format:"age > 10"))
+        XCTAssertEqual(predicate, NSPredicate(format:"age > 10")!)
     }
 
     func testGreaterOrEqualThanOperator() {
-        XCTAssertEqual(leftHandSide >= rightHandSide, NSPredicate(format:"age >= 10"))
+        XCTAssertEqual(leftHandSide >= rightHandSide, NSPredicate(format:"age >= 10")!)
     }
 
     func testLessThanOperator() {
-        XCTAssertEqual(leftHandSide < rightHandSide, NSPredicate(format:"age < 10"))
+        XCTAssertEqual(leftHandSide < rightHandSide, NSPredicate(format:"age < 10")!)
     }
 
     func testLessOrEqualThanOperator() {
-        XCTAssertEqual(leftHandSide <= rightHandSide, NSPredicate(format:"age <= 10"))
+        XCTAssertEqual(leftHandSide <= rightHandSide, NSPredicate(format:"age <= 10")!)
     }
 }

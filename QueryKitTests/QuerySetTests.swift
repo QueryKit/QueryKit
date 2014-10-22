@@ -58,56 +58,56 @@ class QuerySetTests: XCTestCase {
     // MARK: Filtering
 
     func testFilterPredicate() {
-        let predicate = NSPredicate(format: "name == Kyle")
+        let predicate = NSPredicate(format: "name == Kyle")!
         var qs = queryset.filter(predicate)
         XCTAssertEqual(qs.predicate!, predicate)
     }
 
     func testFilterPredicates() {
-        let predicateName = NSPredicate(format: "name == Kyle")
-        let predicateAge = NSPredicate(format: "age > 27")
+        let predicateName = NSPredicate(format: "name == Kyle")!
+        let predicateAge = NSPredicate(format: "age > 27")!
 
         var qs = queryset.filter([predicateName, predicateAge])
-        XCTAssertEqual(qs.predicate!, NSPredicate(format: "name == Kyle AND age > 27"))
+        XCTAssertEqual(qs.predicate!, NSPredicate(format: "name == Kyle AND age > 27")!)
     }
 
     func testFilterBooleanAttribute() {
         let qs = queryset.filter(Attribute<Bool>("isEmployed"))
-        XCTAssertEqual(qs.predicate!, NSPredicate(format: "isEmployed == YES"))
+        XCTAssertEqual(qs.predicate!, NSPredicate(format: "isEmployed == YES")!)
     }
 
     // MARK: Exclusion
 
     func testExcludePredicate() {
-        let predicate = NSPredicate(format: "name == Kyle")
+        let predicate = NSPredicate(format: "name == Kyle")!
         var qs = queryset.exclude(predicate)
-        XCTAssertEqual(qs.predicate!, NSPredicate(format: "NOT name == Kyle"))
+        XCTAssertEqual(qs.predicate!, NSPredicate(format: "NOT name == Kyle")!)
     }
 
     func testExcludePredicates() {
-        let predicateName = NSPredicate(format: "name == Kyle")
-        let predicateAge = NSPredicate(format: "age > 27")
+        let predicateName = NSPredicate(format: "name == Kyle")!
+        let predicateAge = NSPredicate(format: "age > 27")!
 
         var qs = queryset.exclude([predicateName, predicateAge])
-        XCTAssertEqual(qs.predicate!, NSPredicate(format: "NOT (name == Kyle AND age > 27)"))
+        XCTAssertEqual(qs.predicate!, NSPredicate(format: "NOT (name == Kyle AND age > 27)")!)
     }
 
     func testExcludeBooleanAttribute() {
         let qs = queryset.exclude(Attribute<Bool>("isEmployed"))
-        XCTAssertEqual(qs.predicate!, NSPredicate(format: "isEmployed == NO"))
+        XCTAssertEqual(qs.predicate!, NSPredicate(format: "isEmployed == NO")!)
     }
 
     // Fetch Request
 
     func testConversionToFetchRequest() {
-        let predicate = NSPredicate(format: "name == Kyle")
+        let predicate = NSPredicate(format: "name == Kyle")!
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         let qs = queryset.filter(predicate).orderBy(sortDescriptor)[2..<4]
 
         let fetchRequest = qs.fetchRequest
 
         XCTAssertEqual(fetchRequest.entityName!, Person.className())
-        XCTAssertEqual(fetchRequest.predicate, predicate)
+        XCTAssertEqual(fetchRequest.predicate!, predicate)
 //        XCTAssertEqual(fetchRequest.sortDescriptors!, [sortDescriptor])
         XCTAssertEqual(fetchRequest.fetchOffset, 2)
         XCTAssertEqual(fetchRequest.fetchLimit, 2)
@@ -182,12 +182,12 @@ class QuerySetTests: XCTestCase {
     // MARK: Exists
 
     func testExistsReturnsTrueWithMatchingObjects()  {
-        let qs = queryset.filter(NSPredicate(format: "name == %@", "Kyle"))
+        let qs = queryset.filter(NSPredicate(format: "name == %@", "Kyle")!)
         XCTAssertTrue(qs.exists()!)
     }
 
     func testExistsReturnsFalseWithNoMatchingObjects()  {
-        let qs = queryset.filter(NSPredicate(format: "name == %@", "None"))
+        let qs = queryset.filter(NSPredicate(format: "name == %@", "None")!)
         XCTAssertFalse(qs.exists()!)
     }
 

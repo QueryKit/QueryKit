@@ -15,7 +15,7 @@ extension QuerySet {
 
 extension QKQuerySet {
     public func asQuerySet() -> QuerySet<NSManagedObject> {
-        let queryset = QuerySet<NSManagedObject>(managedObjectContext, entityDescription.name)
+        let queryset = QuerySet<NSManagedObject>(managedObjectContext, entityDescription.name!)
             .orderBy(sortDescriptors as [NSSortDescriptor])
             .filter(predicate)
 
