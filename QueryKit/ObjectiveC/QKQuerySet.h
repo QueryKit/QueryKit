@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-
 /**
  Represents a lazy Core Data lookup for a set of objects.
 
@@ -148,3 +147,9 @@
 
 @end
 
+
+@interface NSManagedObject (QKQuerySet)
+
++ (QKQuerySet *)querySetWithManagedObjectContext:(NSManagedObjectContext *)context;
+
+@end

@@ -299,3 +299,16 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
 }
 
 @end
+
+@implementation NSManagedObject (QKQuerySet)
+
++ (NSString *)entityName {
+    return NSStringFromClass([self class]);
+}
+
++ (QKQuerySet *)querySetWithManagedObjectContext:(NSManagedObjectContext *)context {
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:[self entityName] inManagedObjectContext:context];
+    return [[QKQuerySet alloc] initWithManagedObjectContext:context entityDescription:entityDescription];
+}
+
+@end
