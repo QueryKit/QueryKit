@@ -208,3 +208,6 @@
 - (NSSortDescriptor *)descending;
 
 @end
+
+/** Returns an initialized instance of QKAttribute */
+extern inline QKAttribute * QKAttributeWithName(id name);

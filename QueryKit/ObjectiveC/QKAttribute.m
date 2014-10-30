@@ -8,6 +8,10 @@
 
 #import "QKAttribute.h"
 
+inline QKAttribute * QKAttributeWithName(id name) {
+    return [[QKAttribute alloc] initWithName:NSStringFromSelector(@selector(name))];
+}
+
 @implementation QKAttribute
 
 #pragma mark - NSCoding
