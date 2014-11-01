@@ -1,5 +1,8 @@
 language: objective-c
 before_install:
     - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
-script: pod lib lint QueryKit.podspec
+    - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+script:
+    - xcodebuild -project QueryKit.xcodeproj -scheme QueryKit test | xcpretty -c; exit ${PIPESTATUS[0]}
+    - pod lib lint QueryKit.podspec
 
