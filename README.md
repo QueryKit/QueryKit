@@ -123,6 +123,7 @@ age >= 25
 | <= | x is less than or equal to y |
 | > | x is more than y |
 | >= | x is more than or equal to y |
+| ~= | x is like y |
 
 ## Predicate extensions
 

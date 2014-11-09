@@ -63,6 +63,10 @@ public func <= <T>(left: Attribute<T>, right: T) -> NSPredicate {
     return left.expression <= NSExpression(forConstantValue: right as NSObject)
 }
 
+public func ~= <T>(left: Attribute<T>, right: T) -> NSPredicate {
+    return left.expression ~= NSExpression(forConstantValue: right as NSObject)
+}
+
 /// MARK: Bool Attributes
 
 prefix public func ! (left: Attribute<Bool>) -> NSPredicate {

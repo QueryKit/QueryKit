@@ -78,6 +78,11 @@ class AttributeTests: XCTestCase {
         var predicate:NSPredicate = (attribute <= 10)
         XCTAssertEqual(predicate, NSPredicate(format:"age <= 10")!)
     }
+
+    func testLikeOperator() {
+        var predicate:NSPredicate = (attribute ~= 10)
+        XCTAssertEqual(predicate, NSPredicate(format:"age LIKE 10")!)
+    }
 }
 
 class CollectionAttributeTests: XCTestCase {

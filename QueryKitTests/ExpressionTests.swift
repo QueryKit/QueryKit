@@ -44,4 +44,8 @@ class ExpressionTests: XCTestCase {
     func testLessOrEqualThanOperator() {
         XCTAssertEqual(leftHandSide <= rightHandSide, NSPredicate(format:"age <= 10")!)
     }
+
+    func testLikeOperator() {
+        XCTAssertEqual(leftHandSide ~= rightHandSide, NSPredicate(format:"age LIKE 10")!)
+    }
 }
