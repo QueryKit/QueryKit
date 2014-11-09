@@ -98,6 +98,32 @@ count and an error if the operation failed.
 queryset.delete()
 ```
 
+### Attributes
+
+The `Attribute` is a generic structure for creating predicates providing
+type-safety.
+
+```swift
+let name = Attribute<String>("name")
+let age = Attribute<Int>("age")
+
+name == "Kyle"
+
+age == 27
+age >= 25
+```
+
+#### Operators
+
+| Comparison | Meaning |
+| ------- |:--------:|
+| == | x equals y |
+| != | x is not equal to y |
+| < | x is less than y |
+| <= | x is less than or equal to y |
+| > | x is more than y |
+| >= | x is more than or equal to y |
+
 ## Predicate extensions
 
 We've extended NSPredicate to add support for the `!`, `&&` and `||` operators
