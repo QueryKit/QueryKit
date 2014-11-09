@@ -72,7 +72,9 @@ public func << <T>(left: Attribute<T>, right: [T]) -> NSPredicate {
 }
 
 public func << <T>(left: Attribute<T>, right: Range<T>) -> NSPredicate {
-    return left << Array<T>(right)
+    let rightExpression = NSExpression(forConstantValue: [right.startIndex, right.endIndex]._asCocoaArray())
+
+    return NSComparisonPredicate(leftExpression: left.expression, rightExpression: rightExpression, modifier: NSComparisonPredicateModifier.DirectPredicateModifier, type: NSPredicateOperatorType.BetweenPredicateOperatorType, options: NSComparisonPredicateOptions(0))
 }
 
 /// MARK: Bool Attributes

@@ -89,9 +89,9 @@ class AttributeTests: XCTestCase {
         XCTAssertEqual(predicate, NSPredicate(format:"age IN %@", [5, 10])!)
     }
 
-    func testInRangeOperator() {
+    func testBetweenRangeOperator() {
         var predicate:NSPredicate = attribute << (5..<10)
-        XCTAssertEqual(predicate, NSPredicate(format:"age IN %@", [5, 6, 7, 8, 9])!)
+        XCTAssertEqual(predicate, NSPredicate(format:"age BETWEEN %@", [5, 10])!)
     }
 }
 

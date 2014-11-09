@@ -127,7 +127,8 @@ age << (22...30)
 | >= | x is more than or equal to y |
 | ~= | x is like y |
 | ~= | x is like y |
-| << | x IN y, where y is an array or set |
+| << | x IN y, where y is an array |
+| << | x BETWEEN y, where y is a range |
 
 ## Predicate extensions
 
