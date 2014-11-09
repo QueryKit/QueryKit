@@ -108,9 +108,11 @@ let name = Attribute<String>("name")
 let age = Attribute<Int>("age")
 
 name == "Kyle"
+name << ["Kyle", "Katie"]
 
 age == 27
 age >= 25
+age << (22...30)
 ```
 
 #### Operators
@@ -124,6 +126,8 @@ age >= 25
 | > | x is more than y |
 | >= | x is more than or equal to y |
 | ~= | x is like y |
+| ~= | x is like y |
+| << | x IN y, where y is an array or set |
 
 ## Predicate extensions
 

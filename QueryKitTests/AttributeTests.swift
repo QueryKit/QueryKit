@@ -83,6 +83,16 @@ class AttributeTests: XCTestCase {
         var predicate:NSPredicate = (attribute ~= 10)
         XCTAssertEqual(predicate, NSPredicate(format:"age LIKE 10")!)
     }
+
+    func testInOperator() {
+        var predicate:NSPredicate = (attribute << [5, 10])
+        XCTAssertEqual(predicate, NSPredicate(format:"age IN %@", [5, 10])!)
+    }
+
+    func testInRangeOperator() {
+        var predicate:NSPredicate = attribute << (5..<10)
+        XCTAssertEqual(predicate, NSPredicate(format:"age IN %@", [5, 6, 7, 8, 9])!)
+    }
 }
 
 class CollectionAttributeTests: XCTestCase {

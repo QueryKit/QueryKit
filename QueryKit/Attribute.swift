@@ -67,6 +67,14 @@ public func ~= <T>(left: Attribute<T>, right: T) -> NSPredicate {
     return left.expression ~= NSExpression(forConstantValue: right as NSObject)
 }
 
+public func << <T>(left: Attribute<T>, right: [T]) -> NSPredicate {
+    return left.expression << NSExpression(forConstantValue: right._asCocoaArray())
+}
+
+public func << <T>(left: Attribute<T>, right: Range<T>) -> NSPredicate {
+    return left << Array<T>(right)
+}
+
 /// MARK: Bool Attributes
 
 prefix public func ! (left: Attribute<Bool>) -> NSPredicate {

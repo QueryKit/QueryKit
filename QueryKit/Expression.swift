@@ -35,3 +35,7 @@ public func <= (left: NSExpression, right: NSExpression) -> NSPredicate {
 public func ~= (left: NSExpression, right: NSExpression) -> NSPredicate {
     return NSComparisonPredicate(leftExpression: left, rightExpression: right, modifier: NSComparisonPredicateModifier.DirectPredicateModifier, type: NSPredicateOperatorType.LikePredicateOperatorType, options: NSComparisonPredicateOptions(0))
 }
+
+public func << (left: NSExpression, right: NSExpression) -> NSPredicate {
+    return NSComparisonPredicate(leftExpression: left, rightExpression: right, modifier: NSComparisonPredicateModifier.DirectPredicateModifier, type: NSPredicateOperatorType.InPredicateOperatorType, options: NSComparisonPredicateOptions(0))
+}
