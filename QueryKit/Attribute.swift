@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Attribute<T> : Equatable {
+public struct Attribute<T> : Equatable {
     public let name:String
 
     public init(_ name:String) {
@@ -16,7 +16,7 @@ public class Attribute<T> : Equatable {
     }
 
     /// Builds a compound attribute with other key paths
-    public convenience init(attributes:Array<String>) {
+    public init(attributes:Array<String>) {
         self.init(".".join(attributes))
     }
 
