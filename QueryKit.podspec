@@ -9,21 +9,22 @@ Pod::Spec.new do |spec|
   spec.source = { :git => 'https://github.com/QueryKit/QueryKit.git', :tag => "#{spec.version}" }
   spec.source_files = 'QueryKit/*.{h}', 'QueryKit/ObjectiveC/*.{h,m}'
   spec.requires_arc = true
+  spec.default_subspecs = 'Attribute/ObjectiveC', 'QuerySet/ObjectiveC'
 
   spec.subspec 'Attribute' do |attribute_spec|
     attribute_spec.subspec 'ObjectiveC' do |objc_spec|
       objc_spec.source_files = 'QueryKit/ObjectiveC/QKAttribute.{h,m}'
     end
 
-    #attribute_spec.subspec 'Swift' do |swift_spec|
-    #  swift_spec.source_files = 'QueryKit/{Attribute,Expression,Predicate}.swift'
-    #end
+    attribute_spec.subspec 'Swift' do |swift_spec|
+      swift_spec.source_files = 'QueryKit/{Attribute,Expression,Predicate}.swift'
+    end
 
-    #attribute_spec.subspec 'Bridge' do |bridge_spec|
-    #  bridge_spec.dependency 'QueryKit/Attribute/Swift'
-    #  bridge_spec.dependency 'QueryKit/Attribute/ObjectiveC'
-    #  bridge_spec.source_files = 'QueryKit/ObjectiveC/QKAttribute.swift'
-    #end
+    attribute_spec.subspec 'Bridge' do |bridge_spec|
+      bridge_spec.dependency 'QueryKit/Attribute/Swift'
+      bridge_spec.dependency 'QueryKit/Attribute/ObjectiveC'
+      bridge_spec.source_files = 'QueryKit/ObjectiveC/QKAttribute.swift'
+    end
   end
 
   spec.subspec 'QuerySet' do |queryset_spec|
@@ -31,15 +32,15 @@ Pod::Spec.new do |spec|
       objc_spec.source_files = 'QueryKit/ObjectiveC/QKQuerySet.{h,m}'
     end
 
-    #queryset_spec.subspec 'Swift' do |swift_spec|
-    #  swift_spec.source_files = 'QueryKit/QuerySet.swift'
-    #end
+    queryset_spec.subspec 'Swift' do |swift_spec|
+      swift_spec.source_files = 'QueryKit/QuerySet.swift'
+    end
 
-    #queryset_spec.subspec 'Bridge' do |bridge_spec|
-    #  bridge_spec.dependency 'QueryKit/QuerySet/Swift'
-    #  bridge_spec.dependency 'QueryKit/QuerySet/ObjectiveC'
-    #  bridge_spec.source_files = 'QueryKit/ObjectiveC/QKQuerySet.swift'
-    #end
+    queryset_spec.subspec 'Bridge' do |bridge_spec|
+      bridge_spec.dependency 'QueryKit/QuerySet/Swift'
+      bridge_spec.dependency 'QueryKit/QuerySet/ObjectiveC'
+      bridge_spec.source_files = 'QueryKit/ObjectiveC/QKQuerySet.swift'
+    end
   end
 end
 
