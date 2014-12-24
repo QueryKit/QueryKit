@@ -29,6 +29,27 @@
 		77E8728519539FC000A6F13F /* PredicateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E8728419539FC000A6F13F /* PredicateTests.swift */; };
 		77E8728719539FD200A6F13F /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E8728619539FD200A6F13F /* Predicate.swift */; };
 		B53E5A111A4AF5910098FDBB /* QueryKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53E5A061A4AF5900098FDBB /* QueryKit.framework */; };
+		B53E5A641A4AFA4A0098FDBB /* QueryKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A9B68B195374490016654E /* QueryKitTests.swift */; };
+		B53E5A651A4AFA4D0098FDBB /* QuerySetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3A05E1969C047009372A8 /* QuerySetTests.swift */; };
+		B53E5A661A4AFA4F0098FDBB /* ExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3A0621969E003009372A8 /* ExpressionTests.swift */; };
+		B53E5A671A4AFA520098FDBB /* AttributeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E8728219539C2A00A6F13F /* AttributeTests.swift */; };
+		B53E5A681A4AFA570098FDBB /* QKAttributeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B17B8A19A94D4C00D6540D /* QKAttributeTests.swift */; };
+		B53E5A691A4AFA5A0098FDBB /* QKQuerySetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 775E2A1A19B4981E007FE5BA /* QKQuerySetTests.m */; };
+		B53E5A6A1A4AFA5D0098FDBB /* QKQuerySetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77007D7C19A95CDE007DC2BC /* QKQuerySetTests.swift */; };
+		B53E5A6B1A4AFB4E0098FDBB /* QueryKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A9B697195374AA0016654E /* QueryKit.swift */; };
+		B53E5A6C1A4AFB550098FDBB /* QuerySet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3A05C1969C019009372A8 /* QuerySet.swift */; };
+		B53E5A6D1A4AFB550098FDBB /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E8728019539C0900A6F13F /* Attribute.swift */; };
+		B53E5A6E1A4AFB550098FDBB /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3A0601969DDF5009372A8 /* Expression.swift */; };
+		B53E5A6F1A4AFB550098FDBB /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E8728619539FD200A6F13F /* Predicate.swift */; };
+		B53E5A701A4AFB5F0098FDBB /* QKAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 77B17B8319A94C9100D6540D /* QKAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B53E5A711A4AFB5F0098FDBB /* QKAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B17B8419A94C9100D6540D /* QKAttribute.m */; };
+		B53E5A721A4AFB5F0098FDBB /* QKAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B17B8719A94D2C00D6540D /* QKAttribute.swift */; };
+		B53E5A731A4AFB5F0098FDBB /* QKQuerySet.h in Headers */ = {isa = PBXBuildFile; fileRef = 77007D7E19A95CE9007DC2BC /* QKQuerySet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B53E5A741A4AFB5F0098FDBB /* QKQuerySet.m in Sources */ = {isa = PBXBuildFile; fileRef = 77007D7F19A95CE9007DC2BC /* QKQuerySet.m */; };
+		B53E5A751A4AFB5F0098FDBB /* QKQuerySet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77007D8019A95CE9007DC2BC /* QKQuerySet.swift */; };
+		B53E5A761A4AFB6F0098FDBB /* QueryKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77A9B67E195374490016654E /* QueryKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B53E5A771A4AFCA20098FDBB /* PredicateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E8728419539FC000A6F13F /* PredicateTests.swift */; };
+		B53E5A791A4B00930098FDBB /* WueryKitTest-iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53E5A781A4B00930098FDBB /* WueryKitTest-iOS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +118,7 @@
 		77E8728619539FD200A6F13F /* Predicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Predicate.swift; sourceTree = "<group>"; };
 		B53E5A061A4AF5900098FDBB /* QueryKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QueryKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B53E5A101A4AF5910098FDBB /* QueryKit-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "QueryKit-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B53E5A781A4B00930098FDBB /* WueryKitTest-iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WueryKitTest-iOS.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				77A9B68B195374490016654E /* QueryKitTests.swift */,
+				B53E5A781A4B00930098FDBB /* WueryKitTest-iOS.swift */,
 				77E3A05E1969C047009372A8 /* QuerySetTests.swift */,
 				77E3A0621969E003009372A8 /* ExpressionTests.swift */,
 				77E8728219539C2A00A6F13F /* AttributeTests.swift */,
@@ -239,6 +262,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B53E5A731A4AFB5F0098FDBB /* QKQuerySet.h in Headers */,
+				B53E5A761A4AFB6F0098FDBB /* QueryKit.h in Headers */,
+				B53E5A701A4AFB5F0098FDBB /* QKAttribute.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +456,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B53E5A6D1A4AFB550098FDBB /* Attribute.swift in Sources */,
+				B53E5A6B1A4AFB4E0098FDBB /* QueryKit.swift in Sources */,
+				B53E5A711A4AFB5F0098FDBB /* QKAttribute.m in Sources */,
+				B53E5A721A4AFB5F0098FDBB /* QKAttribute.swift in Sources */,
+				B53E5A6F1A4AFB550098FDBB /* Predicate.swift in Sources */,
+				B53E5A751A4AFB5F0098FDBB /* QKQuerySet.swift in Sources */,
+				B53E5A741A4AFB5F0098FDBB /* QKQuerySet.m in Sources */,
+				B53E5A6C1A4AFB550098FDBB /* QuerySet.swift in Sources */,
+				B53E5A6E1A4AFB550098FDBB /* Expression.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +472,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B53E5A641A4AFA4A0098FDBB /* QueryKitTests.swift in Sources */,
+				B53E5A681A4AFA570098FDBB /* QKAttributeTests.swift in Sources */,
+				B53E5A651A4AFA4D0098FDBB /* QuerySetTests.swift in Sources */,
+				B53E5A771A4AFCA20098FDBB /* PredicateTests.swift in Sources */,
+				B53E5A6A1A4AFA5D0098FDBB /* QKQuerySetTests.swift in Sources */,
+				B53E5A791A4B00930098FDBB /* WueryKitTest-iOS.swift in Sources */,
+				B53E5A691A4AFA5A0098FDBB /* QKQuerySetTests.m in Sources */,
+				B53E5A671A4AFA520098FDBB /* AttributeTests.swift in Sources */,
+				B53E5A661A4AFA4F0098FDBB /* ExpressionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -911,6 +955,7 @@
 				B53E5A1A1A4AF5910098FDBB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B53E5A1E1A4AF5910098FDBB /* Build configuration list for PBXNativeTarget "QueryKit-iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -919,6 +964,7 @@
 				B53E5A1C1A4AF5910098FDBB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
