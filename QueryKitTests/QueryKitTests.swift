@@ -11,18 +11,22 @@ import QueryKit
 
 @objc(Person) class Person : NSManagedObject {
     @NSManaged var name:String
+
+    class var entityName:String {
+        return "Person"
+    }
 }
 
 extension Person {
     class func create(context:NSManagedObjectContext) -> Person {
-        return NSEntityDescription.insertNewObjectForEntityForName(Person.className(), inManagedObjectContext: context) as Person
+        return NSEntityDescription.insertNewObjectForEntityForName(Person.entityName, inManagedObjectContext: context) as Person
     }
 }
 
 func managedObjectModel() -> NSManagedObjectModel {
     let personEntity = NSEntityDescription()
-    personEntity.name = Person.className()
-    personEntity.managedObjectClassName = Person.className()
+    personEntity.name = Person.entityName
+    personEntity.managedObjectClassName = "Person"
 
     let personNameAttribute = NSAttributeDescription()
     personNameAttribute.name = "name"

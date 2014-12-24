@@ -106,7 +106,7 @@ class QuerySetTests: XCTestCase {
 
         let fetchRequest = qs.fetchRequest
 
-        XCTAssertEqual(fetchRequest.entityName!, Person.className())
+        XCTAssertEqual(fetchRequest.entityName!, "Person")
         XCTAssertEqual(fetchRequest.predicate!, predicate)
 //        XCTAssertEqual(fetchRequest.sortDescriptors!, [sortDescriptor])
         XCTAssertEqual(fetchRequest.fetchOffset, 2)
