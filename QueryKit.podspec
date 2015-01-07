@@ -9,7 +9,16 @@ Pod::Spec.new do |spec|
   spec.source = { :git => 'https://github.com/QueryKit/QueryKit.git', :tag => "#{spec.version}" }
   spec.source_files = 'QueryKit/*.{h}', 'QueryKit/ObjectiveC/*.{h,m}'
   spec.requires_arc = true
-  spec.default_subspecs = 'Attribute/ObjectiveC', 'QuerySet/ObjectiveC'
+
+  spec.subspec 'ObjectiveC' do |objc_spec|
+    objc_spec.dependency 'QueryKit/Attribute/ObjectiveC'
+    objc_spec.dependency 'QueryKit/QuerySet/ObjectiveC'
+  end
+
+  spec.subspec 'Swift' do |swift_spec|
+    swift_spec.dependency 'QueryKit/Attribute/Swift'
+    swift_spec.dependency 'QueryKit/QuerySet/Swift'
+  end
 
   spec.subspec 'Attribute' do |attribute_spec|
     attribute_spec.subspec 'ObjectiveC' do |objc_spec|
