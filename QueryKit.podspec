@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = 'QueryKit'
-  spec.version = '0.8.3'
+  spec.version = '0.9.0'
   spec.summary = 'A simple CoreData query language for Swift.'
   spec.homepage = 'http://querykit.org/'
   spec.license = { :type => 'BSD', :file => 'LICENSE' }
@@ -9,6 +9,8 @@ Pod::Spec.new do |spec|
   spec.source = { :git => 'https://github.com/QueryKit/QueryKit.git', :tag => "#{spec.version}" }
   spec.source_files = 'QueryKit/*.{h}', 'QueryKit/ObjectiveC/*.{h,m}'
   spec.requires_arc = true
+  spec.ios.deployment_target = '5.0'
+  spec.osx.deployment_target = '10.7'
 
   spec.subspec 'ObjectiveC' do |objc_spec|
     objc_spec.dependency 'QueryKit/Attribute/ObjectiveC'
@@ -18,6 +20,9 @@ Pod::Spec.new do |spec|
   spec.subspec 'Swift' do |swift_spec|
     swift_spec.dependency 'QueryKit/Attribute/Swift'
     swift_spec.dependency 'QueryKit/QuerySet/Swift'
+
+    swift_spec.ios.deployment_target = '8.0'
+    swift_spec.osx.deployment_target = '10.9'
   end
 
   spec.subspec 'Attribute' do |attribute_spec|
