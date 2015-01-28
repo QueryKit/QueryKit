@@ -146,6 +146,12 @@ class QuerySetTests: XCTestCase {
         XCTAssertEqual(qs.range!.startIndex, 4)
         XCTAssertEqual(qs.range!.endIndex, 5)
     }
+  
+    //  MARK: Getters
+    func testFirst() {
+      var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
+        XCTAssertEqual(qs.first!.name, "Ayaka")
+    }
 
     // MARK: Conversion
 
