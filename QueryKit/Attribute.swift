@@ -33,6 +33,10 @@ public struct Attribute<T> : Equatable {
     public func descending() -> NSSortDescriptor {
         return NSSortDescriptor(key: name, ascending: false)
     }
+
+    func expressionForValue(value:T) -> NSExpression {
+        return NSExpression(forConstantValue: value as NSObject)
+    }
 }
 
 public func == <T>(lhs: Attribute<T>, rhs: Attribute<T>) -> Bool {
@@ -40,31 +44,31 @@ public func == <T>(lhs: Attribute<T>, rhs: Attribute<T>) -> Bool {
 }
 
 public func == <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression == NSExpression(forConstantValue: right as NSObject)
+    return left.expression == left.expressionForValue(right)
 }
 
 public func != <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression != NSExpression(forConstantValue: right as NSObject)
+    return left.expression != left.expressionForValue(right)
 }
 
 public func > <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression > NSExpression(forConstantValue: right as NSObject)
+    return left.expression > left.expressionForValue(right)
 }
 
 public func >= <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression >= NSExpression(forConstantValue: right as NSObject)
+    return left.expression >= left.expressionForValue(right)
 }
 
 public func < <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression < NSExpression(forConstantValue: right as NSObject)
+    return left.expression < left.expressionForValue(right)
 }
 
 public func <= <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression <= NSExpression(forConstantValue: right as NSObject)
+    return left.expression <= left.expressionForValue(right)
 }
 
 public func ~= <T>(left: Attribute<T>, right: T) -> NSPredicate {
-    return left.expression ~= NSExpression(forConstantValue: right as NSObject)
+    return left.expression ~= left.expressionForValue(right)
 }
 
 public func << <T>(left: Attribute<T>, right: [T]) -> NSPredicate {
