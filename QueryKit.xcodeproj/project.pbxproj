@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		279294E81A4B4C60009C52E1 /* UniversalFramework_Base.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 279294E51A4B4C60009C52E1 /* UniversalFramework_Base.xcconfig */; };
-		279294E91A4B4C60009C52E1 /* UniversalFramework_Framework.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 279294E61A4B4C60009C52E1 /* UniversalFramework_Framework.xcconfig */; };
-		279294EA1A4B4C60009C52E1 /* UniversalFramework_Test.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 279294E71A4B4C60009C52E1 /* UniversalFramework_Test.xcconfig */; };
 		77007D7D19A95CDE007DC2BC /* QKQuerySetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77007D7C19A95CDE007DC2BC /* QKQuerySetTests.swift */; };
 		77007D8119A95CE9007DC2BC /* QKQuerySet.h in Headers */ = {isa = PBXBuildFile; fileRef = 77007D7E19A95CE9007DC2BC /* QKQuerySet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77007D8219A95CE9007DC2BC /* QKQuerySet.m in Sources */ = {isa = PBXBuildFile; fileRef = 77007D7F19A95CE9007DC2BC /* QKQuerySet.m */; };
@@ -307,9 +304,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				279294EA1A4B4C60009C52E1 /* UniversalFramework_Test.xcconfig in Resources */,
-				279294E91A4B4C60009C52E1 /* UniversalFramework_Framework.xcconfig in Resources */,
-				279294E81A4B4C60009C52E1 /* UniversalFramework_Base.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
