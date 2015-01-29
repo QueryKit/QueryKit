@@ -94,8 +94,14 @@ class AttributeTests: XCTestCase {
         XCTAssertEqual(predicate, NSPredicate(format:"age BETWEEN %@", [5, 10])!)
     }
 
-    func xtestOptionalEqualityOperator() {
+    func testOptionalEqualityOperator() {
         let attribute = Attribute<String?>("name")
+        var predicate:NSPredicate = (attribute == "kyle")
+        XCTAssertEqual(predicate, NSPredicate(format:"name == 'kyle'")!)
+    }
+
+    func testOptionalNSObjectEqualityOperator() {
+        let attribute = Attribute<NSString?>("name")
         var predicate:NSPredicate = (attribute == "kyle")
         XCTAssertEqual(predicate, NSPredicate(format:"name == 'kyle'")!)
     }
