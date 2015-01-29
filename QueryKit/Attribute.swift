@@ -35,7 +35,23 @@ public struct Attribute<T> : Equatable {
     }
 
     func expressionForValue(value:T) -> NSExpression {
-        return NSExpression(forConstantValue: value as NSObject)
+        if let value = value as? NSObject {
+            return NSExpression(forConstantValue: value as NSObject)
+        }
+
+        if sizeof(value.dynamicType) == 8 {
+            let value = unsafeBitCast(value, Optional<NSObject>.self)
+            if let value = value {
+                return NSExpression(forConstantValue: value)
+            }
+        }
+
+        let value = unsafeBitCast(value, Optional<String>.self)
+        if let value = value {
+            return NSExpression(forConstantValue: value)
+        }
+
+        return NSExpression(forConstantValue: NSNull())
     }
 }
 
