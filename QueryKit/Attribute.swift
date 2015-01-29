@@ -35,6 +35,7 @@ public struct Attribute<T> : Equatable {
     }
 
     func expressionForValue(value:T) -> NSExpression {
+        // TODO: Find a cleaner implementation
         if let value = value as? NSObject {
             return NSExpression(forConstantValue: value as NSObject)
         }
