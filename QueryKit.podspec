@@ -7,7 +7,7 @@ Pod::Spec.new do |spec|
   spec.author = { 'Kyle Fuller' => 'inbox@kylefuller.co.uk' }
   spec.social_media_url = 'http://twitter.com/kylefuller'
   spec.source = { :git => 'https://github.com/QueryKit/QueryKit.git', :tag => "#{spec.version}" }
-  spec.source_files = 'QueryKit/*.{h}', 'QueryKit/ObjectiveC/*.{h,m}'
+  spec.source_files = 'QueryKit/QueryKit.h'
   spec.requires_arc = true
   spec.ios.deployment_target = '5.0'
   spec.osx.deployment_target = '10.7'
