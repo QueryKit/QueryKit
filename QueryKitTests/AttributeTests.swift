@@ -84,15 +84,15 @@ class AttributeTests: XCTestCase {
         XCTAssertEqual(predicate, NSPredicate(format: "age LIKE 10"))
     }
 
-//    func testInOperator() {
-//        var predicate:NSPredicate = (attribute << [5, 10])
-//        XCTAssertEqual(predicate, NSPredicate(format:"age IN %@", [5, 10]))
-//    }
+    func testInOperator() {
+        var predicate:NSPredicate = (attribute << [5, 10])
+        XCTAssertEqual(predicate, NSPredicate(format: "age IN %@", [5, 10]))
+    }
 
-//    func testBetweenRangeOperator() {
-//        var predicate:NSPredicate = attribute << (5..<10)
-//        XCTAssertEqual(predicate, NSPredicate(format:"age BETWEEN %@", [5, 10])!)
-//    }
+    func testBetweenRangeOperator() {
+        var predicate:NSPredicate = attribute << (5..<10)
+        XCTAssertEqual(predicate, NSPredicate(format: "age BETWEEN %@", [5, 10]))
+    }
 
     func testOptionalEqualityOperator() {
         let attribute = Attribute<String?>("name")

@@ -88,15 +88,17 @@ public func ~= <T>(left: Attribute<T>, right: T) -> NSPredicate {
     return left.expression ~= left.expressionForValue(right)
 }
 
-//public func << <T>(left: Attribute<T>, right: [T]) -> NSPredicate {
-//    return left.expression << NSExpression(forConstantValue: right._asCocoaArray())
-//}
-//
-//public func << <T>(left: Attribute<T>, right: Range<T>) -> NSPredicate {
-//    let rightExpression = NSExpression(forConstantValue: [right.startIndex, right.endIndex]._asCocoaArray())
-//
-//    return NSComparisonPredicate(leftExpression: left.expression, rightExpression: rightExpression, modifier: NSComparisonPredicateModifier.DirectPredicateModifier, type: NSPredicateOperatorType.BetweenPredicateOperatorType, options: NSComparisonPredicateOptions(0))
-//}
+public func << <T>(left: Attribute<T>, right: [T]) -> NSPredicate {
+    let value = map(right) { value in return value as! NSObject }
+    return left.expression << NSExpression(forConstantValue: value)
+}
+
+public func << <T>(left: Attribute<T>, right: Range<T>) -> NSPredicate {
+    let value = [right.startIndex as! NSObject, right.endIndex as! NSObject] as NSArray
+    let rightExpression = NSExpression(forConstantValue: value)
+
+    return NSComparisonPredicate(leftExpression: left.expression, rightExpression: rightExpression, modifier: NSComparisonPredicateModifier.DirectPredicateModifier, type: NSPredicateOperatorType.BetweenPredicateOperatorType, options: NSComparisonPredicateOptions(0))
+}
 
 /// MARK: Bool Attributes
 
