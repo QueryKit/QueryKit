@@ -18,13 +18,13 @@ class QKQuerySetConversionTests: XCTestCase {
 
         let context = NSManagedObjectContext()
         context.persistentStoreCoordinator = persistentStoreCoordinator()
-        let entityDescription = NSEntityDescription.entityForName("Person", inManagedObjectContext:context)
+        let entityDescription = NSEntityDescription.entityForName("Person", inManagedObjectContext:context)!
         let predicate = NSPredicate(format: "name == 'Kyle'")
         let sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
 
         qkQueryset = QKQuerySet(managedObjectContext: context, entityDescription: entityDescription, predicate: predicate, sortDescriptors: sortDescriptors, range:NSMakeRange(1, 4))
         queryset = QuerySet<NSManagedObject>(context, "Person")
-        queryset = queryset.filter(predicate!).orderBy(sortDescriptors)[1..<5]
+        queryset = queryset.filter(predicate).orderBy(sortDescriptors)[1..<5]
     }
 
     func testConvertingQuerySetToQKQuerySet() {

@@ -19,7 +19,7 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
     public let entityName:String
 
     /// Returns the sort descriptors of the receiver.
-    public let sortDescriptors = [NSSortDescriptor]()
+    public let sortDescriptors:[NSSortDescriptor]
 
     /// Returns the predicate of the receiver.
     public let predicate:NSPredicate?
@@ -31,16 +31,15 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
     public init(_ context:NSManagedObjectContext, _ entityName:String) {
         self.context = context
         self.entityName = entityName
+        self.sortDescriptors = []
+        self.predicate = nil
+        self.range = nil
     }
 
     public init(queryset:QuerySet<T>, sortDescriptors:[NSSortDescriptor]?, predicate:NSPredicate?, range:Range<Int>?) {
         self.context = queryset.context
         self.entityName = queryset.entityName
-
-        if let sortDescriptors = sortDescriptors {
-            self.sortDescriptors = sortDescriptors
-        }
-
+        self.sortDescriptors = sortDescriptors ?? []
         self.predicate = predicate
         self.range = range
     }
@@ -103,7 +102,7 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
 
             var error:NSError?
             if let items = context.executeFetchRequest(request, error:&error) {
-              return (object:items.first as T?, error:error)
+              return (object:items.first as? T, error:error)
             } else {
               return (object: nil, error: error)
             }

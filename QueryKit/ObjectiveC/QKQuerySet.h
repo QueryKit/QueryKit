@@ -19,25 +19,25 @@
 @interface QKQuerySet : NSObject <NSFastEnumeration, NSCopying>
 
 /// The managed object context for the query set
-@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, readonly, nonnull) NSManagedObjectContext *managedObjectContext;
 
 /// The entity descriptor for the object
-@property (nonatomic, strong, readonly) NSEntityDescription *entityDescription;
+@property (nonatomic, strong, readonly, nonnull) NSEntityDescription *entityDescription;
 
 /** This is a read only property to hold any predicates set on this object. You can use the `filter:` and `exclude:` methods to effect this value on a child */
-@property (nonatomic, copy, readonly) NSPredicate *predicate;
+@property (nonatomic, copy, readonly, nullable) NSPredicate *predicate;
 
 /** This is a read only property to hold any sort descriptors set on this object. You can use the `orderBy:` and `reverse` methods to effect this value on a child */
-@property (nonatomic, copy, readonly) NSArray *sortDescriptors;
+@property (nonatomic, copy, readonly, nonnull) NSArray *sortDescriptors;
 
 /** This is a read only property to hold a range set. */
 @property (nonatomic, assign, readonly) NSRange range;
 
 #pragma mark - Creation
 
-- (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext entityDescription:(NSEntityDescription *)entityDescription __attribute((nonnull));
-- (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext entityDescription:(NSEntityDescription *)entityDescription predicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors range:(NSRange)range __attribute((nonnull(1, 2)));
-- (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext fetchRequest:(NSFetchRequest *)fetchRequest __attribute((nonnull));
+- (nonnull instancetype)initWithManagedObjectContext:(NSManagedObjectContext * __nonnull)managedObjectContext entityDescription:(NSEntityDescription * __nonnull)entityDescription;
+- (nonnull instancetype)initWithManagedObjectContext:(NSManagedObjectContext * __nonnull)managedObjectContext entityDescription:(NSEntityDescription * __nonnull)entityDescription predicate:(NSPredicate * __nullable)predicate sortDescriptors:(NSArray * __nullable)sortDescriptors range:(NSRange)range;
+- (nonnull instancetype)initWithManagedObjectContext:(NSManagedObjectContext * __nonnull)managedObjectContext fetchRequest:(NSFetchRequest * __nonnull)fetchRequest;
 
 #pragma mark - Equality
 
@@ -45,12 +45,12 @@
  @param queryset The queryset to compare against the receiver
  @return YES if queryset is equivalent to the receiver
  */
-- (BOOL)isEqualToQuerySet:(QKQuerySet *)queryset;
+- (BOOL)isEqualToQuerySet:(nonnull QKQuerySet *)queryset;
 
 #pragma mark -
 
 /** Returns a fetch request for the queryset */
-- (NSFetchRequest *)fetchRequest;
+- (nonnull NSFetchRequest *)fetchRequest;
 
 /** Returns the amount of objects matching the set predicate
  @param error If there is a problem fetching the count, upon return contains an instance of NSError that describes the problem.
@@ -62,19 +62,19 @@
  @param error If there is a problem fetching the objects, upon return contains an instance of NSError that describes the problem.
  @return An array containing all matched objects
  */
-- (NSArray *)array:(NSError **)error;
+- (nullable NSArray *)array:(NSError **)error;
 
 /** Returns all objects matching the set predicate ordered by any set sort descriptors as an ordered set
  @param error If there is a problem fetching the objects, upon return contains an instance of NSError that describes the problem.
  @return An ordered set containing all matched objects
  */
-- (NSSet *)set:(NSError **)error;
+- (nullable NSSet *)set:(NSError **)error;
 
 /** Returns all objects matching the set predicate ordered by any set sort descriptors as a set
  @param error If there is a problem fetching the objects, upon return contains an instance of NSError that describes the problem.
  @return A set containing all matched objects
  */
-- (NSOrderedSet *)orderedSet:(NSError **)error;
+- (nullable NSOrderedSet *)orderedSet:(NSError **)error;
 
 #pragma mark - Enumeration
 
@@ -106,10 +106,10 @@
 @interface QKQuerySet (Sorting)
 
 /** Returns a copy and the sort descriptors */
-- (instancetype)orderBy:(NSArray *)sortDescriptors;
+- (nonnull instancetype)orderBy:(nonnull NSArray * )sortDescriptors;
 
 /** Returns a copy and reverses any sort descriptors */
-- (instancetype)reverse;
+- (nonnull instancetype)reverse;
 
 @end
 
@@ -117,10 +117,10 @@
 @interface QKQuerySet (Filtering)
 
 /** Returns a copy filtered by a predicate */
-- (instancetype)filter:(NSPredicate *)predicate;
+- (nonnull instancetype)filter:(nonnull NSPredicate *)predicate;
 
 /** Returns a copy excluding a predicate */
-- (instancetype)exclude:(NSPredicate *)predicate;
+- (nonnull instancetype)exclude:(nonnull NSPredicate *)predicate;
 
 @end
 
@@ -131,25 +131,25 @@
  @param error If there is a problem fetching the object or there is more than one object, upon return contains an instance of NSError that describes the problem.
  @return Returns the object matching the set predicate, or nil.
  */
-- (NSManagedObject *)object:(NSError **)error;
+- (nullable NSManagedObject *)object:(NSError **)error;
 
 /** Returns the first object matching the filters ordered by the set sort descriptors.
  @param error If there is a problem fetching the object, upon return contains an instance of NSError that describes the problem.
  @return Returns the first object matching the set predicate, or nil.
  */
-- (NSManagedObject *)firstObject:(NSError **)error;
+- (nullable NSManagedObject *)firstObject:(NSError **)error;
 
 /** Returns the last object matching the filters ordered by the set sort descriptors.
  @param error If there is a problem fetching the object, upon return contains an instance of NSError that describes the problem.
  @return Returns the last object matching the set predicate, or nil.
  */
-- (NSManagedObject *)lastObject:(NSError **)error;
+- (nullable NSManagedObject *)lastObject:(NSError **)error;
 
 @end
 
 
 @interface NSManagedObject (QKQuerySet)
 
-+ (QKQuerySet *)querySetWithManagedObjectContext:(NSManagedObjectContext *)context;
++ (nonnull QKQuerySet *)querySetWithManagedObjectContext:(nonnull NSManagedObjectContext *)context;
 
 @end

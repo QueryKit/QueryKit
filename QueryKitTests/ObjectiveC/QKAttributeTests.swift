@@ -55,32 +55,32 @@ class QKAttributeTests: XCTestCase {
 
     func testEqualityOperator() {
         let predicate = attribute.equal(10)
-        XCTAssertEqual(predicate, NSPredicate(format:"age == 10")!)
+        XCTAssertEqual(predicate, NSPredicate(format: "age == 10"))
     }
 
     func testInequalityOperator() {
         let predicate = attribute.notEqual(10)
-        XCTAssertEqual(predicate, NSPredicate(format:"age != 10")!)
+        XCTAssertEqual(predicate, NSPredicate(format: "age != 10"))
     }
 
     func testGreaterThanOperator() {
         let predicate = attribute.greaterThan(10)
-        XCTAssertEqual(predicate, NSPredicate(format:"age > 10")!)
+        XCTAssertEqual(predicate, NSPredicate(format: "age > 10"))
     }
 
     func testGreaterOrEqualThanOperator() {
         let predicate = attribute.greaterThanOrEqualTo(10)
-        XCTAssertEqual(predicate, NSPredicate(format:"age >= 10")!)
+        XCTAssertEqual(predicate, NSPredicate(format: "age >= 10"))
     }
 
     func testLessThanOperator() {
         let predicate = attribute.lessThan(10)
-        XCTAssertEqual(predicate, NSPredicate(format:"age < 10")!)
+        XCTAssertEqual(predicate, NSPredicate(format: "age < 10"))
     }
 
     func testLessOrEqualThanOperator() {
         let predicate = attribute.lessThanOrEqualTo(10)
-        XCTAssertEqual(predicate, NSPredicate(format:"age <= 10")!)
+        XCTAssertEqual(predicate, NSPredicate(format: "age <= 10"))
     }
 
 }
