@@ -1,11 +1,11 @@
 Pod::Spec.new do |spec|
   spec.name = 'QueryKit'
   spec.version = '0.9.1'
-  spec.summary = 'A simple CoreData query language for Swift.'
+  spec.summary = 'A simple type-safe Core Data query language.'
   spec.homepage = 'http://querykit.org/'
   spec.license = { :type => 'BSD', :file => 'LICENSE' }
-  spec.author = { 'Kyle Fuller' => 'inbox@kylefuller.co.uk' }
-  spec.social_media_url = 'http://twitter.com/kylefuller'
+  spec.author = { 'Kyle Fuller' => 'kyle@fuller.li' }
+  spec.social_media_url = 'http://twitter.com/QueryKit'
   spec.source = { :git => 'https://github.com/QueryKit/QueryKit.git', :tag => "#{spec.version}" }
   spec.source_files = 'QueryKit/QueryKit.h'
   spec.requires_arc = true
