@@ -151,9 +151,15 @@ class QuerySetTests: XCTestCase {
     }
   
     //  MARK: Getters
+
     func testFirst() {
       var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
         XCTAssertEqual(qs.first!.name, "Ayaka")
+    }
+
+    func testLast() {
+        var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
+        XCTAssertEqual(qs.last!.name, "Scott")
     }
 
     // MARK: Conversion
