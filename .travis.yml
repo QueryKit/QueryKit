@@ -6,5 +6,5 @@ script:
     - set -o pipefail
     - xcodebuild -project QueryKit.xcodeproj -scheme QueryKit test -sdk macosx | xcpretty -c
     - xcodebuild -project QueryKit.xcodeproj -scheme QueryKit test -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty -c
-    - pod lib lint QueryKit.podspec --quick
+    - pod lib lint QueryKit.podspec
 
