@@ -1,41 +1,75 @@
-QueryKit
-========
+# QueryKit
 
 [![Build Status](http://img.shields.io/travis/QueryKit/QueryKit/master.svg?style=flat)](https://travis-ci.org/QueryKit/QueryKit)
 
-QueryKit, a simple CoreData query language.
+QueryKit, a simple type-safe Core Data query language.
 
-## Usage
+## Installation
 
-```swift
-Person.queryset(context).filter(Person.name == "Kyle").delete()
+```ruby
+pod 'QueryKit'
 ```
 
-### Querying
+## QuerySet
 
-To retrieve objects from CoreData with QueryKit, you can construct a QuerySet
-for your model in a managed object context.
+A QuerySet represents a collection of objects from your Core Data Store. It can have zero, one or many filters. Filters narrow down the query results based on the given parameters.
 
-A queryset is an immutable object, any operation will return a new queryset
-instead of modifying the queryset.
+### Retrieving all objects
 
 ```swift
-var queryset = Person.queryset(context)
+QuerySet(context, "Person")
 ```
 
-#### Filtering
-
-You can filter a queryset using the `filter` and `exclude` methods, which
-accept a predicate and return a new queryset.
+**NOTE**: *It’s recommend to implement a type type-safe `queryset` method on your model.*
 
 ```swift
-queryset.filter(NSPredicate(format:"name == %@", "Kyle"))
-queryset.filter(Person.name == "Kyle")
-queryset.exclude(Person.age < 21)
-queryset.exclude(Person.isEmployed)
+Person.queryset(context)
 ```
 
-#### Ordering
+### Retrieving specific objects with filters
+
+You can filter a QuerySet using the `filter` and `exclude` methods, which
+accept a predicate and return a new QuerySet.
+
+```swift
+queryset.filter(NSPredicate(format: "name == %@", "Kyle"))
+queryset.exclude(NSPredicate(format: "age > 21"))
+```
+
+**NOTE**: *You can define [type-safe methods](https://github.com/QueryKit/TodoExample/blob/master/Todo/Model/Generated/_Task.swift#L14-26) on your models, or use the [mogenerator template](https://github.com/QueryKit/mogenerator-template) to generate these.*
+
+```swift
+queryset.filter(Person.attributes.name == "Kyle")
+queryset.exclude(Person.attributes.age > 21)
+```
+
+#### Chaining filters
+
+The result of refining a QuerySet is itself a QuerySet, so it’s possible to chain refinements together. For example:
+
+```swift
+queryset.filter(Person.attributes.name == "Kyle")
+    .exclude(Person.attributes.age > 21)
+    .filter(Person.attributes.isEmployed)
+```
+
+Each time you refine a QuerySet, you get a brand-new QuerySet that is in no way bound to the previous QuerySet. Each refinement creates a separate and distinct QuerySet that can be stored, used and reused.
+
+### QuerySets are lazy
+
+A QuerySet is lazy, creating a QuerySet doesn’t involve querying Core Data. QueryKit won’t actually execute the query until the QuerySet is *evaluated*.
+
+### Slicing
+
+Using slicing, you can limit your QuerySet to a certain number of results.
+
+```swift
+Person.queryset(context)[0..<10]
+```
+
+**NOTE**: *Remember, QuerySet’s are lazily evaluated. Slicing doesn’t evaluate the query.*
+
+### Ordering
 
 You can order a queryset's results by using the `orderBy` method which accepts
 a collection of sort descriptors:
@@ -46,7 +80,7 @@ queryset.orderBy(Person.name.ascending)
 queryset.orderBy([Person.name.ascending, Person.age.descending])
 ```
 
-#### Slicing
+### Slicing
 
 You can use slicing to limit a queryset to a range. For example, to get the
 first 5 items:
@@ -57,10 +91,32 @@ queryset[0..5]
 
 ### Fetching
 
-#### Single object
+#### Multiple objects
+
+A QuerySet is utterable, and it executes the query when you iterate over it. For example:
 
 ```swift
-var kyle = queryset.filter(Person.name == "Kyle").get()
+for person in queryset {
+  println("Hello \(person.name).")
+}
+```
+
+You can also convert the QuerySet to an Array:
+
+```swift
+queryset.array()
+```
+
+#### First object
+
+```swift
+var kyle = Person.queryset(context).filter(Person.name == "Kyle").first
+```
+
+#### Last object
+
+```swift
+var kyle = Person.queryset(context).filter(Person.name == "Kyle").last
 ```
 
 #### Object at index
@@ -75,21 +131,7 @@ var orta = queryset[3]
 queryset.count()
 ```
 
-#### Iteration
-
-```swift
-for person in queryset {
-    println(person.name)
-}
-```
-
-#### Conversion to an array
-
-```swift
-queryset.array()
-```
-
-### Deleting
+#### Deleting
 
 This method immediately deletes the objects in your queryset and returns a
 count and an error if the operation failed.
@@ -98,10 +140,9 @@ count and an error if the operation failed.
 queryset.delete()
 ```
 
-### Attributes
+### Attribute
 
-The `Attribute` is a generic structure for creating predicates providing
-type-safety.
+The `Attribute` is a generic structure for creating predicates in a type-safe manner.
 
 ```swift
 let name = Attribute<String>("name")
@@ -117,6 +158,8 @@ age << (22...30)
 
 #### Operators
 
+The following types of comparisons are supported using Attribute:
+
 | Comparison | Meaning |
 | ------- |:--------:|
 | == | x equals y |
@@ -130,10 +173,9 @@ age << (22...30)
 | << | x IN y, where y is an array |
 | << | x BETWEEN y, where y is a range |
 
-## Predicate extensions
+### Predicate extensions
 
-We've extended NSPredicate to add support for the `!`, `&&` and `||` operators
-for joining predicates together.
+We've also extended NSPredicate to add support for the `!`, `&&` and `||` operators for joining predicates together.
 
 ```swift
 NSPredicate(format:"name == Kyle") || NSPredicate(format:"name == Katie")
