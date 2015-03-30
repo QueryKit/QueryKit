@@ -10,11 +10,13 @@ QueryKit, a simple type-safe Core Data query language.
 pod 'QueryKit'
 ```
 
-## QuerySet
+## Usage
+
+### QuerySet
 
 A QuerySet represents a collection of objects from your Core Data Store. It can have zero, one or many filters. Filters narrow down the query results based on the given parameters.
 
-### Retrieving all objects
+#### Retrieving all objects
 
 ```swift
 QuerySet(context, "Person")
@@ -26,7 +28,7 @@ QuerySet(context, "Person")
 Person.queryset(context)
 ```
 
-### Retrieving specific objects with filters
+#### Retrieving specific objects with filters
 
 You can filter a QuerySet using the `filter` and `exclude` methods, which
 accept a predicate and return a new QuerySet.
@@ -43,7 +45,7 @@ queryset.filter(Person.attributes.name == "Kyle")
 queryset.exclude(Person.attributes.age > 21)
 ```
 
-#### Chaining filters
+##### Chaining filters
 
 The result of refining a QuerySet is itself a QuerySet, so it’s possible to chain refinements together. For example:
 
@@ -55,11 +57,11 @@ queryset.filter(Person.attributes.name == "Kyle")
 
 Each time you refine a QuerySet, you get a brand-new QuerySet that is in no way bound to the previous QuerySet. Each refinement creates a separate and distinct QuerySet that can be stored, used and reused.
 
-### QuerySets are lazy
+#### QuerySets are lazy
 
 A QuerySet is lazy, creating a QuerySet doesn’t involve querying Core Data. QueryKit won’t actually execute the query until the QuerySet is *evaluated*.
 
-### Slicing
+#### Slicing
 
 Using slicing, you can limit your QuerySet to a certain number of results.
 
@@ -69,7 +71,7 @@ Person.queryset(context)[0..<10]
 
 **NOTE**: *Remember, QuerySet’s are lazily evaluated. Slicing doesn’t evaluate the query.*
 
-### Ordering
+#### Ordering
 
 You can order a queryset's results by using the `orderBy` method which accepts
 a collection of sort descriptors:
@@ -80,7 +82,7 @@ queryset.orderBy(Person.name.ascending)
 queryset.orderBy([Person.name.ascending, Person.age.descending])
 ```
 
-### Slicing
+#### Slicing
 
 You can use slicing to limit a queryset to a range. For example, to get the
 first 5 items:
@@ -89,9 +91,9 @@ first 5 items:
 queryset[0..5]
 ```
 
-### Fetching
+#### Fetching
 
-#### Multiple objects
+##### Multiple objects
 
 A QuerySet is utterable, and it executes the query when you iterate over it. For example:
 
@@ -107,31 +109,31 @@ You can also convert the QuerySet to an Array:
 queryset.array()
 ```
 
-#### First object
+##### First object
 
 ```swift
 var kyle = Person.queryset(context).filter(Person.name == "Kyle").first
 ```
 
-#### Last object
+##### Last object
 
 ```swift
 var kyle = Person.queryset(context).filter(Person.name == "Kyle").last
 ```
 
-#### Object at index
+##### Object at index
 
 ```swift
 var orta = queryset[3]
 ```
 
-#### Count
+##### Count
 
 ```swift
 queryset.count()
 ```
 
-#### Deleting
+##### Deleting
 
 This method immediately deletes the objects in your queryset and returns a
 count and an error if the operation failed.
@@ -140,7 +142,7 @@ count and an error if the operation failed.
 queryset.delete()
 ```
 
-### Attribute
+#### Attribute
 
 The `Attribute` is a generic structure for creating predicates in a type-safe manner.
 
@@ -156,7 +158,7 @@ age >= 25
 age << (22...30)
 ```
 
-#### Operators
+##### Operators
 
 The following types of comparisons are supported using Attribute:
 
@@ -173,7 +175,7 @@ The following types of comparisons are supported using Attribute:
 | << | x IN y, where y is an array |
 | << | x BETWEEN y, where y is a range |
 
-### Predicate extensions
+#### Predicate extensions
 
 We've also extended NSPredicate to add support for the `!`, `&&` and `||` operators for joining predicates together.
 
