@@ -59,7 +59,11 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
 
     /// Reverses the ordering of the QuerySet
     public func reverse() -> QuerySet<T> {
-        return QuerySet(queryset:self, sortDescriptors:sortDescriptors.reverse(), predicate:predicate, range:range)
+        func reverseSortDescriptor(sortDescriptor:NSSortDescriptor) -> NSSortDescriptor {
+            return NSSortDescriptor(key: sortDescriptor.key!, ascending: !sortDescriptor.ascending)
+        }
+
+        return QuerySet(queryset:self, sortDescriptors:map(sortDescriptors, reverseSortDescriptor), predicate:predicate, range:range)
     }
 
     // MARK: Filtering

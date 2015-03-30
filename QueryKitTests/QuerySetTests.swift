@@ -52,7 +52,10 @@ class QuerySetTests: XCTestCase {
         let ageSortDescriptor = NSSortDescriptor(key: "age", ascending: true)
         let qs = queryset.orderBy([nameSortDescriptor, ageSortDescriptor]).reverse()
 
-        XCTAssertEqual(qs.sortDescriptors, [ageSortDescriptor, nameSortDescriptor])
+        XCTAssertEqual(qs.sortDescriptors, [
+          NSSortDescriptor(key: "name", ascending: false),
+          NSSortDescriptor(key: "age", ascending: false),
+        ])
     }
 
     // MARK: Filtering
