@@ -40,7 +40,7 @@ public struct Attribute<T> : Equatable {
             return NSExpression(forConstantValue: value as NSObject)
         }
 
-        if sizeof(value.dynamicType) == 8 {
+        if sizeof(value.dynamicType) == sizeof(uintptr_t) {
             let value = unsafeBitCast(value, Optional<NSObject>.self)
             if let value = value {
                 return NSExpression(forConstantValue: value)
