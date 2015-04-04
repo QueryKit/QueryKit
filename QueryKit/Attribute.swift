@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Attribute<T> : Equatable {
+public struct Attribute<AttributeType> : Equatable {
   public let name:String
 
   public init(_ name:String) {
@@ -34,7 +34,7 @@ public struct Attribute<T> : Equatable {
     return NSSortDescriptor(key: name, ascending: false)
   }
 
-  func expressionForValue(value:T) -> NSExpression {
+  func expressionForValue(value:AttributeType) -> NSExpression {
     // TODO: Find a cleaner implementation
     if let value = value as? NSObject {
       return NSExpression(forConstantValue: value as NSObject)
@@ -56,43 +56,43 @@ public struct Attribute<T> : Equatable {
   }
 }
 
-public func == <T>(lhs: Attribute<T>, rhs: Attribute<T>) -> Bool {
+public func == <AttributeType>(lhs: Attribute<AttributeType>, rhs: Attribute<AttributeType>) -> Bool {
   return lhs.name == rhs.name
 }
 
-public func == <T>(left: Attribute<T>, right: T) -> NSPredicate {
+public func == <AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> NSPredicate {
   return left.expression == left.expressionForValue(right)
 }
 
-public func != <T>(left: Attribute<T>, right: T) -> NSPredicate {
+public func != <AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> NSPredicate {
   return left.expression != left.expressionForValue(right)
 }
 
-public func > <T>(left: Attribute<T>, right: T) -> NSPredicate {
+public func > <AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> NSPredicate {
   return left.expression > left.expressionForValue(right)
 }
 
-public func >= <T>(left: Attribute<T>, right: T) -> NSPredicate {
+public func >= <AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> NSPredicate {
   return left.expression >= left.expressionForValue(right)
 }
 
-public func < <T>(left: Attribute<T>, right: T) -> NSPredicate {
+public func < <AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> NSPredicate {
   return left.expression < left.expressionForValue(right)
 }
 
-public func <= <T>(left: Attribute<T>, right: T) -> NSPredicate {
+public func <= <AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> NSPredicate {
   return left.expression <= left.expressionForValue(right)
 }
 
-public func ~= <T>(left: Attribute<T>, right: T) -> NSPredicate {
+public func ~= <AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> NSPredicate {
   return left.expression ~= left.expressionForValue(right)
 }
 
-public func << <T>(left: Attribute<T>, right: [T]) -> NSPredicate {
+public func << <AttributeType>(left: Attribute<AttributeType>, right: [AttributeType]) -> NSPredicate {
   return left.expression << NSExpression(forConstantValue: right._asCocoaArray())
 }
 
-public func << <T>(left: Attribute<T>, right: Range<T>) -> NSPredicate {
+public func << <AttributeType>(left: Attribute<AttributeType>, right: Range<AttributeType>) -> NSPredicate {
   let rightExpression = NSExpression(forConstantValue: [right.startIndex, right.endIndex]._asCocoaArray())
 
   return NSComparisonPredicate(leftExpression: left.expression, rightExpression: rightExpression, modifier: NSComparisonPredicateModifier.DirectPredicateModifier, type: NSPredicateOperatorType.BetweenPredicateOperatorType, options: NSComparisonPredicateOptions(0))
