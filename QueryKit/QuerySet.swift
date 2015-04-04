@@ -48,7 +48,10 @@ public class QuerySet<ModelType : NSManagedObject> : SequenceType, Equatable {
     self.predicate = predicate
     self.range = range
   }
+}
 
+/// Methods which return a new queryset
+extension QuerySet {
   // MARK: Sorting
 
   /// Returns a new QuerySet containing objects ordered by the given sort descriptor.
@@ -104,7 +107,10 @@ public class QuerySet<ModelType : NSManagedObject> : SequenceType, Equatable {
     let excludePredicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: predicates)
     return exclude(excludePredicate)
   }
+}
 
+/// Functions for evauluating a QuerySet
+extension QuerySet {
   // MARK: Subscripting
 
   public subscript(index: Int) -> (object:ModelType?, error:NSError?) {
