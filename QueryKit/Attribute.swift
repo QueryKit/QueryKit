@@ -105,11 +105,11 @@ prefix public func ! (left: Attribute<Bool>) -> NSPredicate {
 }
 
 public extension QuerySet {
-  public func filter(attribute:Attribute<Bool>) -> QuerySet<T> {
+  public func filter(attribute:Attribute<Bool>) -> QuerySet<ModelType> {
     return filter(attribute == true)
   }
 
-  public func exclude(attribute:Attribute<Bool>) -> QuerySet<T> {
+  public func exclude(attribute:Attribute<Bool>) -> QuerySet<ModelType> {
     return filter(attribute == false)
   }
 }

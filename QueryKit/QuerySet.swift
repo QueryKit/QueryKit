@@ -15,7 +15,7 @@ import CoreData
 
 
 /// Represents a lazy database lookup for a set of objects.
-public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
+public class QuerySet<ModelType : NSManagedObject> : SequenceType, Equatable {
   /// Returns the managed object context that will be used to execute any requests.
   public let context:NSManagedObjectContext
 
@@ -37,7 +37,7 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
     self.entityName = entityName
   }
 
-  public init(queryset:QuerySet<T>, sortDescriptors:[NSSortDescriptor]?, predicate:NSPredicate?, range:Range<Int>?) {
+  public init(queryset:QuerySet<ModelType>, sortDescriptors:[NSSortDescriptor]?, predicate:NSPredicate?, range:Range<Int>?) {
     self.context = queryset.context
     self.entityName = queryset.entityName
 
@@ -52,17 +52,17 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
   // MARK: Sorting
 
   /// Returns a new QuerySet containing objects ordered by the given sort descriptor.
-  public func orderBy(sortDescriptor:NSSortDescriptor) -> QuerySet<T> {
+  public func orderBy(sortDescriptor:NSSortDescriptor) -> QuerySet<ModelType> {
     return orderBy([sortDescriptor])
   }
 
   /// Returns a new QuerySet containing objects ordered by the given sort descriptors.
-  public func orderBy(sortDescriptors:[NSSortDescriptor]) -> QuerySet<T> {
+  public func orderBy(sortDescriptors:[NSSortDescriptor]) -> QuerySet<ModelType> {
     return QuerySet(queryset:self, sortDescriptors:sortDescriptors, predicate:predicate, range:range)
   }
 
   /// Reverses the ordering of the QuerySet
-  public func reverse() -> QuerySet<T> {
+  public func reverse() -> QuerySet<ModelType> {
     func reverseSortDescriptor(sortDescriptor:NSSortDescriptor) -> NSSortDescriptor {
       #if os(OSX) && COCOAPODS
         return NSSortDescriptor(key: sortDescriptor.key()!, ascending: !sortDescriptor.ascending)
@@ -77,7 +77,7 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
   // MARK: Filtering
 
   /// Returns a new QuerySet containing objects that match the given predicate.
-  public func filter(predicate:NSPredicate) -> QuerySet<T> {
+  public func filter(predicate:NSPredicate) -> QuerySet<ModelType> {
     var futurePredicate = predicate
 
     if let existingPredicate = self.predicate {
@@ -88,26 +88,26 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
   }
 
   /// Returns a new QuerySet containing objects that match the given predicates.
-  public func filter(predicates:[NSPredicate]) -> QuerySet<T> {
+  public func filter(predicates:[NSPredicate]) -> QuerySet<ModelType> {
     let newPredicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: predicates)
     return filter(newPredicate)
   }
 
   /// Returns a new QuerySet containing objects that exclude the given predicate.
-  public func exclude(predicate:NSPredicate) -> QuerySet<T> {
+  public func exclude(predicate:NSPredicate) -> QuerySet<ModelType> {
     let excludePredicate = NSCompoundPredicate(type: NSCompoundPredicateType.NotPredicateType, subpredicates: [predicate])
     return filter(excludePredicate)
   }
 
   /// Returns a new QuerySet containing objects that exclude the given predicates.
-  public func exclude(predicates:[NSPredicate]) -> QuerySet<T> {
+  public func exclude(predicates:[NSPredicate]) -> QuerySet<ModelType> {
     let excludePredicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: predicates)
     return exclude(excludePredicate)
   }
 
   // MARK: Subscripting
 
-  public subscript(index: Int) -> (object:T?, error:NSError?) {
+  public subscript(index: Int) -> (object:ModelType?, error:NSError?) {
     get {
       var request = fetchRequest
       request.fetchOffset = index
@@ -115,7 +115,7 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
 
       var error:NSError?
       if let items = context.executeFetchRequest(request, error:&error) {
-        return (object:items.first as T?, error:error)
+        return (object:items.first as ModelType?, error:error)
       } else {
         return (object: nil, error: error)
       }
@@ -123,13 +123,13 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
   }
 
   /// Returns the object at the specified index.
-  public subscript(index: Int) -> T? {
+  public subscript(index: Int) -> ModelType? {
     get {
       return self[index].object
     }
   }
 
-  public subscript(range:Range<Int>) -> QuerySet<T> {
+  public subscript(range:Range<Int>) -> QuerySet<ModelType> {
     get {
       var fullRange = range
 
@@ -143,13 +143,13 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
 
   // Mark: Getters
 
-  public var first: T? {
+  public var first: ModelType? {
     get {
       return self[0].object
     }
   }
 
-  public var last: T? {
+  public var last: ModelType? {
     get {
       return reverse().first
     }
@@ -170,13 +170,13 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
     return request
   }
 
-  public func array() -> (objects:([T]?), error:NSError?) {
+  public func array() -> (objects:([ModelType]?), error:NSError?) {
     var error:NSError?
-    var objects = context.executeFetchRequest(fetchRequest, error:&error) as? [T]
+    var objects = context.executeFetchRequest(fetchRequest, error:&error) as? [ModelType]
     return (objects:objects, error:error)
   }
 
-  public func array() -> [T]? {
+  public func array() -> [ModelType]? {
     return array().objects
   }
 
@@ -217,7 +217,7 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
 
   /// Deletes all the objects matching the QuerySet.
   public func delete() -> (count:Int, error:NSError?) {
-    var result = array() as (objects:([T]?), error:NSError?)
+    var result = array() as (objects:([ModelType]?), error:NSError?)
     var deletedCount = 0
 
     if let objects = result.objects {
@@ -233,8 +233,8 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
 
   // MARK: Sequence
 
-  public func generate() -> IndexingGenerator<Array<T>> {
-    var result = self.array() as (objects:([T]?), error:NSError?)
+  public func generate() -> IndexingGenerator<Array<ModelType>> {
+    var result = self.array() as (objects:([ModelType]?), error:NSError?)
 
     if let objects = result.objects {
       return objects.generate()
@@ -244,7 +244,7 @@ public class QuerySet<T : NSManagedObject> : SequenceType, Equatable {
   }
 }
 
-public func == <T : NSManagedObject>(lhs: QuerySet<T>, rhs: QuerySet<T>) -> Bool {
+public func == <ModelType : NSManagedObject>(lhs: QuerySet<ModelType>, rhs: QuerySet<ModelType>) -> Bool {
   let context = lhs.context == rhs.context
   let entityName = lhs.entityName == rhs.entityName
   let sortDescriptors = lhs.sortDescriptors == rhs.sortDescriptors
