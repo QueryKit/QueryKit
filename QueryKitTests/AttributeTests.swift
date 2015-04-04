@@ -10,126 +10,126 @@ import XCTest
 import QueryKit
 
 class AttributeTests: XCTestCase {
-    var attribute:Attribute<Int>!
+  var attribute:Attribute<Int>!
 
-    override func setUp() {
-        super.setUp()
+  override func setUp() {
+    super.setUp()
 
-        attribute = Attribute("age")
-    }
-    
-    func testAttributeHasName() {
-        XCTAssertEqual(attribute.name, "age")
-    }
+    attribute = Attribute("age")
+  }
 
-    func testAttributeExpression() {
-        XCTAssertEqual(attribute.expression.keyPath, "age")
-    }
+  func testAttributeHasName() {
+    XCTAssertEqual(attribute.name, "age")
+  }
 
-    func testEqualAttributesAreEquatable() {
-        XCTAssertEqual(attribute, Attribute<Int>("age"))
-    }
+  func testAttributeExpression() {
+    XCTAssertEqual(attribute.expression.keyPath, "age")
+  }
 
-    func testCompoundAttributeCreation() {
-        let personCompanyNameAttribute = Attribute<NSString>(attributes:["company", "name"])
+  func testEqualAttributesAreEquatable() {
+    XCTAssertEqual(attribute, Attribute<Int>("age"))
+  }
 
-        XCTAssertEqual(personCompanyNameAttribute.name, "company.name")
-        XCTAssertEqual(personCompanyNameAttribute.expression.keyPath, "company.name")
-    }
+  func testCompoundAttributeCreation() {
+    let personCompanyNameAttribute = Attribute<NSString>(attributes:["company", "name"])
 
-    // Sorting
+    XCTAssertEqual(personCompanyNameAttribute.name, "company.name")
+    XCTAssertEqual(personCompanyNameAttribute.expression.keyPath, "company.name")
+  }
 
-    func testAscendingSortDescriptor() {
-        XCTAssertEqual(attribute.ascending(), NSSortDescriptor(key: "age", ascending: true))
-    }
+  // Sorting
 
-    func testDescendingSortDescriptor() {
-        XCTAssertEqual(attribute.descending(), NSSortDescriptor(key: "age", ascending: false))
-    }
+  func testAscendingSortDescriptor() {
+    XCTAssertEqual(attribute.ascending(), NSSortDescriptor(key: "age", ascending: true))
+  }
 
-    // Operators
+  func testDescendingSortDescriptor() {
+    XCTAssertEqual(attribute.descending(), NSSortDescriptor(key: "age", ascending: false))
+  }
 
-    func testEqualityOperator() {
-        var predicate:NSPredicate = (attribute == 10)
-        XCTAssertEqual(predicate, NSPredicate(format:"age == 10")!)
-    }
+  // Operators
 
-    func testInequalityOperator() {
-        var predicate:NSPredicate = (attribute != 10)
-        XCTAssertEqual(predicate, NSPredicate(format:"age != 10")!)
-    }
+  func testEqualityOperator() {
+    var predicate:NSPredicate = (attribute == 10)
+    XCTAssertEqual(predicate, NSPredicate(format:"age == 10")!)
+  }
 
-    func testGreaterThanOperator() {
-        var predicate:NSPredicate = (attribute > 10)
-        XCTAssertEqual(predicate, NSPredicate(format:"age > 10")!)
-    }
+  func testInequalityOperator() {
+    var predicate:NSPredicate = (attribute != 10)
+    XCTAssertEqual(predicate, NSPredicate(format:"age != 10")!)
+  }
 
-    func testGreaterOrEqualThanOperator() {
-        var predicate:NSPredicate = (attribute >= 10)
-        XCTAssertEqual(predicate, NSPredicate(format:"age >= 10")!)
-    }
+  func testGreaterThanOperator() {
+    var predicate:NSPredicate = (attribute > 10)
+    XCTAssertEqual(predicate, NSPredicate(format:"age > 10")!)
+  }
 
-    func testLessThanOperator() {
-        var predicate:NSPredicate = (attribute < 10)
-        XCTAssertEqual(predicate, NSPredicate(format:"age < 10")!)
-    }
+  func testGreaterOrEqualThanOperator() {
+    var predicate:NSPredicate = (attribute >= 10)
+    XCTAssertEqual(predicate, NSPredicate(format:"age >= 10")!)
+  }
 
-    func testLessOrEqualThanOperator() {
-        var predicate:NSPredicate = (attribute <= 10)
-        XCTAssertEqual(predicate, NSPredicate(format:"age <= 10")!)
-    }
+  func testLessThanOperator() {
+    var predicate:NSPredicate = (attribute < 10)
+    XCTAssertEqual(predicate, NSPredicate(format:"age < 10")!)
+  }
 
-    func testLikeOperator() {
-        var predicate:NSPredicate = (attribute ~= 10)
-        XCTAssertEqual(predicate, NSPredicate(format:"age LIKE 10")!)
-    }
+  func testLessOrEqualThanOperator() {
+    var predicate:NSPredicate = (attribute <= 10)
+    XCTAssertEqual(predicate, NSPredicate(format:"age <= 10")!)
+  }
 
-    func testInOperator() {
-        var predicate:NSPredicate = (attribute << [5, 10])
-        XCTAssertEqual(predicate, NSPredicate(format:"age IN %@", [5, 10])!)
-    }
+  func testLikeOperator() {
+    var predicate:NSPredicate = (attribute ~= 10)
+    XCTAssertEqual(predicate, NSPredicate(format:"age LIKE 10")!)
+  }
 
-    func testBetweenRangeOperator() {
-        var predicate:NSPredicate = attribute << (5..<10)
-        XCTAssertEqual(predicate, NSPredicate(format:"age BETWEEN %@", [5, 10])!)
-    }
+  func testInOperator() {
+    var predicate:NSPredicate = (attribute << [5, 10])
+    XCTAssertEqual(predicate, NSPredicate(format:"age IN %@", [5, 10])!)
+  }
 
-    func testOptionalEqualityOperator() {
-        let attribute = Attribute<String?>("name")
-        var predicate:NSPredicate = (attribute == "kyle")
-        XCTAssertEqual(predicate, NSPredicate(format:"name == 'kyle'")!)
-    }
+  func testBetweenRangeOperator() {
+    var predicate:NSPredicate = attribute << (5..<10)
+    XCTAssertEqual(predicate, NSPredicate(format:"age BETWEEN %@", [5, 10])!)
+  }
 
-    func testOptionalNSObjectEqualityOperator() {
-        let attribute = Attribute<NSString?>("name")
-        var predicate:NSPredicate = (attribute == "kyle")
-        XCTAssertEqual(predicate, NSPredicate(format:"name == 'kyle'")!)
-    }
+  func testOptionalEqualityOperator() {
+    let attribute = Attribute<String?>("name")
+    var predicate:NSPredicate = (attribute == "kyle")
+    XCTAssertEqual(predicate, NSPredicate(format:"name == 'kyle'")!)
+  }
+
+  func testOptionalNSObjectEqualityOperator() {
+    let attribute = Attribute<NSString?>("name")
+    var predicate:NSPredicate = (attribute == "kyle")
+    XCTAssertEqual(predicate, NSPredicate(format:"name == 'kyle'")!)
+  }
 }
 
 class CollectionAttributeTests: XCTestCase {
-    func testCountOfSet() {
-        let setAttribute = Attribute<NSSet>("names")
-        let countAttribute = count(setAttribute)
-        XCTAssertEqual(countAttribute, Attribute<Int>("names.@count"))
-    }
+  func testCountOfSet() {
+    let setAttribute = Attribute<NSSet>("names")
+    let countAttribute = count(setAttribute)
+    XCTAssertEqual(countAttribute, Attribute<Int>("names.@count"))
+  }
 
-    func testCountOfOrderedSet() {
-        let setAttribute = Attribute<NSOrderedSet>("names")
-        let countAttribute = count(setAttribute)
-        XCTAssertEqual(countAttribute, Attribute<Int>("names.@count"))
-    }
+  func testCountOfOrderedSet() {
+    let setAttribute = Attribute<NSOrderedSet>("names")
+    let countAttribute = count(setAttribute)
+    XCTAssertEqual(countAttribute, Attribute<Int>("names.@count"))
+  }
 }
 
 class BoolAttributeTests: XCTestCase {
-    var attribute:Attribute<Bool>!
+  var attribute:Attribute<Bool>!
 
-    override func setUp() {
-        super.setUp()
-        attribute = Attribute("hasName")
-    }
+  override func setUp() {
+    super.setUp()
+    attribute = Attribute("hasName")
+  }
 
-    func testNotAttributeReturnsPredicate() {
-        XCTAssertEqual(!attribute, NSPredicate(format:"hasName == NO")!)
-    }
+  func testNotAttributeReturnsPredicate() {
+    XCTAssertEqual(!attribute, NSPredicate(format:"hasName == NO")!)
+  }
 }

@@ -13,6 +13,7 @@
  */
 @interface QKAttribute : NSObject <NSSecureCoding, NSCopying>
 
+/// The name for the attribute.
 @property (nonatomic, strong, readonly) NSString *name;
 
 /// Initialized the attribute from multiple other attributes

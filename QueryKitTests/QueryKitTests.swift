@@ -10,39 +10,39 @@ import XCTest
 import QueryKit
 
 @objc(Person) class Person : NSManagedObject {
-    @NSManaged var name:String
+  @NSManaged var name:String
 
-    class var entityName:String {
-        return "Person"
-    }
+  class var entityName:String {
+    return "Person"
+  }
 }
 
 extension Person {
-    class func create(context:NSManagedObjectContext) -> Person {
-        return NSEntityDescription.insertNewObjectForEntityForName(Person.entityName, inManagedObjectContext: context) as Person
-    }
+  class func create(context:NSManagedObjectContext) -> Person {
+    return NSEntityDescription.insertNewObjectForEntityForName(Person.entityName, inManagedObjectContext: context) as Person
+  }
 }
 
 func managedObjectModel() -> NSManagedObjectModel {
-    let personEntity = NSEntityDescription()
-    personEntity.name = Person.entityName
-    personEntity.managedObjectClassName = "Person"
+  let personEntity = NSEntityDescription()
+  personEntity.name = Person.entityName
+  personEntity.managedObjectClassName = "Person"
 
-    let personNameAttribute = NSAttributeDescription()
-    personNameAttribute.name = "name"
-    personNameAttribute.attributeType = NSAttributeType.StringAttributeType
-    personNameAttribute.optional = false
-    personEntity.properties = [personNameAttribute]
+  let personNameAttribute = NSAttributeDescription()
+  personNameAttribute.name = "name"
+  personNameAttribute.attributeType = NSAttributeType.StringAttributeType
+  personNameAttribute.optional = false
+  personEntity.properties = [personNameAttribute]
 
-    let model = NSManagedObjectModel()
-    model.entities = [personEntity]
+  let model = NSManagedObjectModel()
+  model.entities = [personEntity]
 
-    return model
+  return model
 }
 
 func persistentStoreCoordinator() -> NSPersistentStoreCoordinator {
-    let model = managedObjectModel()
-    let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
-    persistentStoreCoordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil, error: nil)
-    return persistentStoreCoordinator
+  let model = managedObjectModel()
+  let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
+  persistentStoreCoordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil, error: nil)
+  return persistentStoreCoordinator
 }

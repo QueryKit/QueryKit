@@ -15,7 +15,6 @@
 		77A9B67F195374490016654E /* QueryKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77A9B67E195374490016654E /* QueryKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77A9B685195374490016654E /* QueryKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A9B679195374490016654E /* QueryKit.framework */; };
 		77A9B68C195374490016654E /* QueryKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A9B68B195374490016654E /* QueryKitTests.swift */; };
-		77A9B698195374AA0016654E /* QueryKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A9B697195374AA0016654E /* QueryKit.swift */; };
 		77B17B8519A94C9100D6540D /* QKAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 77B17B8319A94C9100D6540D /* QKAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77B17B8619A94C9100D6540D /* QKAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B17B8419A94C9100D6540D /* QKAttribute.m */; };
 		77B17B8819A94D2C00D6540D /* QKAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B17B8719A94D2C00D6540D /* QKAttribute.swift */; };
@@ -77,7 +76,6 @@
 		77A9B684195374490016654E /* QueryKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QueryKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77A9B68A195374490016654E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77A9B68B195374490016654E /* QueryKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryKitTests.swift; sourceTree = "<group>"; };
-		77A9B697195374AA0016654E /* QueryKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryKit.swift; sourceTree = "<group>"; };
 		77B17B8319A94C9100D6540D /* QKAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QKAttribute.h; sourceTree = "<group>"; };
 		77B17B8419A94C9100D6540D /* QKAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QKAttribute.m; sourceTree = "<group>"; };
 		77B17B8719A94D2C00D6540D /* QKAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QKAttribute.swift; sourceTree = "<group>"; };
@@ -129,7 +127,9 @@
 				279294E41A4B4C60009C52E1 /* Configurations */,
 				77A9B67A195374490016654E /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		77A9B67A195374490016654E /* Products */ = {
 			isa = PBXGroup;
@@ -144,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				77A9B67E195374490016654E /* QueryKit.h */,
-				77A9B697195374AA0016654E /* QueryKit.swift */,
 				77E3A05C1969C019009372A8 /* QuerySet.swift */,
 				77E8728019539C0900A6F13F /* Attribute.swift */,
 				77E3A0601969DDF5009372A8 /* Expression.swift */,
@@ -325,7 +324,6 @@
 				77E8728719539FD200A6F13F /* Predicate.swift in Sources */,
 				77B17B8619A94C9100D6540D /* QKAttribute.m in Sources */,
 				77B17B8819A94D2C00D6540D /* QKAttribute.swift in Sources */,
-				77A9B698195374AA0016654E /* QueryKit.swift in Sources */,
 				77007D8319A95CE9007DC2BC /* QKQuerySet.swift in Sources */,
 				77007D8219A95CE9007DC2BC /* QKQuerySet.m in Sources */,
 				77E3A05D1969C019009372A8 /* QuerySet.swift in Sources */,
