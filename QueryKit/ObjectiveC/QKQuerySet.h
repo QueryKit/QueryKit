@@ -147,6 +147,7 @@
 
 @end
 
+/// Creating a queryset for a managed object
 @interface NSManagedObject (QKQuerySet)
 
 /// Returns a queryset for this object in the given context.

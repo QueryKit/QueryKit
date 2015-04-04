@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// An attribute, representing an attribute on a model
 public struct Attribute<AttributeType> : Equatable {
   public let name:String
 
@@ -20,16 +21,19 @@ public struct Attribute<AttributeType> : Equatable {
     self.init(".".join(attributes))
   }
 
+  /// Returns an expression for the attribute
   public var expression:NSExpression {
     return NSExpression(forKeyPath: name)
   }
 
   // MARK: Sorting
 
+  /// Returns an ascending sort descriptor for the attribute
   public func ascending() -> NSSortDescriptor {
     return NSSortDescriptor(key: name, ascending: true)
   }
 
+  /// Returns a descending sort descriptor for the attribute
   public func descending() -> NSSortDescriptor {
     return NSSortDescriptor(key: name, ascending: false)
   }
@@ -56,6 +60,8 @@ public struct Attribute<AttributeType> : Equatable {
   }
 }
 
+
+/// Returns true if two attributes have the same name
 public func == <AttributeType>(lhs: Attribute<AttributeType>, rhs: Attribute<AttributeType>) -> Bool {
   return lhs.name == rhs.name
 }

@@ -244,6 +244,7 @@ public class QuerySet<ModelType : NSManagedObject> : SequenceType, Equatable {
   }
 }
 
+/// Returns true if the two given querysets are equivilent
 public func == <ModelType : NSManagedObject>(lhs: QuerySet<ModelType>, rhs: QuerySet<ModelType>) -> Bool {
   let context = lhs.context == rhs.context
   let entityName = lhs.entityName == rhs.entityName

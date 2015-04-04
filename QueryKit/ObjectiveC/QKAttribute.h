@@ -33,6 +33,7 @@
 
 @end
 
+/// Predicates
 @interface QKAttribute (Predicate)
 
 /** Returns a predicate for an equality comparison against the supplied value
@@ -200,6 +201,7 @@
 
 @end
 
+/// Sorting
 @interface QKAttribute (Sorting)
 
 /** Returns an ascending sort descriptor for this attribute */
