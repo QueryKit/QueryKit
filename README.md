@@ -69,11 +69,11 @@ Using slicing, you can limit your QuerySet to a certain number of results.
 Person.queryset(context)[0..<10]
 ```
 
-**NOTE**: *Remember, QuerySet’s are lazily evaluated. Slicing doesn’t evaluate the query.*
+**NOTE**: *Remember, QuerySets are lazily evaluated. Slicing doesn’t evaluate the query.*
 
 #### Ordering
 
-You can order a queryset's results by using the `orderBy` method which accepts
+You can order a QuerySet's results by using the `orderBy` method which accepts
 a collection of sort descriptors:
 
 ```swift
