@@ -56,25 +56,25 @@
  @param error If there is a problem fetching the count, upon return contains an instance of NSError that describes the problem.
  @return The number of objects matching the set predicate
  */
-- (NSUInteger)count:(NSError **)error;
+- (NSUInteger)count:(NSError * __nullable* __nullable)error;
 
 /** Returns all objects matching the set predicate ordered by any set sort descriptors as an array
  @param error If there is a problem fetching the objects, upon return contains an instance of NSError that describes the problem.
  @return An array containing all matched objects
  */
-- (nullable NSArray *)array:(NSError **)error;
+- (nullable NSArray *)array:(NSError * __nullable* __nullable)error;
 
 /** Returns all objects matching the set predicate ordered by any set sort descriptors as an ordered set
  @param error If there is a problem fetching the objects, upon return contains an instance of NSError that describes the problem.
  @return An ordered set containing all matched objects
  */
-- (nullable NSSet *)set:(NSError **)error;
+- (nullable NSSet *)set:(NSError * __nullable* __nullable)error;
 
 /** Returns all objects matching the set predicate ordered by any set sort descriptors as a set
  @param error If there is a problem fetching the objects, upon return contains an instance of NSError that describes the problem.
  @return A set containing all matched objects
  */
-- (nullable NSOrderedSet *)orderedSet:(NSError **)error;
+- (nullable NSOrderedSet *)orderedSet:(NSError * __nullable* __nullable)error;
 
 #pragma mark - Enumeration
 
@@ -83,14 +83,15 @@
  @param error If there is a problem fetching the objects, upon return contains an instance of NSError that describes the problem.
  @return YES if the operation succeeded.
  */
-- (BOOL)enumerateObjects:(void (^)(NSManagedObject *object, NSUInteger index, BOOL *stop))block error:(NSError **)error;
+- (BOOL)enumerateObjects:(nonnull void (^)(NSManagedObject *
+                                           __nonnull object, NSUInteger index, BOOL * __nonnull stop))block error:(NSError * __nullable* __nullable)error;
 
 /** Enumerate all objects matching the set predicate ordered by any set sort descriptors
  @param block The block to apply to all objects
  @param error If there is a problem fetching the objects, upon return contains an instance of NSError that describes the problem.
  @return YES if the operation succeeded.
  */
-- (BOOL)each:(void (^)(NSManagedObject *managedObject))block error:(NSError **)error;
+- (BOOL)each:(nonnull void (^)(NSManagedObject * __nonnull managedObject))block error:(NSError * __nullable* __nullable)error;
 
 #pragma mark - Deletion
 
@@ -98,7 +99,7 @@
  @param error If there is a problem deleting the objects, upon return contains an instance of NSError that describes the problem.
  @return Returns the amount of objects that were deleted
  */
-- (NSUInteger)deleteObjects:(NSError **)error;
+- (NSUInteger)deleteObjects:(NSError * __nullable* __nullable)error;
 
 @end
 
@@ -131,19 +132,19 @@
  @param error If there is a problem fetching the object or there is more than one object, upon return contains an instance of NSError that describes the problem.
  @return Returns the object matching the set predicate, or nil.
  */
-- (nullable NSManagedObject *)object:(NSError **)error;
+- (nullable NSManagedObject *)object:(NSError * __nullable* __nullable)error;
 
 /** Returns the first object matching the filters ordered by the set sort descriptors.
  @param error If there is a problem fetching the object, upon return contains an instance of NSError that describes the problem.
  @return Returns the first object matching the set predicate, or nil.
  */
-- (nullable NSManagedObject *)firstObject:(NSError **)error;
+- (nullable NSManagedObject *)firstObject:(NSError * __nullable* __nullable)error;
 
 /** Returns the last object matching the filters ordered by the set sort descriptors.
  @param error If there is a problem fetching the object, upon return contains an instance of NSError that describes the problem.
  @return Returns the last object matching the set predicate, or nil.
  */
-- (nullable NSManagedObject *)lastObject:(NSError **)error;
+- (nullable NSManagedObject *)lastObject:(NSError * __nullable* __nullable)error;
 
 @end
 
