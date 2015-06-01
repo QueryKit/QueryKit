@@ -1,3 +1,5 @@
+<img src="QueryKit.png" width=128 height=160 alt="QueryKit Logo" />
+
 # QueryKit
 
 [![Build Status](http://img.shields.io/travis/QueryKit/QueryKit/master.svg?style=flat)](https://travis-ci.org/QueryKit/QueryKit)
