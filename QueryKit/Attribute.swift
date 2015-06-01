@@ -95,11 +95,13 @@ public func ~= <AttributeType>(left: Attribute<AttributeType>, right: AttributeT
 }
 
 public func << <AttributeType>(left: Attribute<AttributeType>, right: [AttributeType]) -> NSPredicate {
-  return left.expression << NSExpression(forConstantValue: right._asCocoaArray())
+    let value = map(right) { value in return value as! NSObject }
+    return left.expression << NSExpression(forConstantValue: value)
 }
 
 public func << <AttributeType>(left: Attribute<AttributeType>, right: Range<AttributeType>) -> NSPredicate {
-  let rightExpression = NSExpression(forConstantValue: [right.startIndex, right.endIndex]._asCocoaArray())
+    let value = [right.startIndex as! NSObject, right.endIndex as! NSObject] as NSArray
+    let rightExpression = NSExpression(forConstantValue: value)
 
   return NSComparisonPredicate(leftExpression: left.expression, rightExpression: rightExpression, modifier: NSComparisonPredicateModifier.DirectPredicateModifier, type: NSPredicateOperatorType.BetweenPredicateOperatorType, options: NSComparisonPredicateOptions(0))
 }

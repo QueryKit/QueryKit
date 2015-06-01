@@ -8,6 +8,7 @@
 
 import XCTest
 import QueryKit
+import CoreData
 
 @objc(Person) class Person : NSManagedObject {
   @NSManaged var name:String
@@ -19,7 +20,7 @@ import QueryKit
 
 extension Person {
   class func create(context:NSManagedObjectContext) -> Person {
-    return NSEntityDescription.insertNewObjectForEntityForName(Person.entityName, inManagedObjectContext: context) as Person
+    return NSEntityDescription.insertNewObjectForEntityForName(Person.entityName, inManagedObjectContext: context) as! Person
   }
 }
 
