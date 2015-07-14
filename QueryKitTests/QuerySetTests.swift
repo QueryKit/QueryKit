@@ -25,7 +25,10 @@ class QuerySetTests: XCTestCase {
       person.name = name
     }
 
-    context.save(nil)
+    do {
+      try context.save()
+    } catch _ {
+    }
 
     queryset = QuerySet(context, "Person")
   }
@@ -38,13 +41,13 @@ class QuerySetTests: XCTestCase {
 
   func testOrderBySortDescriptor() {
     let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-    var qs = queryset.orderBy(sortDescriptor)
+    let qs = queryset.orderBy(sortDescriptor)
     XCTAssertTrue(qs.sortDescriptors == [sortDescriptor])
   }
 
   func testOrderBySortDescriptors() {
     let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-    var qs = queryset.orderBy([sortDescriptor])
+    let qs = queryset.orderBy([sortDescriptor])
     XCTAssertTrue(qs.sortDescriptors == [sortDescriptor])
   }
 
@@ -63,7 +66,7 @@ class QuerySetTests: XCTestCase {
 
   func testFilterPredicate() {
     let predicate = NSPredicate(format: "name == Kyle")
-    var qs = queryset.filter(predicate)
+    let qs = queryset.filter(predicate)
     XCTAssertEqual(qs.predicate!, predicate)
   }
 
@@ -71,7 +74,7 @@ class QuerySetTests: XCTestCase {
     let predicateName = NSPredicate(format: "name == Kyle")
     let predicateAge = NSPredicate(format: "age > 27")
 
-    var qs = queryset.filter([predicateName, predicateAge])
+    let qs = queryset.filter([predicateName, predicateAge])
     XCTAssertEqual(qs.predicate!, NSPredicate(format: "name == Kyle AND age > 27"))
   }
 
@@ -84,7 +87,7 @@ class QuerySetTests: XCTestCase {
 
   func testExcludePredicate() {
     let predicate = NSPredicate(format: "name == Kyle")
-    var qs = queryset.exclude(predicate)
+    let qs = queryset.exclude(predicate)
     XCTAssertEqual(qs.predicate!, NSPredicate(format: "NOT name == Kyle"))
   }
 
@@ -92,7 +95,7 @@ class QuerySetTests: XCTestCase {
     let predicateName = NSPredicate(format: "name == Kyle")
     let predicateAge = NSPredicate(format: "age > 27")
 
-    var qs = queryset.exclude([predicateName, predicateAge])
+    let qs = queryset.exclude([predicateName, predicateAge])
     XCTAssertEqual(qs.predicate!, NSPredicate(format: "NOT (name == Kyle AND age > 27)"))
   }
 
@@ -120,13 +123,13 @@ class QuerySetTests: XCTestCase {
   // MARK: Subscripting
 
   func testSubscriptingAtIndex() {
-    var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
+    let qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
 
-    var ayaka = qs[0].object
-    var kyle = qs[1].object
-    var mark = qs[2].object
-    var orta:Person? = qs[3].object
-    var scott:Person? = qs[4]
+    let ayaka = qs[0].object
+    let kyle = qs[1].object
+    let mark = qs[2].object
+    let orta:Person? = qs[3].object
+    let scott:Person? = qs[4]
 
     XCTAssertEqual(ayaka!.name, "Ayaka")
     XCTAssertEqual(kyle!.name, "Kyle")
@@ -136,7 +139,7 @@ class QuerySetTests: XCTestCase {
   }
 
   func testSubscriptingRange() {
-    var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...2]
+    let qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...2]
 
     XCTAssertEqual(qs.range!.startIndex, 0)
     XCTAssertEqual(qs.range!.endIndex, 3)
@@ -154,75 +157,65 @@ class QuerySetTests: XCTestCase {
   //  MARK: Getters
 
   func testFirst() {
-    var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
+    let qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
     XCTAssertEqual(qs.first!.name, "Ayaka")
   }
 
   func testLast() {
-    var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
+    let qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
     XCTAssertEqual(qs.last!.name, "Scott")
   }
 
   // MARK: Conversion
 
   func testConversionToArray() {
-    var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
-    var people = qs.array().objects
+    let qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
+    let people = AssertNotThrow(try qs.array()) ?? []
 
-    XCTAssertEqual(people!.count, 2)
-  }
-
-  func testConversionToArrayWithoutError() {
-    var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
-    var people = qs.array() as [Person]?
-
-    XCTAssertEqual(people!.count, 2)
+    XCTAssertEqual(people.count, 2)
   }
 
   // MARK: Count
 
   func testCount() {
-    var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
-    var count = qs.count().count
-
-    XCTAssertEqual(count!, 2)
-  }
-
-  func testCountWithoutError() {
-    var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
-    var count = qs.count() as Int?
+    let qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))[0...1]
+    let count = AssertNotThrow(try qs.count())
 
     XCTAssertEqual(count!, 2)
   }
 
   // MARK: Exists
 
-  func testExistsReturnsTrueWithMatchingObjects()  {
+  func testExistsReturnsTrueWithMatchingObjects() {
     let qs = queryset.filter(NSPredicate(format: "name == %@", "Kyle"))
-    XCTAssertTrue(qs.exists()!)
+    let exists = AssertNotThrow(try qs.exists()) ?? false
+
+    XCTAssertTrue(exists)
   }
 
-  func testExistsReturnsFalseWithNoMatchingObjects()  {
+  func testExistsReturnsFalseWithNoMatchingObjects() {
     let qs = queryset.filter(NSPredicate(format: "name == %@", "None"))
-    XCTAssertFalse(qs.exists()!)
+    let exists = AssertNotThrow(try qs.exists()) ?? true
+
+    XCTAssertFalse(exists)
   }
 
   // MARK: Deletion
 
   func testDelete() {
-    var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
+    let qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
 
-    var deletedCount = qs[0...1].delete().count
-    var count = qs.count() as Int?
+    let deletedCount = AssertNotThrow(try qs[0...1].delete()) ?? 0
+    let count = AssertNotThrow(try qs.count()) ?? 0
 
     XCTAssertEqual(deletedCount, 2)
-    XCTAssertEqual(count!, 3)
+    XCTAssertEqual(count, 3)
   }
 
   // MARK: Sequence
 
   func testSequence() {
-    var qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
+    let qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
     var objects = [Person]()
 
     for object in qs {

@@ -44,6 +44,26 @@ func managedObjectModel() -> NSManagedObjectModel {
 func persistentStoreCoordinator() -> NSPersistentStoreCoordinator {
   let model = managedObjectModel()
   let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
-  persistentStoreCoordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil, error: nil)
+  do {
+    try persistentStoreCoordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil)
+  } catch _ {
+  }
   return persistentStoreCoordinator
+}
+
+public func AssertNotThrow<R>(@autoclosure closure: () throws -> R) -> R? {
+  var result: R?
+  AssertNotThrow() {
+    result = try closure()
+  }
+  return result
+}
+
+public func AssertNotThrow(@noescape closure: () throws -> ()) {
+  do {
+    try closure()
+  } catch let error {
+    XCTFail("Catched error \(error), "
+      + "but did not expect any error.")
+  }
 }

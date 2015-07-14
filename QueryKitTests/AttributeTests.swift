@@ -50,59 +50,59 @@ class AttributeTests: XCTestCase {
   // Operators
 
   func testEqualityOperator() {
-    var predicate:NSPredicate = (attribute == 10)
+    let predicate:NSPredicate = (attribute == 10)
     XCTAssertEqual(predicate, NSPredicate(format:"age == 10"))
   }
 
   func testInequalityOperator() {
-    var predicate:NSPredicate = (attribute != 10)
+    let predicate:NSPredicate = (attribute != 10)
     XCTAssertEqual(predicate, NSPredicate(format:"age != 10"))
   }
 
   func testGreaterThanOperator() {
-    var predicate:NSPredicate = (attribute > 10)
+    let predicate:NSPredicate = (attribute > 10)
     XCTAssertEqual(predicate, NSPredicate(format:"age > 10"))
   }
 
   func testGreaterOrEqualThanOperator() {
-    var predicate:NSPredicate = (attribute >= 10)
+    let predicate:NSPredicate = (attribute >= 10)
     XCTAssertEqual(predicate, NSPredicate(format:"age >= 10"))
   }
 
   func testLessThanOperator() {
-    var predicate:NSPredicate = (attribute < 10)
+    let predicate:NSPredicate = (attribute < 10)
     XCTAssertEqual(predicate, NSPredicate(format:"age < 10"))
   }
 
   func testLessOrEqualThanOperator() {
-    var predicate:NSPredicate = (attribute <= 10)
+    let predicate:NSPredicate = (attribute <= 10)
     XCTAssertEqual(predicate, NSPredicate(format:"age <= 10"))
   }
 
   func testLikeOperator() {
-    var predicate:NSPredicate = (attribute ~= 10)
+    let predicate:NSPredicate = (attribute ~= 10)
     XCTAssertEqual(predicate, NSPredicate(format:"age LIKE 10"))
   }
 
   func testInOperator() {
-    var predicate:NSPredicate = (attribute << [5, 10])
+    let predicate:NSPredicate = (attribute << [5, 10])
     XCTAssertEqual(predicate, NSPredicate(format:"age IN %@", [5, 10]))
   }
 
   func testBetweenRangeOperator() {
-    var predicate:NSPredicate = attribute << (5..<10)
+    let predicate:NSPredicate = attribute << (5..<10)
     XCTAssertEqual(predicate, NSPredicate(format:"age BETWEEN %@", [5, 10]))
   }
 
   func testOptionalEqualityOperator() {
     let attribute = Attribute<String?>("name")
-    var predicate:NSPredicate = (attribute == "kyle")
+    let predicate:NSPredicate = (attribute == "kyle")
     XCTAssertEqual(predicate, NSPredicate(format:"name == 'kyle'"))
   }
 
   func testOptionalNSObjectEqualityOperator() {
     let attribute = Attribute<NSString?>("name")
-    var predicate:NSPredicate = (attribute == "kyle")
+    let predicate:NSPredicate = (attribute == "kyle")
     XCTAssertEqual(predicate, NSPredicate(format:"name == 'kyle'"))
   }
 }

@@ -95,7 +95,7 @@ public func ~= <AttributeType>(left: Attribute<AttributeType>, right: AttributeT
 }
 
 public func << <AttributeType>(left: Attribute<AttributeType>, right: [AttributeType]) -> NSPredicate {
-    let value = map(right) { value in return value as! NSObject }
+    let value = right.map { value in return value as! NSObject }
     return left.expression << NSExpression(forConstantValue: value)
 }
 
@@ -103,7 +103,7 @@ public func << <AttributeType>(left: Attribute<AttributeType>, right: Range<Attr
     let value = [right.startIndex as! NSObject, right.endIndex as! NSObject] as NSArray
     let rightExpression = NSExpression(forConstantValue: value)
 
-  return NSComparisonPredicate(leftExpression: left.expression, rightExpression: rightExpression, modifier: NSComparisonPredicateModifier.DirectPredicateModifier, type: NSPredicateOperatorType.BetweenPredicateOperatorType, options: NSComparisonPredicateOptions(0))
+  return NSComparisonPredicate(leftExpression: left.expression, rightExpression: rightExpression, modifier: NSComparisonPredicateModifier.DirectPredicateModifier, type: NSPredicateOperatorType.BetweenPredicateOperatorType, options: NSComparisonPredicateOptions(rawValue: 0))
 }
 
 /// MARK: Bool Attributes

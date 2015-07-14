@@ -73,7 +73,7 @@ extension QuerySet {
       #endif
     }
 
-    return QuerySet(queryset:self, sortDescriptors:map(sortDescriptors, reverseSortDescriptor), predicate:predicate, range:range)
+    return QuerySet(queryset:self, sortDescriptors:sortDescriptors.map(reverseSortDescriptor), predicate:predicate, range:range)
   }
 
   // MARK: Filtering
@@ -114,14 +114,16 @@ extension QuerySet {
 
   public subscript(index: Int) -> (object:ModelType?, error:NSError?) {
     get {
-      var request = fetchRequest
+      let request = fetchRequest
       request.fetchOffset = index
       request.fetchLimit = 1
 
       var error:NSError?
-      if let items = context.executeFetchRequest(request, error:&error) {
+      do {
+        let items = try context.executeFetchRequest(request)
         return (object:items.first as? ModelType, error:error)
-      } else {
+      } catch let error1 as NSError {
+        error = error1
         return (object: nil, error: error)
       }
     }
@@ -163,7 +165,7 @@ extension QuerySet {
   // MARK: Conversion
 
   public var fetchRequest:NSFetchRequest {
-    var request = NSFetchRequest(entityName:entityName)
+    let request = NSFetchRequest(entityName:entityName)
     request.predicate = predicate
     request.sortDescriptors = sortDescriptors
 
@@ -175,32 +177,23 @@ extension QuerySet {
     return request
   }
 
-  public func array() -> (objects:([ModelType]?), error:NSError?) {
-    var error:NSError?
-    var objects = context.executeFetchRequest(fetchRequest, error:&error) as? [ModelType]
-    return (objects:objects, error:error)
-  }
-
-  public func array() -> [ModelType]? {
-    return array().objects
+  public func array() throws -> [ModelType] {
+    let objects = try context.executeFetchRequest(fetchRequest) as! [ModelType]
+    return objects
   }
 
   // MARK: Count
 
-  public func count() -> (count:Int?, error:NSError?) {
+  /// Returns the count of objects matching the QuerySet.
+  public func count() throws -> Int {
     var error:NSError?
-    var count:Int? = context.countForFetchRequest(fetchRequest, error: &error)
+    let count:Int? = context.countForFetchRequest(fetchRequest, error: &error)
 
-    if count! == NSNotFound {
-      count = nil
+    if let error = error {
+      throw error
     }
 
-    return (count:count, error:error)
-  }
-
-  /// Returns the count of objects matching the QuerySet.
-  public func count() -> Int? {
-    return count().count
+    return count as Int!
   }
 
   // MARK: Exists
@@ -208,44 +201,34 @@ extension QuerySet {
   /** Returns true if the QuerySet contains any results, and false if not.
   :note: Returns nil if the operation could not be completed.
   */
-  public func exists() -> Bool? {
-    let result:Int? = count()
-
-    if let result = result {
-      return result > 0
-    }
-
-    return nil
+  public func exists() throws -> Bool {
+    let result:Int = try count()
+    return result > 0
   }
 
   // MARK: Deletion
 
   /// Deletes all the objects matching the QuerySet.
-  public func delete() -> (count:Int, error:NSError?) {
-    var result = array() as (objects:([ModelType]?), error:NSError?)
-    var deletedCount = 0
+  public func delete() throws -> Int {
+    let objects = try array()
+    let deletedCount = objects.count
 
-    if let objects = result.objects {
-      for object in objects {
-        context.deleteObject(object)
-      }
-
-      deletedCount = objects.count
+    for object in objects {
+      context.deleteObject(object)
     }
 
-    return (count:deletedCount, error:result.error)
+    return deletedCount
   }
 
   // MARK: Sequence
 
   public func generate() -> IndexingGenerator<Array<ModelType>> {
-    var result = self.array() as (objects:([ModelType]?), error:NSError?)
-
-    if let objects = result.objects {
-      return objects.generate()
+    do {
+      let generator = try self.array().generate()
+      return generator
+    } catch {
+      return [].generate()
     }
-
-    return [].generate()
   }
 }
 
