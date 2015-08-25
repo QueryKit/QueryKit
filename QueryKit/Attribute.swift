@@ -18,7 +18,7 @@ public struct Attribute<AttributeType> : Equatable {
 
   /// Builds a compound attribute with other key paths
   public init(attributes:Array<String>) {
-    self.init(".".join(attributes))
+    self.init(attributes.joinWithSeparator("."))
   }
 
   /// Returns an expression for the attribute
