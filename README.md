@@ -6,12 +6,6 @@
 
 QueryKit, a simple type-safe Core Data query language.
 
-## Installation
-
-```ruby
-pod 'QueryKit'
-```
-
 ## Usage
 
 ### QuerySet
@@ -21,13 +15,13 @@ A QuerySet represents a collection of objects from your Core Data Store. It can 
 #### Retrieving all objects
 
 ```swift
-QuerySet(context, "Person")
+let queryset = QuerySet(context, "Person")
 ```
 
 **NOTE**: *It’s recommend to implement a type type-safe `queryset` method on your model.*
 
 ```swift
-Person.queryset(context)
+let queryset = Person.queryset(context)
 ```
 
 #### Retrieving specific objects with filters
@@ -114,19 +108,19 @@ queryset.array()
 ##### First object
 
 ```swift
-var kyle = Person.queryset(context).filter(Person.name == "Kyle").first
+var kyle = Person.queryset(context).filter(Person.name == "Kyle").first()
 ```
 
 ##### Last object
 
 ```swift
-var kyle = Person.queryset(context).filter(Person.name == "Kyle").last
+var kyle = Person.queryset(context).filter(Person.name == "Kyle").last()
 ```
 
 ##### Object at index
 
 ```swift
-var orta = queryset[3]
+var orta = queryset.object(3)
 ```
 
 ##### Count
@@ -189,6 +183,12 @@ NSPredicate(format:"age >= 21") && !NSPredicate(format:"name == Kyle")
 ```swift
 Person.name == "Kyle" || Person.name == "Katie"
 Person.age >= 21 || Person.name != "Kyle"
+```
+
+## Installation
+
+```ruby
+pod 'QueryKit'
 ```
 
 ## License

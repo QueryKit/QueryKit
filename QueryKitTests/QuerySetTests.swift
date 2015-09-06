@@ -25,10 +25,7 @@ class QuerySetTests: XCTestCase {
       person.name = name
     }
 
-    do {
-      try context.save()
-    } catch _ {
-    }
+    try! context.save()
 
     queryset = QuerySet(context, "Person")
   }
@@ -59,7 +56,7 @@ class QuerySetTests: XCTestCase {
     XCTAssertEqual(qs.sortDescriptors, [
       NSSortDescriptor(key: "name", ascending: false),
       NSSortDescriptor(key: "age", ascending: false),
-      ])
+    ])
   }
 
   // MARK: Filtering
@@ -125,11 +122,11 @@ class QuerySetTests: XCTestCase {
   func testSubscriptingAtIndex() {
     let qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
 
-    let ayaka = qs[0].object
-    let kyle = qs[1].object
-    let mark = qs[2].object
-    let orta:Person? = qs[3].object
-    let scott:Person? = qs[4]
+    let ayaka = try! qs.object(0)
+    let kyle = try! qs.object(1)
+    let mark = try! qs.object(2)
+    let orta = try! qs.object(3)
+    let scott = try! qs.object(4)
 
     XCTAssertEqual(ayaka!.name, "Ayaka")
     XCTAssertEqual(kyle!.name, "Kyle")
@@ -158,12 +155,14 @@ class QuerySetTests: XCTestCase {
 
   func testFirst() {
     let qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
-    XCTAssertEqual(qs.first!.name, "Ayaka")
+    let name = try! qs.first()?.name
+    XCTAssertEqual(name, "Ayaka")
   }
 
   func testLast() {
     let qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
-    XCTAssertEqual(qs.last!.name, "Scott")
+    let name = try! qs.last()?.name
+    XCTAssertEqual(name, "Scott")
   }
 
   // MARK: Conversion

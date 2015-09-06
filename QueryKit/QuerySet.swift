@@ -23,6 +23,7 @@ public class QuerySet<ModelType : NSManagedObject> : SequenceType, Equatable {
   /// Returns the predicate of the receiver.
   public let predicate:NSPredicate?
 
+  /// The range of the query, allows you to offset and limit a query
   public let range:Range<Int>?
 
   // MARK: Initialization
@@ -35,6 +36,7 @@ public class QuerySet<ModelType : NSManagedObject> : SequenceType, Equatable {
     self.range = nil
   }
 
+  /// Create a queryset from another queryset with a different sortdescriptor predicate and range
   public init(queryset:QuerySet<ModelType>, sortDescriptors:[NSSortDescriptor]?, predicate:NSPredicate?, range:Range<Int>?) {
     self.context = queryset.context
     self.entityName = queryset.entityName
@@ -103,28 +105,13 @@ extension QuerySet {
 extension QuerySet {
   // MARK: Subscripting
 
-  public subscript(index: Int) -> (object:ModelType?, error:NSError?) {
-    get {
-      let request = fetchRequest
-      request.fetchOffset = index
-      request.fetchLimit = 1
-
-      var error:NSError?
-      do {
-        let items = try context.executeFetchRequest(request)
-        return (object:items.first as? ModelType, error:error)
-      } catch let error1 as NSError {
-        error = error1
-        return (object: nil, error: error)
-      }
-    }
-  }
-
   /// Returns the object at the specified index.
-  public subscript(index: Int) -> ModelType? {
-    get {
-      return self[index].object
-    }
+  public func object(index: Int) throws -> ModelType? {
+    let request = fetchRequest
+    request.fetchOffset = index
+    request.fetchLimit = 1
+    let items = try context.executeFetchRequest(request)
+    return items.first as? ModelType
   }
 
   public subscript(range:Range<Int>) -> QuerySet<ModelType> {
@@ -141,20 +128,19 @@ extension QuerySet {
 
   // Mark: Getters
 
-  public var first: ModelType? {
-    get {
-      return self[0].object
-    }
+  /// Returns the first object in the QuerySet
+  public func first() throws -> ModelType? {
+    return try self.object(0)
   }
 
-  public var last: ModelType? {
-    get {
-      return reverse().first
-    }
+  /// Returns the last object in the QuerySet
+  public func last() throws -> ModelType? {
+    return try reverse().first()
   }
 
   // MARK: Conversion
 
+  /// Returns a fetch request equivilent to the QuerySet
   public var fetchRequest:NSFetchRequest {
     let request = NSFetchRequest(entityName:entityName)
     request.predicate = predicate
@@ -168,6 +154,7 @@ extension QuerySet {
     return request
   }
 
+  /// Returns an array of all objects matching the QuerySet
   public func array() throws -> [ModelType] {
     let objects = try context.executeFetchRequest(fetchRequest) as! [ModelType]
     return objects
