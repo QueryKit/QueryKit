@@ -9,11 +9,6 @@
 import Foundation
 import CoreData
 
-#if os(OSX) && COCOAPODS
-  import AppKit
-#endif
-
-
 /// Represents a lazy database lookup for a set of objects.
 public class QuerySet<ModelType : NSManagedObject> : SequenceType, Equatable {
   /// Returns the managed object context that will be used to execute any requests.
@@ -66,11 +61,7 @@ extension QuerySet {
   /// Reverses the ordering of the QuerySet
   public func reverse() -> QuerySet<ModelType> {
     func reverseSortDescriptor(sortDescriptor:NSSortDescriptor) -> NSSortDescriptor {
-      #if os(OSX) && COCOAPODS
-        return NSSortDescriptor(key: sortDescriptor.key()!, ascending: !sortDescriptor.ascending)
-        #else
-        return NSSortDescriptor(key: sortDescriptor.key!, ascending: !sortDescriptor.ascending)
-      #endif
+      return NSSortDescriptor(key: sortDescriptor.key!, ascending: !sortDescriptor.ascending)
     }
 
     return QuerySet(queryset:self, sortDescriptors:sortDescriptors.map(reverseSortDescriptor), predicate:predicate, range:range)
