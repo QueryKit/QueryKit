@@ -69,6 +69,18 @@ extension QuerySet {
     return QuerySet(queryset:self, sortDescriptors:sortDescriptors.map(reverseSortDescriptor), predicate:predicate, range:range)
   }
 
+  // MARK: Type-safe Sorting
+
+  ///  Returns a new QuerySet containing objects ordered by the given sort descriptor.
+  public func orderBy(closure:((ModelType.Type) -> (SortDescriptor<ModelType>))) -> QuerySet<ModelType> {
+    return orderBy(closure(ModelType.self).sortDescriptor)
+  }
+
+  /// Returns a new QuerySet containing objects ordered by the given sort descriptors.
+  public func orderBy(closure:((ModelType.Type) -> ([SortDescriptor<ModelType>]))) -> QuerySet<ModelType> {
+    return orderBy(closure(ModelType.self).map { $0.sortDescriptor })
+  }
+
   // MARK: Filtering
 
   /// Returns a new QuerySet containing objects that match the given predicate.

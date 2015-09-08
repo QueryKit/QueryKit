@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2794C8AD1B9F980100216C36 /* SortDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2794C8AC1B9F980100216C36 /* SortDescriptor.swift */; settings = {ASSET_TAGS = (); }; };
+		2794C8AF1B9F985900216C36 /* SortDescriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2794C8AE1B9F985900216C36 /* SortDescriptorTests.swift */; settings = {ASSET_TAGS = (); }; };
 		77007D7D19A95CDE007DC2BC /* QKQuerySetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77007D7C19A95CDE007DC2BC /* QKQuerySetTests.swift */; };
 		77007D8119A95CE9007DC2BC /* QKQuerySet.h in Headers */ = {isa = PBXBuildFile; fileRef = 77007D7E19A95CE9007DC2BC /* QKQuerySet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77007D8219A95CE9007DC2BC /* QKQuerySet.m in Sources */ = {isa = PBXBuildFile; fileRef = 77007D7F19A95CE9007DC2BC /* QKQuerySet.m */; };
@@ -64,6 +66,8 @@
 		279294E51A4B4C60009C52E1 /* UniversalFramework_Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = UniversalFramework_Base.xcconfig; sourceTree = "<group>"; };
 		279294E61A4B4C60009C52E1 /* UniversalFramework_Framework.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = UniversalFramework_Framework.xcconfig; sourceTree = "<group>"; };
 		279294E71A4B4C60009C52E1 /* UniversalFramework_Test.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = UniversalFramework_Test.xcconfig; sourceTree = "<group>"; };
+		2794C8AC1B9F980100216C36 /* SortDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortDescriptor.swift; sourceTree = "<group>"; };
+		2794C8AE1B9F985900216C36 /* SortDescriptorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortDescriptorTests.swift; sourceTree = "<group>"; };
 		77007D7C19A95CDE007DC2BC /* QKQuerySetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QKQuerySetTests.swift; sourceTree = "<group>"; };
 		77007D7E19A95CE9007DC2BC /* QKQuerySet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QKQuerySet.h; sourceTree = "<group>"; };
 		77007D7F19A95CE9007DC2BC /* QKQuerySet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QKQuerySet.m; sourceTree = "<group>"; };
@@ -148,6 +152,7 @@
 				77E8728019539C0900A6F13F /* Attribute.swift */,
 				77E3A0601969DDF5009372A8 /* Expression.swift */,
 				77E8728619539FD200A6F13F /* Predicate.swift */,
+				2794C8AC1B9F980100216C36 /* SortDescriptor.swift */,
 				77B17B8219A94C9100D6540D /* ObjectiveC */,
 				77A9B67C195374490016654E /* Supporting Files */,
 			);
@@ -170,6 +175,7 @@
 				77E3A0621969E003009372A8 /* ExpressionTests.swift */,
 				77E8728219539C2A00A6F13F /* AttributeTests.swift */,
 				77E8728419539FC000A6F13F /* PredicateTests.swift */,
+				2794C8AE1B9F985900216C36 /* SortDescriptorTests.swift */,
 				77B17B8919A94D4C00D6540D /* ObjectiveC */,
 				77A9B689195374490016654E /* Supporting Files */,
 			);
@@ -326,6 +332,7 @@
 				77B17B8619A94C9100D6540D /* QKAttribute.m in Sources */,
 				77B17B8819A94D2C00D6540D /* QKAttribute.swift in Sources */,
 				77007D8319A95CE9007DC2BC /* QKQuerySet.swift in Sources */,
+				2794C8AD1B9F980100216C36 /* SortDescriptor.swift in Sources */,
 				77007D8219A95CE9007DC2BC /* QKQuerySet.m in Sources */,
 				77E3A05D1969C019009372A8 /* QuerySet.swift in Sources */,
 				77E3A0611969DDF5009372A8 /* Expression.swift in Sources */,
@@ -338,6 +345,7 @@
 			files = (
 				77B17B8B19A94D4C00D6540D /* QKAttributeTests.swift in Sources */,
 				77E8728319539C2A00A6F13F /* AttributeTests.swift in Sources */,
+				2794C8AF1B9F985900216C36 /* SortDescriptorTests.swift in Sources */,
 				77A9B68C195374490016654E /* QueryKitTests.swift in Sources */,
 				77007D7D19A95CDE007DC2BC /* QKQuerySetTests.swift in Sources */,
 				77E3A05F1969C047009372A8 /* QuerySetTests.swift in Sources */,
