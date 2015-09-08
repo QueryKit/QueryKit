@@ -10,6 +10,7 @@ import XCTest
 import CoreData
 import QueryKit
 
+
 class QuerySetTests: XCTestCase {
   var context:NSManagedObjectContext!
   var queryset:QuerySet<Person>!
@@ -80,6 +81,12 @@ class QuerySetTests: XCTestCase {
     XCTAssertEqual(qs.predicate!, NSPredicate(format: "isEmployed == YES"))
   }
 
+  func testTypeSafeFilter() {
+    let qs = queryset.filter { $0.name == "Kyle" }
+
+    XCTAssertEqual(qs.predicate?.description, "name == \"Kyle\"")
+  }
+
   // MARK: Exclusion
 
   func testExcludePredicate() {
@@ -99,6 +106,12 @@ class QuerySetTests: XCTestCase {
   func testExcludeBooleanAttribute() {
     let qs = queryset.exclude(Attribute<Bool>("isEmployed"))
     XCTAssertEqual(qs.predicate!, NSPredicate(format: "isEmployed == NO"))
+  }
+
+  func testTypeSafeExclude() {
+    let qs = queryset.exclude { $0.name == "Kyle" }
+
+    XCTAssertEqual(qs.predicate?.description, "NOT name == \"Kyle\"")
   }
 
   // Fetch Request

@@ -169,6 +169,7 @@
 				77E3A05E1969C047009372A8 /* QuerySetTests.swift */,
 				77E3A0621969E003009372A8 /* ExpressionTests.swift */,
 				77E8728219539C2A00A6F13F /* AttributeTests.swift */,
+				77E8728419539FC000A6F13F /* PredicateTests.swift */,
 				77B17B8919A94D4C00D6540D /* ObjectiveC */,
 				77A9B689195374490016654E /* Supporting Files */,
 			);
@@ -178,7 +179,6 @@
 		77A9B689195374490016654E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				77E8728419539FC000A6F13F /* PredicateTests.swift */,
 				77A9B68A195374490016654E /* Info.plist */,
 			);
 			name = "Supporting Files";

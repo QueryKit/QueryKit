@@ -14,7 +14,6 @@ class AttributeTests: XCTestCase {
 
   override func setUp() {
     super.setUp()
-
     attribute = Attribute("age")
   }
 

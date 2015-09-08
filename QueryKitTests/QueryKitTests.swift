@@ -16,6 +16,10 @@ import CoreData
   class var entityName:String {
     return "Person"
   }
+
+  class var name:Attribute<String> {
+    return Attribute("name")
+  }
 }
 
 extension Person {

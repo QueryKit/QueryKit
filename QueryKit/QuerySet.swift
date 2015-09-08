@@ -99,6 +99,28 @@ extension QuerySet {
     let excludePredicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: predicates)
     return exclude(excludePredicate)
   }
+
+  // MARK: Type-safe filtering
+
+  /// Returns a new QuerySet containing objects that match the given predicate.
+  public func filter(closure:((ModelType.Type) -> (Predicate<ModelType>))) -> QuerySet<ModelType> {
+    return filter(closure(ModelType.self).predicate)
+  }
+
+  /// Returns a new QuerySet containing objects that exclude the given predicate.
+  public func exclude(closure:((ModelType.Type) -> (Predicate<ModelType>))) -> QuerySet<ModelType> {
+    return exclude(closure(ModelType.self).predicate)
+  }
+
+  /// Returns a new QuerySet containing objects that match the given predicatess.
+  public func filter(closures:[((ModelType.Type) -> (Predicate<ModelType>))]) -> QuerySet<ModelType> {
+    return filter(closures.map { $0(ModelType.self).predicate })
+  }
+
+  /// Returns a new QuerySet containing objects that exclude the given predicates.
+  public func exclude(closures:[((ModelType.Type) -> (Predicate<ModelType>))]) -> QuerySet<ModelType> {
+    return exclude(closures.map { $0(ModelType.self).predicate })
+  }
 }
 
 /// Functions for evauluating a QuerySet
