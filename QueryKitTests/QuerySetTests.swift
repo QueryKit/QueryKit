@@ -21,9 +21,16 @@ class QuerySetTests: XCTestCase {
     context = NSManagedObjectContext()
     context.persistentStoreCoordinator = persistentStoreCoordinator()
 
+    let company = Company.create(context)
+    company.name = "Cocode"
+
     for name in ["Kyle", "Orta", "Ayaka", "Mark", "Scott"] {
       let person = Person.create(context)
       person.name = name
+
+      if name == "Kyle" {
+        person.company == "Cocode"
+      }
     }
 
     try! context.save()
@@ -93,9 +100,17 @@ class QuerySetTests: XCTestCase {
   }
 
   func testTypeSafeFilter() {
-    let qs = queryset.filter { $0.name == "Kyle" }
+    let qs:QuerySet<Person> = queryset.filter { $0.name == "Kyle" }
 
     XCTAssertEqual(qs.predicate?.description, "name == \"Kyle\"")
+  }
+
+  func testTypeSafeRelatedFilterPredicate() {
+    let at = Attribute<Company>("company")
+    XCTAssertEqual(at.name.key, "company.name")
+    let qs = queryset.filter { $0.company.name == "Cocode" }
+
+    XCTAssertEqual(qs.predicate?.description, "company.name == \"Cocode\"")
   }
 
   // MARK: Exclusion

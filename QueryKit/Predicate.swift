@@ -34,31 +34,31 @@ public struct Predicate<ModelType : NSManagedObject> {
   }
 }
 
-public func == <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> Predicate<T> {
+public func == <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<T> {
   return Predicate(predicate: left == right)
 }
 
-public func != <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> Predicate<T> {
+public func != <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<T> {
   return Predicate(predicate: left != right)
 }
 
-public func > <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> Predicate<T> {
+public func > <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<T> {
   return Predicate(predicate: left > right)
 }
 
-public func >= <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> Predicate<T> {
+public func >= <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<T> {
   return Predicate(predicate: left >= right)
 }
 
-public func < <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> Predicate<T> {
+public func < <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<T> {
   return Predicate(predicate: left < right)
 }
 
-public func <= <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> Predicate<T> {
+public func <= <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<T> {
   return Predicate(predicate: left <= right)
 }
 
-public func ~= <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> Predicate<T> {
+public func ~= <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<T> {
   return Predicate(predicate: left ~= right)
 }
 

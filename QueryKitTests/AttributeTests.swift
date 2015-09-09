@@ -17,8 +17,8 @@ class AttributeTests: XCTestCase {
     attribute = Attribute("age")
   }
 
-  func testAttributeHasName() {
-    XCTAssertEqual(attribute.name, "age")
+  func testAttributeHasKey() {
+    XCTAssertEqual(attribute.key, "age")
   }
 
   func testAttributeExpression() {
@@ -32,7 +32,7 @@ class AttributeTests: XCTestCase {
   func testCompoundAttributeCreation() {
     let personCompanyNameAttribute = Attribute<NSString>(attributes:["company", "name"])
 
-    XCTAssertEqual(personCompanyNameAttribute.name, "company.name")
+    XCTAssertEqual(personCompanyNameAttribute.key, "company.name")
     XCTAssertEqual(personCompanyNameAttribute.expression.keyPath, "company.name")
   }
 

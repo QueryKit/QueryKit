@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 /// Represents a lazy database lookup for a set of objects.
-public class QuerySet<ModelType : NSManagedObject> : SequenceType, Equatable {
+public class QuerySet<ModelType : NSManagedObject> : Equatable, SequenceType {
   /// Returns the managed object context that will be used to execute any requests.
   public let context:NSManagedObjectContext
 
