@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = 'QueryKit'
-  spec.version = '0.11.0-beta.3'
+  spec.version = '0.11.0-beta.4'
   spec.summary = 'A simple type-safe Core Data query language.'
   spec.homepage = 'http://querykit.org/'
   spec.license = { :type => 'BSD', :file => 'LICENSE' }
@@ -13,7 +13,7 @@ Pod::Spec.new do |spec|
   spec.frameworks = 'CoreData'
 
   spec.subspec 'ObjectiveC' do |objc_spec|
-    objc_spec.source_files = 'QueryKit/ObjectiveC/QK{QuerySet,Attribute}.{h,m}'
+    objc_spec.source_files = 'QueryKit/QueryKit.h', 'QueryKit/ObjectiveC/QK{QuerySet,Attribute}.{h,m}'
   end
 
   spec.subspec 'Swift' do |swift_spec|
