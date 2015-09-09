@@ -91,18 +91,12 @@ queryset[0..5]
 
 ##### Multiple objects
 
-A QuerySet is utterable, and it executes the query when you iterate over it. For example:
+You can convert a QuerySet to an array using the `array()` function. For example:
 
 ```swift
-for person in queryset {
+for person in try! queryset.array() {
   println("Hello \(person.name).")
 }
-```
-
-You can also convert the QuerySet to an Array:
-
-```swift
-queryset.array()
 ```
 
 ##### First object

@@ -100,7 +100,7 @@ class QuerySetTests: XCTestCase {
   }
 
   func testTypeSafeFilter() {
-    let qs:QuerySet<Person> = queryset.filter { $0.name == "Kyle" }
+    let qs = queryset.filter { $0.name == "Kyle" }
 
     XCTAssertEqual(qs.predicate?.description, "name == \"Kyle\"")
   }
@@ -248,18 +248,5 @@ class QuerySetTests: XCTestCase {
 
     XCTAssertEqual(deletedCount, 2)
     XCTAssertEqual(count, 3)
-  }
-
-  // MARK: Sequence
-
-  func testSequence() {
-    let qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
-    var objects = [Person]()
-
-    for object in qs {
-      objects.append(object)
-    }
-
-    XCTAssertEqual(objects.count, 5)
   }
 }

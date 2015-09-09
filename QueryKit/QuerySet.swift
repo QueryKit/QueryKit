@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 /// Represents a lazy database lookup for a set of objects.
-public class QuerySet<ModelType : NSManagedObject> : Equatable, SequenceType {
+public class QuerySet<ModelType : NSManagedObject> : Equatable {
   /// Returns the managed object context that will be used to execute any requests.
   public let context:NSManagedObjectContext
 
@@ -230,17 +230,6 @@ extension QuerySet {
     }
 
     return deletedCount
-  }
-
-  // MARK: Sequence
-
-  public func generate() -> IndexingGenerator<Array<ModelType>> {
-    do {
-      let generator = try self.array().generate()
-      return generator
-    } catch {
-      return [].generate()
-    }
   }
 }
 
