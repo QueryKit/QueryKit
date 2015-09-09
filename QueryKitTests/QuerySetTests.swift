@@ -10,6 +10,7 @@ import XCTest
 import CoreData
 import QueryKit
 
+
 class QuerySetTests: XCTestCase {
   var context:NSManagedObjectContext!
   var queryset:QuerySet<Person>!
@@ -20,9 +21,16 @@ class QuerySetTests: XCTestCase {
     context = NSManagedObjectContext()
     context.persistentStoreCoordinator = persistentStoreCoordinator()
 
+    let company = Company.create(context)
+    company.name = "Cocode"
+
     for name in ["Kyle", "Orta", "Ayaka", "Mark", "Scott"] {
       let person = Person.create(context)
       person.name = name
+
+      if name == "Kyle" {
+        person.company == "Cocode"
+      }
     }
 
     try! context.save()
@@ -45,6 +53,17 @@ class QuerySetTests: XCTestCase {
   func testOrderBySortDescriptors() {
     let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
     let qs = queryset.orderBy([sortDescriptor])
+    XCTAssertTrue(qs.sortDescriptors == [sortDescriptor])
+  }
+
+  func testTypeSafeOrderBySortDescriptor() {
+    let qs = queryset.orderBy { $0.name.ascending() }
+    XCTAssertTrue(qs.sortDescriptors == [NSSortDescriptor(key: "name", ascending: true)])
+  }
+
+  func testTypeSafeOrderBySortDescriptors() {
+    let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+    let qs = queryset.orderBy { [$0.name.ascending()] }
     XCTAssertTrue(qs.sortDescriptors == [sortDescriptor])
   }
 
@@ -80,6 +99,20 @@ class QuerySetTests: XCTestCase {
     XCTAssertEqual(qs.predicate!, NSPredicate(format: "isEmployed == YES"))
   }
 
+  func testTypeSafeFilter() {
+    let qs = queryset.filter { $0.name == "Kyle" }
+
+    XCTAssertEqual(qs.predicate?.description, "name == \"Kyle\"")
+  }
+
+  func testTypeSafeRelatedFilterPredicate() {
+    let at = Attribute<Company>("company")
+    XCTAssertEqual(at.name.key, "company.name")
+    let qs = queryset.filter { $0.company.name == "Cocode" }
+
+    XCTAssertEqual(qs.predicate?.description, "company.name == \"Cocode\"")
+  }
+
   // MARK: Exclusion
 
   func testExcludePredicate() {
@@ -99,6 +132,12 @@ class QuerySetTests: XCTestCase {
   func testExcludeBooleanAttribute() {
     let qs = queryset.exclude(Attribute<Bool>("isEmployed"))
     XCTAssertEqual(qs.predicate!, NSPredicate(format: "isEmployed == NO"))
+  }
+
+  func testTypeSafeExclude() {
+    let qs = queryset.exclude { $0.name == "Kyle" }
+
+    XCTAssertEqual(qs.predicate?.description, "NOT name == \"Kyle\"")
   }
 
   // Fetch Request
@@ -209,18 +248,5 @@ class QuerySetTests: XCTestCase {
 
     XCTAssertEqual(deletedCount, 2)
     XCTAssertEqual(count, 3)
-  }
-
-  // MARK: Sequence
-
-  func testSequence() {
-    let qs = queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
-    var objects = [Person]()
-
-    for object in qs {
-      objects.append(object)
-    }
-
-    XCTAssertEqual(objects.count, 5)
   }
 }

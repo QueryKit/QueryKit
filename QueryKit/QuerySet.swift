@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 /// Represents a lazy database lookup for a set of objects.
-public class QuerySet<ModelType : NSManagedObject> : SequenceType, Equatable {
+public class QuerySet<ModelType : NSManagedObject> : Equatable {
   /// Returns the managed object context that will be used to execute any requests.
   public let context:NSManagedObjectContext
 
@@ -69,6 +69,18 @@ extension QuerySet {
     return QuerySet(queryset:self, sortDescriptors:sortDescriptors.map(reverseSortDescriptor), predicate:predicate, range:range)
   }
 
+  // MARK: Type-safe Sorting
+
+  ///  Returns a new QuerySet containing objects ordered by the given sort descriptor.
+  public func orderBy(closure:((ModelType.Type) -> (SortDescriptor<ModelType>))) -> QuerySet<ModelType> {
+    return orderBy(closure(ModelType.self).sortDescriptor)
+  }
+
+  /// Returns a new QuerySet containing objects ordered by the given sort descriptors.
+  public func orderBy(closure:((ModelType.Type) -> ([SortDescriptor<ModelType>]))) -> QuerySet<ModelType> {
+    return orderBy(closure(ModelType.self).map { $0.sortDescriptor })
+  }
+
   // MARK: Filtering
 
   /// Returns a new QuerySet containing objects that match the given predicate.
@@ -98,6 +110,28 @@ extension QuerySet {
   public func exclude(predicates:[NSPredicate]) -> QuerySet<ModelType> {
     let excludePredicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: predicates)
     return exclude(excludePredicate)
+  }
+
+  // MARK: Type-safe filtering
+
+  /// Returns a new QuerySet containing objects that match the given predicate.
+  public func filter(closure:((ModelType.Type) -> (Predicate<ModelType>))) -> QuerySet<ModelType> {
+    return filter(closure(ModelType.self).predicate)
+  }
+
+  /// Returns a new QuerySet containing objects that exclude the given predicate.
+  public func exclude(closure:((ModelType.Type) -> (Predicate<ModelType>))) -> QuerySet<ModelType> {
+    return exclude(closure(ModelType.self).predicate)
+  }
+
+  /// Returns a new QuerySet containing objects that match the given predicatess.
+  public func filter(closures:[((ModelType.Type) -> (Predicate<ModelType>))]) -> QuerySet<ModelType> {
+    return filter(closures.map { $0(ModelType.self).predicate })
+  }
+
+  /// Returns a new QuerySet containing objects that exclude the given predicates.
+  public func exclude(closures:[((ModelType.Type) -> (Predicate<ModelType>))]) -> QuerySet<ModelType> {
+    return exclude(closures.map { $0(ModelType.self).predicate })
   }
 }
 
@@ -196,17 +230,6 @@ extension QuerySet {
     }
 
     return deletedCount
-  }
-
-  // MARK: Sequence
-
-  public func generate() -> IndexingGenerator<Array<ModelType>> {
-    do {
-      let generator = try self.array().generate()
-      return generator
-    } catch {
-      return [].generate()
-    }
   }
 }
 
