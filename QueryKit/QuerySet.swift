@@ -1,21 +1,8 @@
-//
-//  QuerySet.swift
-//  QueryKit
-//
-//  Created by Kyle Fuller on 06/07/2014.
-//
-//
-
 import Foundation
 import CoreData
 
-#if os(OSX) && COCOAPODS
-  import AppKit
-#endif
-
-
 /// Represents a lazy database lookup for a set of objects.
-public class QuerySet<ModelType : NSManagedObject> : SequenceType, Equatable {
+public class QuerySet<ModelType : NSManagedObject> : Equatable {
   /// Returns the managed object context that will be used to execute any requests.
   public let context:NSManagedObjectContext
 
@@ -28,6 +15,7 @@ public class QuerySet<ModelType : NSManagedObject> : SequenceType, Equatable {
   /// Returns the predicate of the receiver.
   public let predicate:NSPredicate?
 
+  /// The range of the query, allows you to offset and limit a query
   public let range:Range<Int>?
 
   // MARK: Initialization
@@ -40,6 +28,7 @@ public class QuerySet<ModelType : NSManagedObject> : SequenceType, Equatable {
     self.range = nil
   }
 
+  /// Create a queryset from another queryset with a different sortdescriptor predicate and range
   public init(queryset:QuerySet<ModelType>, sortDescriptors:[NSSortDescriptor]?, predicate:NSPredicate?, range:Range<Int>?) {
     self.context = queryset.context
     self.entityName = queryset.entityName
@@ -66,14 +55,22 @@ extension QuerySet {
   /// Reverses the ordering of the QuerySet
   public func reverse() -> QuerySet<ModelType> {
     func reverseSortDescriptor(sortDescriptor:NSSortDescriptor) -> NSSortDescriptor {
-      #if os(OSX) && COCOAPODS
-        return NSSortDescriptor(key: sortDescriptor.key()!, ascending: !sortDescriptor.ascending)
-        #else
-        return NSSortDescriptor(key: sortDescriptor.key!, ascending: !sortDescriptor.ascending)
-      #endif
+      return NSSortDescriptor(key: sortDescriptor.key!, ascending: !sortDescriptor.ascending)
     }
 
-    return QuerySet(queryset:self, sortDescriptors:map(sortDescriptors, reverseSortDescriptor), predicate:predicate, range:range)
+    return QuerySet(queryset:self, sortDescriptors:sortDescriptors.map(reverseSortDescriptor), predicate:predicate, range:range)
+  }
+
+  // MARK: Type-safe Sorting
+
+  ///  Returns a new QuerySet containing objects ordered by the given sort descriptor.
+  public func orderBy(closure:((ModelType.Type) -> (SortDescriptor<ModelType>))) -> QuerySet<ModelType> {
+    return orderBy(closure(ModelType.self).sortDescriptor)
+  }
+
+  /// Returns a new QuerySet containing objects ordered by the given sort descriptors.
+  public func orderBy(closure:((ModelType.Type) -> ([SortDescriptor<ModelType>]))) -> QuerySet<ModelType> {
+    return orderBy(closure(ModelType.self).map { $0.sortDescriptor })
   }
 
   // MARK: Filtering
@@ -106,32 +103,41 @@ extension QuerySet {
     let excludePredicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: predicates)
     return exclude(excludePredicate)
   }
+
+  // MARK: Type-safe filtering
+
+  /// Returns a new QuerySet containing objects that match the given predicate.
+  public func filter(closure:((ModelType.Type) -> (Predicate<ModelType>))) -> QuerySet<ModelType> {
+    return filter(closure(ModelType.self).predicate)
+  }
+
+  /// Returns a new QuerySet containing objects that exclude the given predicate.
+  public func exclude(closure:((ModelType.Type) -> (Predicate<ModelType>))) -> QuerySet<ModelType> {
+    return exclude(closure(ModelType.self).predicate)
+  }
+
+  /// Returns a new QuerySet containing objects that match the given predicatess.
+  public func filter(closures:[((ModelType.Type) -> (Predicate<ModelType>))]) -> QuerySet<ModelType> {
+    return filter(closures.map { $0(ModelType.self).predicate })
+  }
+
+  /// Returns a new QuerySet containing objects that exclude the given predicates.
+  public func exclude(closures:[((ModelType.Type) -> (Predicate<ModelType>))]) -> QuerySet<ModelType> {
+    return exclude(closures.map { $0(ModelType.self).predicate })
+  }
 }
 
 /// Functions for evauluating a QuerySet
 extension QuerySet {
   // MARK: Subscripting
 
-  public subscript(index: Int) -> (object:ModelType?, error:NSError?) {
-    get {
-      var request = fetchRequest
-      request.fetchOffset = index
-      request.fetchLimit = 1
-
-      var error:NSError?
-      if let items = context.executeFetchRequest(request, error:&error) {
-        return (object:items.first as? ModelType, error:error)
-      } else {
-        return (object: nil, error: error)
-      }
-    }
-  }
-
   /// Returns the object at the specified index.
-  public subscript(index: Int) -> ModelType? {
-    get {
-      return self[index].object
-    }
+  public func object(index: Int) throws -> ModelType? {
+    let request = fetchRequest
+    request.fetchOffset = index
+    request.fetchLimit = 1
+    let items = try context.executeFetchRequest(request)
+    return items.first as? ModelType
   }
 
   public subscript(range:Range<Int>) -> QuerySet<ModelType> {
@@ -148,22 +154,21 @@ extension QuerySet {
 
   // Mark: Getters
 
-  public var first: ModelType? {
-    get {
-      return self[0].object
-    }
+  /// Returns the first object in the QuerySet
+  public func first() throws -> ModelType? {
+    return try self.object(0)
   }
 
-  public var last: ModelType? {
-    get {
-      return reverse().first
-    }
+  /// Returns the last object in the QuerySet
+  public func last() throws -> ModelType? {
+    return try reverse().first()
   }
 
   // MARK: Conversion
 
+  /// Returns a fetch request equivilent to the QuerySet
   public var fetchRequest:NSFetchRequest {
-    var request = NSFetchRequest(entityName:entityName)
+    let request = NSFetchRequest(entityName:entityName)
     request.predicate = predicate
     request.sortDescriptors = sortDescriptors
 
@@ -175,32 +180,24 @@ extension QuerySet {
     return request
   }
 
-  public func array() -> (objects:([ModelType]?), error:NSError?) {
-    var error:NSError?
-    var objects = context.executeFetchRequest(fetchRequest, error:&error) as? [ModelType]
-    return (objects:objects, error:error)
-  }
-
-  public func array() -> [ModelType]? {
-    return array().objects
+  /// Returns an array of all objects matching the QuerySet
+  public func array() throws -> [ModelType] {
+    let objects = try context.executeFetchRequest(fetchRequest) as! [ModelType]
+    return objects
   }
 
   // MARK: Count
 
-  public func count() -> (count:Int?, error:NSError?) {
+  /// Returns the count of objects matching the QuerySet.
+  public func count() throws -> Int {
     var error:NSError?
-    var count:Int? = context.countForFetchRequest(fetchRequest, error: &error)
+    let count:Int? = context.countForFetchRequest(fetchRequest, error: &error)
 
-    if count! == NSNotFound {
-      count = nil
+    if let error = error {
+      throw error
     }
 
-    return (count:count, error:error)
-  }
-
-  /// Returns the count of objects matching the QuerySet.
-  public func count() -> Int? {
-    return count().count
+    return count as Int!
   }
 
   // MARK: Exists
@@ -208,44 +205,23 @@ extension QuerySet {
   /** Returns true if the QuerySet contains any results, and false if not.
   :note: Returns nil if the operation could not be completed.
   */
-  public func exists() -> Bool? {
-    let result:Int? = count()
-
-    if let result = result {
-      return result > 0
-    }
-
-    return nil
+  public func exists() throws -> Bool {
+    let result:Int = try count()
+    return result > 0
   }
 
   // MARK: Deletion
 
   /// Deletes all the objects matching the QuerySet.
-  public func delete() -> (count:Int, error:NSError?) {
-    var result = array() as (objects:([ModelType]?), error:NSError?)
-    var deletedCount = 0
+  public func delete() throws -> Int {
+    let objects = try array()
+    let deletedCount = objects.count
 
-    if let objects = result.objects {
-      for object in objects {
-        context.deleteObject(object)
-      }
-
-      deletedCount = objects.count
+    for object in objects {
+      context.deleteObject(object)
     }
 
-    return (count:deletedCount, error:result.error)
-  }
-
-  // MARK: Sequence
-
-  public func generate() -> IndexingGenerator<Array<ModelType>> {
-    var result = self.array() as (objects:([ModelType]?), error:NSError?)
-
-    if let objects = result.objects {
-      return objects.generate()
-    }
-
-    return [].generate()
+    return deletedCount
   }
 }
 

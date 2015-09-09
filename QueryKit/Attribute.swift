@@ -1,101 +1,99 @@
-//
-//  Attribute.swift
-//  QueryKit
-//
-//  Created by Kyle Fuller on 19/06/2014.
-//
-//
-
 import Foundation
 
 /// An attribute, representing an attribute on a model
 public struct Attribute<AttributeType> : Equatable {
-  public let name:String
+  public let key:String
 
-  public init(_ name:String) {
-    self.name = name
+  public init(_ key:String) {
+    self.key = key
   }
 
   /// Builds a compound attribute with other key paths
-  public init(attributes:Array<String>) {
-    self.init(".".join(attributes))
+  public init(attributes:[String]) {
+    self.init(attributes.joinWithSeparator("."))
   }
 
   /// Returns an expression for the attribute
   public var expression:NSExpression {
-    return NSExpression(forKeyPath: name)
+    return NSExpression(forKeyPath: key)
   }
 
   // MARK: Sorting
 
   /// Returns an ascending sort descriptor for the attribute
   public func ascending() -> NSSortDescriptor {
-    return NSSortDescriptor(key: name, ascending: true)
+    return NSSortDescriptor(key: key, ascending: true)
   }
 
   /// Returns a descending sort descriptor for the attribute
   public func descending() -> NSSortDescriptor {
-    return NSSortDescriptor(key: name, ascending: false)
+    return NSSortDescriptor(key: key, ascending: false)
   }
 
-  func expressionForValue(value:AttributeType) -> NSExpression {
-    // TODO: Find a cleaner implementation
-    if let value = value as? NSObject {
-      return NSExpression(forConstantValue: value as NSObject)
-    }
+  func expressionForValue(value:AttributeType?) -> NSExpression {
+    if let value = value {
+      if let value = value as? NSObject {
+        return NSExpression(forConstantValue: value as NSObject)
+      }
 
-    if sizeof(value.dynamicType) == sizeof(uintptr_t) {
-      let value = unsafeBitCast(value, Optional<NSObject>.self)
+      if sizeof(value.dynamicType) == sizeof(uintptr_t) {
+        let value = unsafeBitCast(value, Optional<NSObject>.self)
+        if let value = value {
+          return NSExpression(forConstantValue: value)
+        }
+      }
+
+      let value = unsafeBitCast(value, Optional<String>.self)
       if let value = value {
         return NSExpression(forConstantValue: value)
       }
     }
 
-    let value = unsafeBitCast(value, Optional<String>.self)
-    if let value = value {
-      return NSExpression(forConstantValue: value)
-    }
-
     return NSExpression(forConstantValue: NSNull())
+  }
+
+  /// Builds a compound attribute by the current attribute with the given attribute
+  public func attribute<T>(attribute:Attribute<T>) -> Attribute<T> {
+    return Attribute<T>(attributes: [key, attribute.key])
   }
 }
 
 
 /// Returns true if two attributes have the same name
 public func == <AttributeType>(lhs: Attribute<AttributeType>, rhs: Attribute<AttributeType>) -> Bool {
-  return lhs.name == rhs.name
+  return lhs.key == rhs.key
 }
 
-public func == <AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> NSPredicate {
+public func == <AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> NSPredicate {
   return left.expression == left.expressionForValue(right)
 }
 
-public func != <AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> NSPredicate {
+public func != <AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> NSPredicate {
   return left.expression != left.expressionForValue(right)
 }
 
-public func > <AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> NSPredicate {
+public func > <AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> NSPredicate {
   return left.expression > left.expressionForValue(right)
 }
 
-public func >= <AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> NSPredicate {
+public func >= <AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> NSPredicate {
   return left.expression >= left.expressionForValue(right)
 }
 
-public func < <AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> NSPredicate {
+public func < <AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> NSPredicate {
   return left.expression < left.expressionForValue(right)
 }
 
-public func <= <AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> NSPredicate {
+public func <= <AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> NSPredicate {
   return left.expression <= left.expressionForValue(right)
 }
 
-public func ~= <AttributeType>(left: Attribute<AttributeType>, right: AttributeType) -> NSPredicate {
+public func ~= <AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> NSPredicate {
   return left.expression ~= left.expressionForValue(right)
 }
 
 public func << <AttributeType>(left: Attribute<AttributeType>, right: [AttributeType]) -> NSPredicate {
-    let value = map(right) { value in return value as! NSObject }
+    let value = right.map { value in return value as! NSObject }
     return left.expression << NSExpression(forConstantValue: value)
 }
 
@@ -103,7 +101,7 @@ public func << <AttributeType>(left: Attribute<AttributeType>, right: Range<Attr
     let value = [right.startIndex as! NSObject, right.endIndex as! NSObject] as NSArray
     let rightExpression = NSExpression(forConstantValue: value)
 
-  return NSComparisonPredicate(leftExpression: left.expression, rightExpression: rightExpression, modifier: NSComparisonPredicateModifier.DirectPredicateModifier, type: NSPredicateOperatorType.BetweenPredicateOperatorType, options: NSComparisonPredicateOptions(0))
+  return NSComparisonPredicate(leftExpression: left.expression, rightExpression: rightExpression, modifier: NSComparisonPredicateModifier.DirectPredicateModifier, type: NSPredicateOperatorType.BetweenPredicateOperatorType, options: NSComparisonPredicateOptions(rawValue: 0))
 }
 
 /// MARK: Bool Attributes
@@ -125,9 +123,9 @@ public extension QuerySet {
 // MARK: Collections
 
 public func count(attribute:Attribute<NSSet>) -> Attribute<Int> {
-  return Attribute<Int>(attributes: [attribute.name, "@count"])
+  return Attribute<Int>(attributes: [attribute.key, "@count"])
 }
 
 public func count(attribute:Attribute<NSOrderedSet>) -> Attribute<Int> {
-  return Attribute<Int>(attributes: [attribute.name, "@count"])
+  return Attribute<Int>(attributes: [attribute.key, "@count"])
 }

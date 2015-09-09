@@ -2,7 +2,7 @@ import Foundation
 
 extension Attribute {
   public func asQKAttribute() -> QKAttribute {
-    return QKAttribute(name: name)
+    return QKAttribute(name: key)
   }
 }
 
