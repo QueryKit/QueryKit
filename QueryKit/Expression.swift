@@ -1,11 +1,3 @@
-//
-//  Expression.swift
-//  QueryKit
-//
-//  Created by Kyle Fuller on 06/07/2014.
-//
-//
-
 import Foundation
 
 /// Returns an equality predicate for the two given expressions

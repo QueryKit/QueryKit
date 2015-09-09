@@ -1,11 +1,3 @@
-//
-//  QuerySet.swift
-//  QueryKit
-//
-//  Created by Kyle Fuller on 06/07/2014.
-//
-//
-
 import Foundation
 import CoreData
 

@@ -1,11 +1,3 @@
-//
-//  QueryKit.h
-//  QueryKit
-//
-//  Created by Kyle Fuller on 19/06/2014.
-//
-//
-
 #import <Foundation/Foundation.h>
 
 //! Project version number for QueryKit.

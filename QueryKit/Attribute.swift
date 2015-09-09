@@ -1,11 +1,3 @@
-//
-//  Attribute.swift
-//  QueryKit
-//
-//  Created by Kyle Fuller on 19/06/2014.
-//
-//
-
 import Foundation
 
 /// An attribute, representing an attribute on a model

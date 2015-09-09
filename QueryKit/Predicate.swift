@@ -1,12 +1,5 @@
-//
-//  Predicate.swift
-//  QueryKit
-//
-//  Created by Kyle Fuller on 19/06/2014.
-//
-//
-
 import Foundation
+import CoreData
 
 /// Returns an and predicate from the given predicates
 public func && (left: NSPredicate, right: NSPredicate) -> NSPredicate {

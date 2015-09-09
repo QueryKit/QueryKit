@@ -1,4 +1,5 @@
 import Foundation
+import CoreData
 
 /// Represents a sort descriptor for a specific model
 public struct SortDescriptor<ModelType : NSManagedObject> {
