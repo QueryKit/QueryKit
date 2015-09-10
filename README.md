@@ -174,7 +174,7 @@ let age = Attribute<Int>("age")
 
 QueryKit provides custom operator functions allowing you to create predicates.
 
-```
+```swift
 // Name is equal to Kyle
 name == "Kyle"
 
