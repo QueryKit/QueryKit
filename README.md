@@ -8,9 +8,9 @@ QueryKit, a simple type-safe Core Data query language.
 
 ## Usage
 
-To get the most out of QueryKit, and to get full type-safe queries, you can
+To get the most out of QueryKit, and to get full type-safe queries, you may
 adds extensions for your models providing properties which describe your
-models. You can use [querykit-cli](https://github.com/QueryKit/querykit-cli)
+models. You may use [querykit-cli](https://github.com/QueryKit/querykit-cli)
 to generate these automatically.
 
 An extension for our a `Person` model might look as follows:
@@ -23,7 +23,7 @@ extension User {
 ```
 
 This provides static properties on our User model which represent each property
-on our Core Data model, these can be used to construct predicates and sort
+on our Core Data model, these may be used to construct predicates and sort
 descriptors with compile time safety, without stringly typing them
 into your application.
 
@@ -36,7 +36,7 @@ let ageSortDescriptor = Person.age.descending()
 ### QuerySet
 
 A QuerySet represents a collection of objects from your Core Data Store.
-It can have zero, one or many filters. Filters narrow down the query
+It may have zero, one or many filters. Filters narrow down the query
 results based on the given parameters.
 
 #### Retrieving all objects
@@ -47,7 +47,7 @@ let queryset = Person.queryset(context)
 
 #### Retrieving specific objects with filters
 
-You can filter a QuerySet using the `filter` and `exclude` methods, which
+You may filter a QuerySet using the `filter` and `exclude` methods, which
 accept a closure passing the model type allowing you to access the
 type-safe attributes.
 
@@ -58,7 +58,7 @@ queryset.filter { $0.name == "Kyle" }
 queryset.exclude { $0.age > 25 }
 ```
 
-You can also use standard `NSPredicate` if you want to construct complicated
+You may also use standard `NSPredicate` if you want to construct complicated
 queries or do not wish to use the type-safe properties.
 
 ```swift
@@ -79,7 +79,7 @@ queryset.filter { $0.name == "Kyle" }
 
 Each time you refine a QuerySet, you get a brand-new QuerySet that is in
 no way bound to the previous QuerySet. Each refinement creates a separate
-and distinct QuerySet that can be stored, used and reused.
+and distinct QuerySet that may be stored, used and reused.
 
 #### QuerySets are lazy
 
@@ -89,8 +89,9 @@ QuerySet is *evaluated*.
 
 #### Ordering
 
-You can order a QuerySet's results by using the `orderBy` function which
-accepts a closure where you can return a sort descriptor:
+You may order a QuerySet's results by using the `orderBy` function which
+accepts a closure passing the model type, and expects a sort descriptor in
+return.
 
 ```swift
 queryset.orderBy { $0.name.ascending() }
@@ -98,14 +99,14 @@ queryset.orderBy { $0.name.ascending() }
 
 You may also pass in an `NSSortDescriptor` if you would rather.
 
-```
-queryset.orderBy(Person.name.ascending)
+```swift
+queryset.orderBy(Person.name.ascending())
 queryset.orderBy(NSSortDescriptor(key: "name", ascending: true))
 ```
 
 #### Slicing
 
-Using slicing, a QuerySet's results can be limited to a specified range. For
+Using slicing, a QuerySet's results may be limited to a specified range. For
 example, to get the first 5 items in our QuerySet:
 
 ```swift
@@ -118,7 +119,7 @@ queryset[0..5]
 
 ##### Multiple objects
 
-You can convert a QuerySet to an array using the `array()` function. For example:
+You may convert a QuerySet to an array using the `array()` function. For example:
 
 ```swift
 for person in try! queryset.array() {
