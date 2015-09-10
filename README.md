@@ -9,8 +9,8 @@ QueryKit, a simple type-safe Core Data query language.
 ## Usage
 
 To get the most out of QueryKit, and to get full type-safe queries, you may
-adds extensions for your models providing properties which describe your
-models. You may use [querykit-cli](https://github.com/QueryKit/querykit-cli)
+add extensions for your Core Data models providing properties which describe
+your models. You may use [querykit-cli](https://github.com/QueryKit/querykit-cli)
 to generate these automatically.
 
 An extension for our a `Person` model might look as follows:
