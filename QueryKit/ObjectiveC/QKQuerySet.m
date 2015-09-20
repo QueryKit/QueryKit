@@ -25,8 +25,6 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
 }
 
 - (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext fetchRequest:(NSFetchRequest *)fetchRequest {
-  NSParameterAssert(fetchRequest != nil);
-
   NSEntityDescription *entityDescription = [fetchRequest entity];
   NSPredicate *predicate = [fetchRequest predicate];
   NSArray *sortDescriptors = [fetchRequest sortDescriptors];
@@ -35,9 +33,6 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
 }
 
 - (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext entityDescription:(NSEntityDescription *)entityDescription predicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors range:(NSRange)range {
-  NSParameterAssert(managedObjectContext != nil);
-  NSParameterAssert(entityDescription != nil);
-
   if (self = [super init]) {
     _managedObjectContext = managedObjectContext;
     _entityDescription = entityDescription;

@@ -35,8 +35,6 @@
 #pragma mark -
 
 - (instancetype)initWithAttributes:(QKAttribute *)attribute, ... {
-  NSParameterAssert(attribute != nil);
-
   NSMutableArray *attributes = [NSMutableArray arrayWithObject:attribute.name];
 
   va_list attributeList;
@@ -192,23 +190,16 @@
 }
 
 - (NSPredicate *)between:(id)minimumValue and:(id)maxiumValue {
-  NSParameterAssert(minimumValue != nil);
-  NSParameterAssert(maxiumValue != nil);
-
   NSExpression *expression = [NSExpression expressionForConstantValue:@[minimumValue, maxiumValue]];
   return [self predicateWithRightExpression:expression modifier:NSDirectPredicateModifier type:NSBetweenPredicateOperatorType options:0];
 }
 
 - (NSPredicate *)in:(id<NSFastEnumeration>)set {
-  NSParameterAssert(set != nil);
-
   NSExpression *expression = [NSExpression expressionForConstantValue:set];
   return [self predicateWithRightExpression:expression modifier:NSDirectPredicateModifier type:NSInPredicateOperatorType options:0];
 }
 
 - (NSPredicate *)contains:(id)value options:(NSComparisonPredicateOptions)options {
-  NSParameterAssert(value != nil);
-
   NSExpression *expression = [NSExpression expressionForConstantValue:value];
   return [self predicateWithRightExpression:expression modifier:NSDirectPredicateModifier type:NSContainsPredicateOperatorType options:options];
 }
