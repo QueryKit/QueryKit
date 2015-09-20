@@ -1,11 +1,3 @@
-//
-//  QKQuerySet.m
-//  QueryKit
-//
-//  Created by Kyle Fuller on 30/04/2013.
-//
-//
-
 #import "QKQuerySet.h"
 
 NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
@@ -25,11 +17,7 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
 }
 
 - (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext fetchRequest:(NSFetchRequest *)fetchRequest {
-  NSEntityDescription *entityDescription = [fetchRequest entity];
-  NSPredicate *predicate = [fetchRequest predicate];
-  NSArray *sortDescriptors = [fetchRequest sortDescriptors];
-
-  return [self initWithManagedObjectContext:managedObjectContext entityDescription:entityDescription predicate:predicate sortDescriptors:sortDescriptors range:NSMakeRange(NSNotFound, NSNotFound)];
+  return [self initWithManagedObjectContext:managedObjectContext entityDescription:fetchRequest.entity predicate:fetchRequest.predicate sortDescriptors:fetchRequest.sortDescriptors range:NSMakeRange(NSNotFound, NSNotFound)];
 }
 
 - (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext entityDescription:(NSEntityDescription *)entityDescription predicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors range:(NSRange)range {
@@ -56,25 +44,11 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
 }
 
 - (BOOL)isEqual:(id)object {
-  if (self == object) {
-    return YES;
-  }
-
-  if ([object isKindOfClass:[QKQuerySet class]] == NO) {
-    return NO;
-  }
-
-  return [self isEqualToQuerySet:object];
+  return (self == object) || ([object isKindOfClass:[QKQuerySet class]] && [self isEqualToQuerySet:object]);
 }
 
 - (BOOL)isEqualToQuerySet:(QKQuerySet *)queryset {
-  return (
-          [self.managedObjectContext isEqual:[queryset managedObjectContext]] &&
-          [self.entityDescription isEqual:[queryset entityDescription]] &&
-          [self.predicate isEqual:[queryset predicate]] &&
-          [self.sortDescriptors isEqual:[queryset sortDescriptors]] &&
-          NSEqualRanges(self.range, queryset.range)
-  );
+  return [self.managedObjectContext isEqual:[queryset managedObjectContext]] && [self.entityDescription isEqual:[queryset entityDescription]] && [self.predicate isEqual:[queryset predicate]] && [self.sortDescriptors isEqual:[queryset sortDescriptors]] && NSEqualRanges(self.range, queryset.range);
 }
 
 #pragma mark - NSCopying
@@ -86,11 +60,7 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
 #pragma mark - NSFastEnumeration
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len {
-  if (_resultsCache == nil) {
-    [self array:nil];
-  }
-
-  return [_resultsCache countByEnumeratingWithState:state objects:buffer count:len];
+  return [[self array:nil] countByEnumeratingWithState:state objects:buffer count:len];
 }
 
 #pragma mark - Fetching
@@ -163,15 +133,9 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
 }
 
 - (BOOL)each:(void (^)(NSManagedObject *managedObject))block error:(NSError **)error {
-  NSArray *array = [self array:error];
-
-  if (array != nil) {
-    for (NSManagedObject *managedObject in array) {
-      block(managedObject);
-    }
-  }
-
-  return array != nil;
+  return [self enumerateObjects:^(NSManagedObject * _Nonnull object, NSUInteger index, BOOL * _Nonnull stop) {
+    block(object);
+  } error:error];
 }
 
 #pragma mark - Deletion

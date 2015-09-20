@@ -1,11 +1,3 @@
-//
-//  QKAttribute.m
-//  QueryKit
-//
-//  Created by Kyle Fuller on 30/04/2013.
-//
-//
-
 #import "QKAttribute.h"
 
 @implementation QKAttribute
