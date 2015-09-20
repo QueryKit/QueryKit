@@ -79,7 +79,7 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
           [self.predicate isEqual:[queryset predicate]] &&
           [self.sortDescriptors isEqual:[queryset sortDescriptors]] &&
           NSEqualRanges(self.range, queryset.range)
-          );
+  );
 }
 
 #pragma mark - NSCopying
@@ -260,9 +260,8 @@ NSString * const QKQuerySetErrorDomain = @"QKQuerySetErrorDomain";
   if (count == 1) {
     managedObject = [array firstObject];
   } else if ((count > 1) && error != nil) {
-    *error = [NSError errorWithDomain:QKQuerySetErrorDomain code:0 userInfo:@{
-                                                                              NSLocalizedDescriptionKey: @"Find object in fetch request failed, should only result in a single result.",
-                                                                              }];
+    NSString *errorDescription = @"Find object in fetch request failed, should only result in a single result.";
+    *error = [NSError errorWithDomain:QKQuerySetErrorDomain code:0 userInfo:@{ NSLocalizedDescriptionKey: errorDescription }];
   }
 
   return managedObject;
