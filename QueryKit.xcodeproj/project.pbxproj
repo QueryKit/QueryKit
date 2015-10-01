@@ -29,6 +29,8 @@
 		77E8728319539C2A00A6F13F /* AttributeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E8728219539C2A00A6F13F /* AttributeTests.swift */; };
 		77E8728519539FC000A6F13F /* PredicateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E8728419539FC000A6F13F /* PredicateTests.swift */; };
 		77E8728719539FD200A6F13F /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E8728619539FD200A6F13F /* Predicate.swift */; };
+		83E5B36B1BBD74290073C70E /* PredicateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5B36A1BBD74290073C70E /* PredicateFormat.swift */; settings = {ASSET_TAGS = (); }; };
+		83E5B36D1BBD75760073C70E /* PredicateFormatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5B36C1BBD75760073C70E /* PredicateFormatTests.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +94,8 @@
 		77E8728219539C2A00A6F13F /* AttributeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeTests.swift; sourceTree = "<group>"; };
 		77E8728419539FC000A6F13F /* PredicateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredicateTests.swift; sourceTree = "<group>"; };
 		77E8728619539FD200A6F13F /* Predicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Predicate.swift; sourceTree = "<group>"; };
+		83E5B36A1BBD74290073C70E /* PredicateFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredicateFormat.swift; sourceTree = "<group>"; };
+		83E5B36C1BBD75760073C70E /* PredicateFormatTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredicateFormatTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +156,7 @@
 				77E8728019539C0900A6F13F /* Attribute.swift */,
 				77E3A0601969DDF5009372A8 /* Expression.swift */,
 				77E8728619539FD200A6F13F /* Predicate.swift */,
+				83E5B36A1BBD74290073C70E /* PredicateFormat.swift */,
 				2794C8AC1B9F980100216C36 /* SortDescriptor.swift */,
 				77B17B8219A94C9100D6540D /* ObjectiveC */,
 				77A9B67C195374490016654E /* Supporting Files */,
@@ -175,6 +180,7 @@
 				77E3A0621969E003009372A8 /* ExpressionTests.swift */,
 				77E8728219539C2A00A6F13F /* AttributeTests.swift */,
 				77E8728419539FC000A6F13F /* PredicateTests.swift */,
+				83E5B36C1BBD75760073C70E /* PredicateFormatTests.swift */,
 				2794C8AE1B9F985900216C36 /* SortDescriptorTests.swift */,
 				77B17B8919A94D4C00D6540D /* ObjectiveC */,
 				77A9B689195374490016654E /* Supporting Files */,
@@ -333,6 +339,7 @@
 				77B17B8819A94D2C00D6540D /* QKAttribute.swift in Sources */,
 				77007D8319A95CE9007DC2BC /* QKQuerySet.swift in Sources */,
 				2794C8AD1B9F980100216C36 /* SortDescriptor.swift in Sources */,
+				83E5B36B1BBD74290073C70E /* PredicateFormat.swift in Sources */,
 				77007D8219A95CE9007DC2BC /* QKQuerySet.m in Sources */,
 				77E3A05D1969C019009372A8 /* QuerySet.swift in Sources */,
 				77E3A0611969DDF5009372A8 /* Expression.swift in Sources */,
@@ -349,6 +356,7 @@
 				77A9B68C195374490016654E /* QueryKitTests.swift in Sources */,
 				77007D7D19A95CDE007DC2BC /* QKQuerySetTests.swift in Sources */,
 				77E3A05F1969C047009372A8 /* QuerySetTests.swift in Sources */,
+				83E5B36D1BBD75760073C70E /* PredicateFormatTests.swift in Sources */,
 				775E2A1B19B4981E007FE5BA /* QKQuerySetTests.m in Sources */,
 				77E8728519539FC000A6F13F /* PredicateTests.swift in Sources */,
 				77E3A0631969E003009372A8 /* ExpressionTests.swift in Sources */,

@@ -1,7 +1,7 @@
 import Foundation
 
 /// An attribute, representing an attribute on a model
-public struct Attribute<AttributeType> : Equatable {
+public struct Attribute<AttributeType> : Equatable, PredicateFormatConvertible {
   public let key:String
 
   public init(_ key:String) {
@@ -16,6 +16,11 @@ public struct Attribute<AttributeType> : Equatable {
   /// Returns an expression for the attribute
   public var expression:NSExpression {
     return NSExpression(forKeyPath: key)
+  }
+
+  /// Returns a predicate format token for the key
+  public var predicateFormatValue: PredicateFormat {
+    return .KeyPath(key)
   }
 
   // MARK: Sorting
