@@ -46,6 +46,12 @@ class PredicateTests: XCTestCase {
     XCTAssertEqual(predicate.predicate, NSPredicate(format:"age == 10"))
   }
 
+  func testEqualityOperatorWithNilRHS() {
+    let attribute = Attribute<String?>("name")
+    let predicate: Predicate = attribute == nil
+    XCTAssertEqual(predicate.predicate.description, "name == <null>")
+  }
+
   func testInequalityOperator() {
     let predicate:Predicate<NSManagedObject> = (attribute != 10)
     XCTAssertEqual(predicate.predicate, NSPredicate(format:"age != 10"))

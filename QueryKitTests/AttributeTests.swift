@@ -104,6 +104,12 @@ class AttributeTests: XCTestCase {
     let predicate:NSPredicate = (attribute == "kyle")
     XCTAssertEqual(predicate, NSPredicate(format:"name == 'kyle'"))
   }
+
+  func testEqualityOperatorWithNilRHS() {
+    let attribute = Attribute<String?>("name")
+    let predicate: NSPredicate = attribute == nil
+    XCTAssertEqual(predicate.description, "name == <null>")
+  }
 }
 
 class CollectionAttributeTests: XCTestCase {

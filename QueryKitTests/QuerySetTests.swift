@@ -105,6 +105,11 @@ class QuerySetTests: XCTestCase {
     XCTAssertEqual(qs.predicate?.description, "name == \"Kyle\"")
   }
 
+  func testTypeSafeFilerEqualWithNilRHS() {
+    let qs = queryset.filter { $0.name == nil }
+    XCTAssertEqual(qs.predicate?.description, "name == <null>")
+  }
+
   func testTypeSafeRelatedFilterPredicate() {
     let at = Attribute<Company>("company")
     XCTAssertEqual(at.name.key, "company.name")
