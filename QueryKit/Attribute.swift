@@ -1,7 +1,7 @@
 import Foundation
 
 /// An attribute, representing an attribute on a model
-public struct Attribute<AttributeType> : Equatable {
+public struct Attribute<AttributeType> {
   public let key:String
 
   public init(_ key:String) {
@@ -56,12 +56,6 @@ public struct Attribute<AttributeType> : Equatable {
   public func attribute<T>(attribute:Attribute<T>) -> Attribute<T> {
     return Attribute<T>(attributes: [key, attribute.key])
   }
-}
-
-
-/// Returns true if two attributes have the same name
-public func == <AttributeType>(lhs: Attribute<AttributeType>, rhs: Attribute<AttributeType>) -> Bool {
-  return lhs.key == rhs.key
 }
 
 public func == <AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> NSPredicate {

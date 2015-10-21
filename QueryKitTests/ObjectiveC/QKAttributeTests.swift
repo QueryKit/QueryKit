@@ -38,7 +38,7 @@ class QKAttributeTests: XCTestCase {
   }
 
   func testConvertingQKAttributeToAttribute() {
-    XCTAssertEqual(attribute.asAttribute(), Attribute<AnyObject>("age"))
+    XCTAssertEqual(attribute.asAttribute().key, "age")
   }
 
   // MARK: Ordering

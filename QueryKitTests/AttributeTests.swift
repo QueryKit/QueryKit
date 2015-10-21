@@ -25,10 +25,6 @@ class AttributeTests: XCTestCase {
     XCTAssertEqual(attribute.expression.keyPath, "age")
   }
 
-  func testEqualAttributesAreEquatable() {
-    XCTAssertEqual(attribute, Attribute<Int>("age"))
-  }
-
   func testCompoundAttributeCreation() {
     let personCompanyNameAttribute = Attribute<NSString>(attributes:["company", "name"])
 
@@ -116,13 +112,13 @@ class CollectionAttributeTests: XCTestCase {
   func testCountOfSet() {
     let setAttribute = Attribute<NSSet>("names")
     let countAttribute = count(setAttribute)
-    XCTAssertEqual(countAttribute, Attribute<Int>("names.@count"))
+    XCTAssertEqual(countAttribute.key, "names.@count")
   }
 
   func testCountOfOrderedSet() {
     let setAttribute = Attribute<NSOrderedSet>("names")
     let countAttribute = count(setAttribute)
-    XCTAssertEqual(countAttribute, Attribute<Int>("names.@count"))
+    XCTAssertEqual(countAttribute.key, "names.@count")
   }
 }
 
