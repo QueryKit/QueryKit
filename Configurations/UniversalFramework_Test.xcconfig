@@ -9,8 +9,10 @@
 FRAMEWORK_SEARCH_PATHS = $(inherited) '$(PLATFORM_DIR)/Developer/Library/Frameworks'
 
 // Yep.
-LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]          = $(inherited) '@executable_path/../Frameworks' '@loader_path/../Frameworks'
-LD_RUNPATH_SEARCH_PATHS[sdk=iphoneos*]        = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-LD_RUNPATH_SEARCH_PATHS[sdk=iphonesimulator*] = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-LD_RUNPATH_SEARCH_PATHS[sdk=watchos*]         = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-LD_RUNPATH_SEARCH_PATHS[sdk=watchsimulator*]  = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]           = $(inherited) '@executable_path/../Frameworks' '@loader_path/../Frameworks'
+LD_RUNPATH_SEARCH_PATHS[sdk=iphoneos*]         = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+LD_RUNPATH_SEARCH_PATHS[sdk=iphonesimulator*]  = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+LD_RUNPATH_SEARCH_PATHS[sdk=watchos*]          = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+LD_RUNPATH_SEARCH_PATHS[sdk=watchsimulator*]   = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+LD_RUNPATH_SEARCH_PATHS[sdk=appletvos*]        = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+LD_RUNPATH_SEARCH_PATHS[sdk=appletvsimulator*] = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
