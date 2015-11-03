@@ -29,7 +29,7 @@ class QuerySetTests: XCTestCase {
       person.name = name
 
       if name == "Kyle" {
-        person.company == "Cocode"
+        person.company = company
       }
     }
 
