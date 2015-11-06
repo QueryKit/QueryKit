@@ -14,7 +14,7 @@ Pod::Spec.new do |spec|
   spec.frameworks = 'CoreData'
 
   spec.subspec 'ObjectiveC' do |objc_spec|
-    objc_spec.source_files = 'QueryKit/QueryKit.h', 'QueryKit/ObjectiveC/QK{QuerySet,Attribute}.{h,m}'
+    objc_spec.source_files = 'QueryKit/ObjectiveC/QK{QuerySet,Attribute}.{h,m}'
   end
 
   spec.subspec 'Swift' do |swift_spec|
