@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0710"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "77A9B678195374490016654E"
+               BlueprintIdentifier = "279ED57F1BED09EB0011CA09"
                BuildableName = "QueryKit.framework"
                BlueprintName = "QueryKit"
                ReferencedContainer = "container:QueryKit.xcodeproj">
@@ -23,16 +23,16 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Debug">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "77A9B683195374490016654E"
+               BlueprintIdentifier = "279ED5891BED09EB0011CA09"
                BuildableName = "QueryKitTests.xctest"
                BlueprintName = "QueryKitTests"
                ReferencedContainer = "container:QueryKit.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "77A9B678195374490016654E"
+            BlueprintIdentifier = "279ED57F1BED09EB0011CA09"
             BuildableName = "QueryKit.framework"
             BlueprintName = "QueryKit"
             ReferencedContainer = "container:QueryKit.xcodeproj">
@@ -52,11 +52,11 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
@@ -64,7 +64,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "77A9B678195374490016654E"
+            BlueprintIdentifier = "279ED57F1BED09EB0011CA09"
             BuildableName = "QueryKit.framework"
             BlueprintName = "QueryKit"
             ReferencedContainer = "container:QueryKit.xcodeproj">
@@ -74,15 +74,15 @@
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "77A9B678195374490016654E"
+            BlueprintIdentifier = "279ED57F1BED09EB0011CA09"
             BuildableName = "QueryKit.framework"
             BlueprintName = "QueryKit"
             ReferencedContainer = "container:QueryKit.xcodeproj">

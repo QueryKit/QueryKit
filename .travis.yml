@@ -1,11 +1,7 @@
 language: objective-c
-osx_image: xcode7
-before_install:
-    - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
-    - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+osx_image: xcode7.1
 script:
     - set -o pipefail
     - xcodebuild -project QueryKit.xcodeproj -scheme QueryKit test -sdk macosx | xcpretty -c
     - xcodebuild -project QueryKit.xcodeproj -scheme QueryKit test -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty -c
     - pod lib lint --allow-warnings --quick
-

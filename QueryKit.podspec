@@ -12,19 +12,6 @@ Pod::Spec.new do |spec|
   spec.osx.deployment_target = '10.9'
   spec.watchos.deployment_target = '2.0'
   spec.frameworks = 'CoreData'
-
-  spec.subspec 'ObjectiveC' do |objc_spec|
-    objc_spec.source_files = 'QueryKit/ObjectiveC/QK{QuerySet,Attribute}.{h,m}'
-  end
-
-  spec.subspec 'Swift' do |swift_spec|
-    swift_spec.source_files = 'QueryKit/*.swift'
-  end
-
-  spec.subspec 'Bridge' do |bridge_spec|
-    bridge_spec.dependency 'QueryKit/Swift'
-    bridge_spec.dependency 'QueryKit/ObjectiveC'
-    bridge_spec.source_files = 'QueryKit/ObjectiveC/QK{Attribute,QuerySet}.swift'
-  end
+  spec.source_files = 'QueryKit/*.swift'
 end
 
