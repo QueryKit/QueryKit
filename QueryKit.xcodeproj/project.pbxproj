@@ -7,14 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		279ED5841BED09EB0011CA09 /* QueryKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 279ED5831BED09EB0011CA09 /* QueryKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		279ED58B1BED09EB0011CA09 /* QueryKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 279ED5801BED09EB0011CA09 /* QueryKit.framework */; };
 		279ED5901BED09EB0011CA09 /* QueryKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279ED58F1BED09EB0011CA09 /* QueryKitTests.swift */; };
-		279ED59F1BED0A5C0011CA09 /* SortDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279ED59A1BED0A5C0011CA09 /* SortDescriptor.swift */; };
-		279ED5A01BED0A5C0011CA09 /* QuerySet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279ED59B1BED0A5C0011CA09 /* QuerySet.swift */; };
-		279ED5A11BED0A5C0011CA09 /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279ED59C1BED0A5C0011CA09 /* Predicate.swift */; };
-		279ED5A21BED0A5C0011CA09 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279ED59D1BED0A5C0011CA09 /* Expression.swift */; };
-		279ED5A31BED0A5C0011CA09 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279ED59E1BED0A5C0011CA09 /* Attribute.swift */; };
 		C83AC0101C0D98D0004C3AB1 /* QueryKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 279ED5831BED09EB0011CA09 /* QueryKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C83AC0111C0D98D0004C3AB1 /* QuerySet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279ED59B1BED0A5C0011CA09 /* QuerySet.swift */; };
 		C83AC0121C0D98D0004C3AB1 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279ED59E1BED0A5C0011CA09 /* Attribute.swift */; };
@@ -23,18 +16,7 @@
 		C83AC0151C0D98D0004C3AB1 /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279ED59C1BED0A5C0011CA09 /* Predicate.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		279ED58C1BED09EB0011CA09 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 279ED5771BED09EB0011CA09 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 279ED57F1BED09EB0011CA09;
-			remoteInfo = QueryKit;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		279ED5801BED09EB0011CA09 /* QueryKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QueryKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		279ED5831BED09EB0011CA09 /* QueryKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryKit.h; sourceTree = "<group>"; };
 		279ED5851BED09EB0011CA09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		279ED58A1BED09EB0011CA09 /* QueryKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QueryKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,18 +34,10 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		279ED57C1BED09EB0011CA09 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		279ED5871BED09EB0011CA09 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				279ED58B1BED09EB0011CA09 /* QueryKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,7 +64,6 @@
 		279ED5811BED09EB0011CA09 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				279ED5801BED09EB0011CA09 /* QueryKit.framework */,
 				279ED58A1BED09EB0011CA09 /* QueryKitTests.xctest */,
 				C83AC0021C0D9578004C3AB1 /* QueryKit.framework */,
 			);
@@ -133,14 +106,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		279ED57D1BED09EB0011CA09 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				279ED5841BED09EB0011CA09 /* QueryKit.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C83ABFFF1C0D9578004C3AB1 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -152,24 +117,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		279ED57F1BED09EB0011CA09 /* QueryKit */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 279ED5941BED09EB0011CA09 /* Build configuration list for PBXNativeTarget "QueryKit" */;
-			buildPhases = (
-				279ED57B1BED09EB0011CA09 /* Sources */,
-				279ED57C1BED09EB0011CA09 /* Frameworks */,
-				279ED57D1BED09EB0011CA09 /* Headers */,
-				279ED57E1BED09EB0011CA09 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = QueryKit;
-			productName = QueryKit;
-			productReference = 279ED5801BED09EB0011CA09 /* QueryKit.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		279ED5891BED09EB0011CA09 /* QueryKitTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 279ED5971BED09EB0011CA09 /* Build configuration list for PBXNativeTarget "QueryKitTests" */;
@@ -181,7 +128,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				279ED58D1BED09EB0011CA09 /* PBXTargetDependency */,
 			);
 			name = QueryKitTests;
 			productName = QueryKitTests;
@@ -216,9 +162,6 @@
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = QueryKit;
 				TargetAttributes = {
-					279ED57F1BED09EB0011CA09 = {
-						CreatedOnToolsVersion = 7.1;
-					};
 					279ED5891BED09EB0011CA09 = {
 						CreatedOnToolsVersion = 7.1;
 					};
@@ -239,7 +182,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				279ED57F1BED09EB0011CA09 /* QueryKit */,
 				279ED5891BED09EB0011CA09 /* QueryKitTests */,
 				C83AC0011C0D9578004C3AB1 /* QueryKit iOS */,
 			);
@@ -247,13 +189,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		279ED57E1BED09EB0011CA09 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		279ED5881BED09EB0011CA09 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -271,18 +206,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		279ED57B1BED09EB0011CA09 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				279ED5A31BED0A5C0011CA09 /* Attribute.swift in Sources */,
-				279ED59F1BED0A5C0011CA09 /* SortDescriptor.swift in Sources */,
-				279ED5A11BED0A5C0011CA09 /* Predicate.swift in Sources */,
-				279ED5A01BED0A5C0011CA09 /* QuerySet.swift in Sources */,
-				279ED5A21BED0A5C0011CA09 /* Expression.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		279ED5861BED09EB0011CA09 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -304,14 +227,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		279ED58D1BED09EB0011CA09 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 279ED57F1BED09EB0011CA09 /* QueryKit */;
-			targetProxy = 279ED58C1BED09EB0011CA09 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		279ED5921BED09EB0011CA09 /* Debug */ = {
@@ -406,47 +321,6 @@
 			};
 			name = Release;
 		};
-		279ED5951BED09EB0011CA09 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 279ED5A71BED0AA50011CA09 /* UniversalFramework_Framework.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = QueryKit/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.querykit.QueryKit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
-		};
-		279ED5961BED09EB0011CA09 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 279ED5A71BED0AA50011CA09 /* UniversalFramework_Framework.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = QueryKit/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.querykit.QueryKit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		279ED5981BED09EB0011CA09 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 279ED5A81BED0AA50011CA09 /* UniversalFramework_Test.xcconfig */;
@@ -474,6 +348,7 @@
 		C83AC0071C0D9578004C3AB1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -494,6 +369,7 @@
 		C83AC0081C0D9578004C3AB1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -520,15 +396,6 @@
 			buildConfigurations = (
 				279ED5921BED09EB0011CA09 /* Debug */,
 				279ED5931BED09EB0011CA09 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		279ED5941BED09EB0011CA09 /* Build configuration list for PBXNativeTarget "QueryKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				279ED5951BED09EB0011CA09 /* Debug */,
-				279ED5961BED09EB0011CA09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
