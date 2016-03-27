@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "E6B652C569D6AC8B7DCC6D8D374B40819C679A50",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "28A07AF54936B083EC7F409097EC6C9E2B1A2820" : 0,
+    "E6B652C569D6AC8B7DCC6D8D374B40819C679A50" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "51889F04-9EAE-49F7-AF3E-927F3ED182AD",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "28A07AF54936B083EC7F409097EC6C9E2B1A2820" : "..\/..",
+    "E6B652C569D6AC8B7DCC6D8D374B40819C679A50" : "QueryKit\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "QueryKit",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "QueryKit.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "bitbucket.org:yoazt\/groupclip-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "28A07AF54936B083EC7F409097EC6C9E2B1A2820"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:yoazt\/QueryKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E6B652C569D6AC8B7DCC6D8D374B40819C679A50"
+    }
+  ]
+}
