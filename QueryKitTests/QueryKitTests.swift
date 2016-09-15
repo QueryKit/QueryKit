@@ -38,8 +38,8 @@ import CoreData
     return Attribute("name")
   }
 
-  class func create(context:NSManagedObjectContext) -> Company {
-    return NSEntityDescription.insertNewObjectForEntityForName(Company.entityName, inManagedObjectContext: context) as! Company
+  class func create(_ context:NSManagedObjectContext) -> Company {
+    return NSEntityDescription.insertNewObject(forEntityName: Company.entityName, into: context) as! Company
   }
 }
 
@@ -50,8 +50,8 @@ extension Attribute where AttributeType: Company {
 }
 
 extension Person {
-  class func create(context:NSManagedObjectContext) -> Person {
-    return NSEntityDescription.insertNewObjectForEntityForName(Person.entityName, inManagedObjectContext: context) as! Person
+  class func create(_ context:NSManagedObjectContext) -> Person {
+    return NSEntityDescription.insertNewObject(forEntityName: Person.entityName, into: context) as! Person
   }
 }
 
@@ -66,8 +66,8 @@ func managedObjectModel() -> NSManagedObjectModel {
 
   let companyNameAttribute = NSAttributeDescription()
   companyNameAttribute.name = "name"
-  companyNameAttribute.attributeType = NSAttributeType.StringAttributeType
-  companyNameAttribute.optional = false
+  companyNameAttribute.attributeType = NSAttributeType.stringAttributeType
+  companyNameAttribute.isOptional = false
 
   let companyPeopleAttribute = NSRelationshipDescription()
   companyPeopleAttribute.name = "members"
@@ -76,14 +76,14 @@ func managedObjectModel() -> NSManagedObjectModel {
 
   let personNameAttribute = NSAttributeDescription()
   personNameAttribute.name = "name"
-  personNameAttribute.attributeType = NSAttributeType.StringAttributeType
-  personNameAttribute.optional = false
+  personNameAttribute.attributeType = NSAttributeType.stringAttributeType
+  personNameAttribute.isOptional = false
 
   let personCompanyRelation = NSRelationshipDescription()
   personCompanyRelation.name = "company"
   personCompanyRelation.destinationEntity = companyEntity
   personCompanyRelation.maxCount = 1
-  personCompanyRelation.optional = true
+  personCompanyRelation.isOptional = true
 
   companyPeopleAttribute.inverseRelationship = personCompanyRelation
   personCompanyRelation.inverseRelationship = companyPeopleAttribute
@@ -101,7 +101,7 @@ func persistentStoreCoordinator() -> NSPersistentStoreCoordinator {
   let model = managedObjectModel()
   let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
   do {
-    try persistentStoreCoordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil)
+    try persistentStoreCoordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
   } catch {
     print(error)
     fatalError()
@@ -109,7 +109,7 @@ func persistentStoreCoordinator() -> NSPersistentStoreCoordinator {
   return persistentStoreCoordinator
 }
 
-public func AssertNotThrow<R>(@autoclosure closure: () throws -> R) -> R? {
+public func AssertNotThrow<R>(_ closure: @autoclosure () throws -> R) -> R? {
   var result: R?
   AssertNotThrow() {
     result = try closure()
@@ -117,7 +117,7 @@ public func AssertNotThrow<R>(@autoclosure closure: () throws -> R) -> R? {
   return result
 }
 
-public func AssertNotThrow(@noescape closure: () throws -> ()) {
+public func AssertNotThrow(_ closure: () throws -> ()) {
   do {
     try closure()
   } catch let error {
