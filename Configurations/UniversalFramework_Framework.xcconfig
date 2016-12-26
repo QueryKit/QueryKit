@@ -12,6 +12,7 @@ COMBINE_HIDPI_IMAGES[sdk=macosx*]             = YES
 
 // iOS-specific default settings
 CODE_SIGN_IDENTITY[sdk=iphoneos*]             = iPhone Developer
+CODE_SIGN_IDENTITY[sdk=iphonesimulator*]      = iPhone Developer
 TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]  = 1,2
 TARGETED_DEVICE_FAMILY[sdk=iphone*]           = 1,2
 
