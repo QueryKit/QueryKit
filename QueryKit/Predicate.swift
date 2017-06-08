@@ -27,39 +27,39 @@ public struct Predicate<ModelType : NSManagedObject> {
   }
 }
 
-public func == <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<T> {
+public func == <AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<NSManagedObject> {
   return Predicate(predicate: left == right)
 }
 
-public func != <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<T> {
+public func != <AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<NSManagedObject> {
   return Predicate(predicate: left != right)
 }
 
-public func > <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<T> {
+public func > <AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<NSManagedObject> {
   return Predicate(predicate: left > right)
 }
 
-public func >= <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<T> {
+public func >= <AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<NSManagedObject> {
   return Predicate(predicate: left >= right)
 }
 
-public func < <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<T> {
+public func < <AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<NSManagedObject> {
   return Predicate(predicate: left < right)
 }
 
-public func <= <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<T> {
+public func <= <AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<NSManagedObject> {
   return Predicate(predicate: left <= right)
 }
 
-public func ~= <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<T> {
+public func ~= <AttributeType>(left: Attribute<AttributeType>, right: AttributeType?) -> Predicate<NSManagedObject> {
   return Predicate(predicate: left ~= right)
 }
 
-public func << <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: [AttributeType]) -> Predicate<T> {
+public func << <AttributeType>(left: Attribute<AttributeType>, right: [AttributeType]) -> Predicate<NSManagedObject> {
   return Predicate(predicate: left << right)
 }
 
-public func << <T: NSManagedObject, AttributeType>(left: Attribute<AttributeType>, right: Range<AttributeType>) -> Predicate<T> {
+public func << <AttributeType>(left: Attribute<AttributeType>, right: Range<AttributeType>) -> Predicate<NSManagedObject> {
   return Predicate(predicate: left << right)
 }
 

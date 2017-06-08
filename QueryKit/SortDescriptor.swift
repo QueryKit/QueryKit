@@ -12,12 +12,12 @@ public struct SortDescriptor<ModelType : NSManagedObject> {
 
 extension Attribute {
   /// Returns an ascending sort descriptor for the attribute
-  public func ascending<T : NSManagedObject>() -> SortDescriptor<T> {
+  public func ascending() -> SortDescriptor<NSManagedObject> {
     return SortDescriptor(sortDescriptor: ascending())
   }
 
   /// Returns a descending sort descriptor for the attribute
-  public func descending<T : NSManagedObject>() -> SortDescriptor<T> {
+  public func descending() -> SortDescriptor<NSManagedObject> {
     return SortDescriptor(sortDescriptor: descending())
   }
 }
