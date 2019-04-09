@@ -4,19 +4,19 @@ import CoreData
 /// Represents a lazy database lookup for a set of objects.
 open class QuerySet<ModelType : NSManagedObject> : Equatable {
   /// Returns the managed object context that will be used to execute any requests.
-  open let context:NSManagedObjectContext
+    public let context:NSManagedObjectContext
 
   /// Returns the name of the entity the request is configured to fetch.
-  open let entityName:String
+    public let entityName:String
 
   /// Returns the sort descriptors of the receiver.
-  open let sortDescriptors:[NSSortDescriptor]
+    public let sortDescriptors:[NSSortDescriptor]
 
   /// Returns the predicate of the receiver.
-  open let predicate:NSPredicate?
+    public let predicate:NSPredicate?
 
   /// The range of the query, allows you to offset and limit a query
-  open let range: Range<Int>?
+    public let range: Range<Int>?
 
   // MARK: Initialization
 
