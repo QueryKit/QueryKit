@@ -8,6 +8,7 @@ Pod::Spec.new do |spec|
   spec.social_media_url = 'https://twitter.com/QueryKit'
   spec.source = { :git => 'https://github.com/QueryKit/QueryKit.git', :tag => "#{spec.version}" }
   spec.requires_arc = true
+  spec.swift_versions = ['5.0', '5.1']
   spec.ios.deployment_target = '8.0'
   spec.osx.deployment_target = '10.9'
   spec.watchos.deployment_target = '2.0'
