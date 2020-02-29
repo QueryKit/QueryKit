@@ -63,7 +63,7 @@ class QuerySetTests: XCTestCase {
 
   func testTypeSafeOrderBySortDescriptors() {
     let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-    let qs = queryset.orderBy { [$0.name.ascending()] }
+    let qs = queryset.orderBy { [$0.name.ascending() as SortDescriptor<Person>] }
     XCTAssertTrue(qs.sortDescriptors == [sortDescriptor])
   }
 

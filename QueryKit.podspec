@@ -14,6 +14,6 @@ Pod::Spec.new do |spec|
   spec.watchos.deployment_target = '2.0'
   spec.tvos.deployment_target = '9.0'
   spec.frameworks = 'CoreData'
-  spec.source_files = 'QueryKit/*.swift'
+  spec.source_files = 'Sources/QueryKit/*.swift'
 end
 

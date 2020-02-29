@@ -140,7 +140,13 @@ extension QuerySet {
     return items.first
   }
 
-  public subscript(range:Range<Int>) -> QuerySet<ModelType> {
+  public subscript(range: ClosedRange<Int>) -> QuerySet<ModelType> {
+    get {
+      return self[Range(range)]
+    }
+  }
+
+  public subscript(range: Range<Int>) -> QuerySet<ModelType> {
     get {
       var fullRange = range
 
