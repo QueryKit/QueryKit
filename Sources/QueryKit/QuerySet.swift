@@ -81,6 +81,11 @@ extension QuerySet {
   // MARK: Filtering
 
   /// Returns a new QuerySet containing objects that match the given predicate.
+  public func filter(_ predicate: Predicate<ModelType>) -> QuerySet<ModelType> {
+    return filter(predicate.predicate)
+  }
+
+  /// Returns a new QuerySet containing objects that match the given predicate.
   public func filter(_ predicate:NSPredicate) -> QuerySet<ModelType> {
     var futurePredicate = predicate
 
@@ -95,6 +100,11 @@ extension QuerySet {
   public func filter(_ predicates:[NSPredicate]) -> QuerySet<ModelType> {
     let newPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: predicates)
     return filter(newPredicate)
+  }
+
+  /// Returns a new QuerySet containing objects that exclude the given predicate.
+  public func exclude(_ predicate: Predicate<ModelType>) -> QuerySet<ModelType> {
+    return exclude(predicate.predicate)
   }
 
   /// Returns a new QuerySet containing objects that exclude the given predicate.

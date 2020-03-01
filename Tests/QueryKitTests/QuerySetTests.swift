@@ -96,6 +96,11 @@ class QuerySetTests: XCTestCase {
 
   // MARK: Filtering
 
+  func testFilterKeyPath() {
+    let qs = queryset.filter(\.name == "Kyle")
+    XCTAssertEqual(qs.predicate?.description, "name == \"Kyle\"")
+  }
+
   func testFilterPredicate() {
     let predicate = NSPredicate(format: "name == Kyle")
     let qs = queryset.filter(predicate)
@@ -135,6 +140,11 @@ class QuerySetTests: XCTestCase {
   }
 
   // MARK: Exclusion
+
+  func testExcludeKeyPath() {
+    let qs = queryset.exclude(\.name == "Kyle")
+    XCTAssertEqual(qs.predicate?.description, "NOT name == \"Kyle\"")
+  }
 
   func testExcludePredicate() {
     let predicate = NSPredicate(format: "name == Kyle")
