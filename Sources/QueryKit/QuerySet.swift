@@ -63,6 +63,11 @@ extension QuerySet {
 
   // MARK: Type-safe Sorting
 
+  ///  Returns a new QuerySet containing objects ordered by the given key path.
+  public func orderBy<T>(_ keyPath: KeyPath<ModelType, T>, ascending: Bool) -> QuerySet<ModelType> {
+    return orderBy(NSSortDescriptor(key: (keyPath as AnyKeyPath)._kvcKeyPathString!, ascending: ascending))
+  }
+
   ///  Returns a new QuerySet containing objects ordered by the given sort descriptor.
   public func orderBy(_ closure:((ModelType.Type) -> (SortDescriptor<ModelType>))) -> QuerySet<ModelType> {
     return orderBy(closure(ModelType.self).sortDescriptor)

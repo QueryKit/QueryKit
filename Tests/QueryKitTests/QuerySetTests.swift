@@ -44,6 +44,22 @@ class QuerySetTests: XCTestCase {
 
   // MARK: Sorting
 
+  func testOrderByKeyPathAscending() {
+    let qs = queryset.orderBy(\.name, ascending: true)
+
+    XCTAssertEqual(qs.sortDescriptors, [
+      NSSortDescriptor(key: "name", ascending: true),
+    ])
+  }
+
+  func testOrderByKeyPathDecending() {
+    let qs = queryset.orderBy(\.name, ascending: false)
+
+    XCTAssertEqual(qs.sortDescriptors, [
+      NSSortDescriptor(key: "name", ascending: false),
+    ])
+  }
+
   func testOrderBySortDescriptor() {
     let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
     let qs = queryset.orderBy(sortDescriptor)
