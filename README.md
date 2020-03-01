@@ -2,8 +2,6 @@
 
 # QueryKit
 
-[![Build Status](http://img.shields.io/travis/QueryKit/QueryKit/master.svg?style=flat)](https://travis-ci.org/QueryKit/QueryKit)
-
 QueryKit, a simple type-safe Core Data query language.
 
 ## Usage
