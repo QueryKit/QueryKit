@@ -122,21 +122,25 @@ extension QuerySet {
   // MARK: Type-safe filtering
 
   /// Returns a new QuerySet containing objects that match the given predicate.
+  @available(*, deprecated, renamed: "filter(_:)", message: "Replaced by KeyPath filtering https://git.io/Jv2v3")
   public func filter(_ closure:((ModelType.Type) -> (Predicate<ModelType>))) -> QuerySet<ModelType> {
     return filter(closure(ModelType.self).predicate)
   }
 
   /// Returns a new QuerySet containing objects that exclude the given predicate.
+  @available(*, deprecated, renamed: "exclude(_:)", message: "Replaced by KeyPath filtering https://git.io/Jv2v3")
   public func exclude(_ closure:((ModelType.Type) -> (Predicate<ModelType>))) -> QuerySet<ModelType> {
     return exclude(closure(ModelType.self).predicate)
   }
 
   /// Returns a new QuerySet containing objects that match the given predicatess.
+  @available(*, deprecated, renamed: "filter(_:)", message: "Replaced by KeyPath filtering https://git.io/Jv2v3")
   public func filter(_ closures:[((ModelType.Type) -> (Predicate<ModelType>))]) -> QuerySet<ModelType> {
     return filter(closures.map { $0(ModelType.self).predicate })
   }
 
   /// Returns a new QuerySet containing objects that exclude the given predicates.
+  @available(*, deprecated, renamed: "exclude(_:)", message: "Replaced by KeyPath filtering https://git.io/Jv2v3")
   public func exclude(_ closures:[((ModelType.Type) -> (Predicate<ModelType>))]) -> QuerySet<ModelType> {
     return exclude(closures.map { $0(ModelType.self).predicate })
   }
