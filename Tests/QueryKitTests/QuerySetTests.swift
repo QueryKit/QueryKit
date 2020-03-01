@@ -44,6 +44,22 @@ class QuerySetTests: XCTestCase {
 
   // MARK: Sorting
 
+  func testOrderByKeyPathAscending() {
+    let qs = queryset.orderBy(\.name, ascending: true)
+
+    XCTAssertEqual(qs.sortDescriptors, [
+      NSSortDescriptor(key: "name", ascending: true),
+    ])
+  }
+
+  func testOrderByKeyPathDecending() {
+    let qs = queryset.orderBy(\.name, ascending: false)
+
+    XCTAssertEqual(qs.sortDescriptors, [
+      NSSortDescriptor(key: "name", ascending: false),
+    ])
+  }
+
   func testOrderBySortDescriptor() {
     let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
     let qs = queryset.orderBy(sortDescriptor)
@@ -79,6 +95,11 @@ class QuerySetTests: XCTestCase {
   }
 
   // MARK: Filtering
+
+  func testFilterKeyPath() {
+    let qs = queryset.filter(\.name == "Kyle")
+    XCTAssertEqual(qs.predicate?.description, "name == \"Kyle\"")
+  }
 
   func testFilterPredicate() {
     let predicate = NSPredicate(format: "name == Kyle")
@@ -119,6 +140,11 @@ class QuerySetTests: XCTestCase {
   }
 
   // MARK: Exclusion
+
+  func testExcludeKeyPath() {
+    let qs = queryset.exclude(\.name == "Kyle")
+    XCTAssertEqual(qs.predicate?.description, "NOT name == \"Kyle\"")
+  }
 
   func testExcludePredicate() {
     let predicate = NSPredicate(format: "name == Kyle")

@@ -63,6 +63,11 @@ extension QuerySet {
 
   // MARK: Type-safe Sorting
 
+  ///  Returns a new QuerySet containing objects ordered by the given key path.
+  public func orderBy<T>(_ keyPath: KeyPath<ModelType, T>, ascending: Bool) -> QuerySet<ModelType> {
+    return orderBy(NSSortDescriptor(key: (keyPath as AnyKeyPath)._kvcKeyPathString!, ascending: ascending))
+  }
+
   ///  Returns a new QuerySet containing objects ordered by the given sort descriptor.
   public func orderBy(_ closure:((ModelType.Type) -> (SortDescriptor<ModelType>))) -> QuerySet<ModelType> {
     return orderBy(closure(ModelType.self).sortDescriptor)
@@ -74,6 +79,11 @@ extension QuerySet {
   }
 
   // MARK: Filtering
+
+  /// Returns a new QuerySet containing objects that match the given predicate.
+  public func filter(_ predicate: Predicate<ModelType>) -> QuerySet<ModelType> {
+    return filter(predicate.predicate)
+  }
 
   /// Returns a new QuerySet containing objects that match the given predicate.
   public func filter(_ predicate:NSPredicate) -> QuerySet<ModelType> {
@@ -90,6 +100,11 @@ extension QuerySet {
   public func filter(_ predicates:[NSPredicate]) -> QuerySet<ModelType> {
     let newPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: predicates)
     return filter(newPredicate)
+  }
+
+  /// Returns a new QuerySet containing objects that exclude the given predicate.
+  public func exclude(_ predicate: Predicate<ModelType>) -> QuerySet<ModelType> {
+    return exclude(predicate.predicate)
   }
 
   /// Returns a new QuerySet containing objects that exclude the given predicate.
