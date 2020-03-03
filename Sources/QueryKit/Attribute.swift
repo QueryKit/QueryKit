@@ -43,10 +43,7 @@ public struct Attribute<AttributeType> : Equatable {
         }
       }
 
-      let value = unsafeBitCast(value, to: Optional<String>.self)
-      if let value = value {
-        return NSExpression(forConstantValue: value)
-      }
+      return NSExpression(forConstantValue: value)
     }
 
     return NSExpression(forConstantValue: NSNull())

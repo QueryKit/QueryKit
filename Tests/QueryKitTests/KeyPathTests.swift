@@ -12,6 +12,11 @@ class KeyPathTests: XCTestCase {
     XCTAssertEqual(predicate.predicate, NSPredicate(format:"name == %@", NSNull()))
   }
 
+  func testOptionalEqualityOperatorWithOptional() {
+    let predicate: Predicate<User> = \User.createdAt == nil
+    XCTAssertEqual(predicate.predicate, NSPredicate(format:"createdAt == %@", NSNull()))
+  }
+
   func testInequalityOperator() {
     let predicate: Predicate<User> = \User.name != "kyle"
     XCTAssertEqual(predicate.predicate, NSPredicate(format:"name != 'kyle'"))
@@ -118,4 +123,5 @@ class KeyPathNSPredicateTests: XCTestCase {
 class User: NSManagedObject {
   @objc var name: String?
   @NSManaged var age: Int
+  @objc var createdAt: Date?
 }

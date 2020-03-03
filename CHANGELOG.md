@@ -2,6 +2,12 @@
 
 ## Master
 
+### Bug Fixes
+
+* Prevents fatal error when handling operators with optional `Date` types.
+
+## 0.14.0
+
 ### Breaking
 
 * Drops support for Swift 3 and Swift 4. Swift 5 or newer must be used.
