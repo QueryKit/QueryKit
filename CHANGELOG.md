@@ -1,6 +1,6 @@
 # QueryKit Changelog
 
-## Master
+## 0.14.1
 
 ### Bug Fixes
 

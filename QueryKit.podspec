@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = 'QueryKit'
-  spec.version = '0.14.0'
+  spec.version = '0.14.1'
   spec.summary = 'A simple type-safe Core Data query language.'
   spec.homepage = 'https://github.com/QueryKit/QueryKit/'
   spec.license = { :type => 'BSD', :file => 'LICENSE' }
