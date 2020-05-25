@@ -5,6 +5,7 @@ import PackageDescription
 let package = Package(
   name: "QueryKit",
   products: [
+    .library(name: "QueryKit", targets: ["QueryKit"]),
   ],
   targets: [
     .target(name: "QueryKit", dependencies: []),
