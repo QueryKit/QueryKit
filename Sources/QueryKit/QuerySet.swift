@@ -223,8 +223,11 @@ extension QuerySet {
   :note: Returns nil if the operation could not be completed.
   */
   public func exists() throws -> Bool {
-    let result:Int = try count()
-    return result > 0
+    let fetchRequest = self.fetchRequest
+    fetchRequest.fetchLimit = 1
+
+    let result = try context.count(for: fetchRequest)
+    return result != 0
   }
 
   // MARK: Deletion
